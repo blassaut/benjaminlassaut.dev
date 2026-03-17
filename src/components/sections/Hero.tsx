@@ -133,7 +133,7 @@ export default function Hero() {
       <FloatingTag text="Cypress" x="8%" y="25%" delay={1} />
       <FloatingTag text="20+ Chains" x="85%" y="30%" delay={1.4} />
       <FloatingTag text="Smart Contracts" x="5%" y="70%" delay={1.8} />
-      <FloatingTag text="Playwright" x="88%" y="65%" delay={2.2} />
+      <FloatingTag text="Foundry" x="88%" y="65%" delay={2.2} />
     </section>
   )
 }

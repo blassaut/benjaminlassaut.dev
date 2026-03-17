@@ -14,7 +14,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Tools',
-    skills: ['TypeScript', 'Cypress', 'Playwright', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
+    skills: ['TypeScript', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
   },
   {
     name: 'Infrastructure',
