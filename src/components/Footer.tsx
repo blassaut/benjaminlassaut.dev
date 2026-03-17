@@ -21,8 +21,8 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
           {/* Brand */}
-          <div>
-            <Link to="/" className="block w-fit" aria-label="Home">
+          <div className="flex items-center gap-3">
+            <Link to="/" className="shrink-0" aria-label="Home">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="w-8 h-8" role="img" aria-hidden="true">
                 <defs>
                   <linearGradient id="footer-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -34,7 +34,7 @@ export default function Footer() {
                 <text x="100" y="126" textAnchor="middle" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="80" letterSpacing="-4" fill="url(#footer-logo-grad)">BL</text>
               </svg>
             </Link>
-            <p className="mt-2 text-sm text-muted font-body max-w-xs">
+            <p className="text-sm text-muted font-body max-w-xs">
               QA Lead building quality into web3 infrastructure.
             </p>
           </div>
