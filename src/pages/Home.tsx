@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Benjamin Lassaut - QA Lead | Web3 Smart Contract Testing</title>
-        <meta name="description" content="Benjamin Lassaut - QA Lead at Kiln with 10+ years building quality into software. Specializing in smart contract testing across 20+ blockchain networks, from EVM to Solana and Cosmos." />
+        <meta name="description" content="Benjamin Lassaut - QA Lead at Kiln with 10+ years building quality into software. Smart contract testing across 20+ blockchain networks." />
         <link rel="canonical" href="https://benjaminlassaut.dev" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
