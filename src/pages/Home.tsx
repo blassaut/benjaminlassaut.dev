@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Benjamin Lassaut - QA Lead · Web3</title>
-        <meta name="description" content="Benjamin Lassaut - QA Lead with 10+ years building quality into software. From fintech to blockchain." />
+        <title>Benjamin Lassaut - QA Lead | Web3 Smart Contract Testing</title>
+        <meta name="description" content="Benjamin Lassaut - QA Lead at Kiln with 10+ years building quality into software. Specializing in smart contract testing across 20+ blockchain networks, from EVM to Solana and Cosmos." />
         <link rel="canonical" href="https://benjaminlassaut.dev" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
