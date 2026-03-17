@@ -23,7 +23,7 @@ export default function Home() {
           knowsAbout: ['QA', 'Test Automation', 'Smart Contract Testing', 'Web3', 'EVM'],
           sameAs: [
             'https://linkedin.com/in/benjaminlassaut',
-            'https://github.com/benjaminlassaut',
+            'https://github.com/blassaut',
           ],
         })}</script>
       </Helmet>

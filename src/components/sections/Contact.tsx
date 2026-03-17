@@ -4,7 +4,7 @@ import AnimatedSection from '../AnimatedSection'
 
 const links = [
   { label: 'LinkedIn', href: 'https://linkedin.com/in/benjaminlassaut', icon: 'in' },
-  { label: 'GitHub', href: 'https://github.com/benjaminlassaut', icon: 'gh' },
+  { label: 'GitHub', href: 'https://github.com/blassaut', icon: 'gh' },
 ]
 
 export default function Contact() {
