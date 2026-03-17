@@ -1,3 +1,84 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { getAllPosts } from '../lib/blog'
+
 export default function BlogIndex() {
-  return <div className="pt-20 px-6">Blog index placeholder</div>
+  const posts = getAllPosts()
+  const allTags = [...new Set(posts.flatMap((p) => p.tags))]
+  const [activeTag, setActiveTag] = useState<string | null>(null)
+
+  const filtered = activeTag ? posts.filter((p) => p.tags.includes(activeTag)) : posts
+
+  return (
+    <div className="pt-24 pb-16 px-6">
+      <div className="max-w-3xl mx-auto">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl font-heading font-bold mb-8"
+        >
+          Blog
+        </motion.h1>
+
+        {allTags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-10">
+            <button
+              onClick={() => setActiveTag(null)}
+              className={`px-3 py-1 text-sm font-mono rounded-md transition-colors ${
+                !activeTag ? 'bg-teal-400 text-dark-900' : 'bg-dark-700 text-muted hover:text-light'
+              }`}
+            >
+              All
+            </button>
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                className={`px-3 py-1 text-sm font-mono rounded-md transition-colors ${
+                  activeTag === tag ? 'bg-teal-400 text-dark-900' : 'bg-dark-700 text-muted hover:text-light'
+                }`}
+              >
+                #{tag}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="space-y-6">
+          {filtered.map((post, i) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+            >
+              <Link
+                to={`/blog/${post.slug}`}
+                className="block p-6 bg-dark-800 border border-white/5 rounded-lg hover:border-teal-400/30 transition-colors group"
+              >
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-2">
+                  <h2 className="text-lg font-heading font-semibold group-hover:text-teal-400 transition-colors">
+                    {post.title}
+                  </h2>
+                  <span className="text-sm text-muted font-mono shrink-0">
+                    {new Date(post.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </span>
+                </div>
+                <p className="text-sm text-muted font-body">{post.excerpt}</p>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <p className="text-muted font-body">No posts found for this tag.</p>
+        )}
+      </div>
+    </div>
+  )
 }
