@@ -12,7 +12,6 @@ GasLens is a standalone, free, multi-chain EVM gas tracker. It shows real-time g
 
 - **v1 (this spec):** Real-time gas prices across 8 chains. Simple grid dashboard.
 - **v2:** Historical trends - 1h/24h/7d charts per chain. Leverages data accumulated since v1 launch.
-- **v3:** Smart recommendations - "best time to transact" insights based on historical patterns.
 
 ## Architecture
 
@@ -212,7 +211,6 @@ gaslens/
 ## Out of Scope (v1)
 
 - Historical charts (v2)
-- Smart recommendations (v3)
 - Non-EVM chains
 - Wallet connection
 - User accounts or preferences
