@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-labelledby="c10-title">
+  <title id="c10-title">BL Logo - Hex Stacked Tight</title>
+  <defs>
+    <linearGradient id="c10-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6" />
+      <stop offset="100%" style="stop-color:#0d9488" />
+    </linearGradient>
+    <linearGradient id="c10-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:0.06" />
+      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:0.02" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="20" fill="#0a0a0f"/>
+  <!-- Hexagon -->
+  <polygon points="100,14 180,54 180,146 100,186 20,146 20,54" fill="url(#c10-bg)" stroke="url(#c10-grad)" stroke-width="2.5"/>
+  <!-- B and L stacked tightly, overlapping slightly for a monogram feel -->
+  <text x="100" y="96" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="72" letter-spacing="-1" fill="url(#c10-grad)">B</text>
+  <text x="100" y="162" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="72" letter-spacing="-1" fill="url(#c10-grad)">L</text>
+</svg>
