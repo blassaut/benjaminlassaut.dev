@@ -52,6 +52,33 @@ Post content here...
 
 Vercel with SPA rewrites configured in `vercel.json`.
 
+## Common Tasks
+
+### Add/edit work experience
+
+Edit `src/data/experience.ts`. Each entry has `company`, `role`, `period`, `highlights` (array of impact-focused bullet points), and optional `current: true` for the active role. Add entries in reverse chronological order.
+
+### Update contact links
+
+Edit `src/components/sections/Contact.tsx`. The `links` array at the top contains `label`, `href`, and `icon` for each social link (Email, LinkedIn, GitHub, X/Twitter). Update the URLs to match your actual profiles.
+
+### Write a blog post
+
+1. Create a new markdown file in `src/content/blog/` named `YYYY-MM-DD-slug.md`
+2. Add frontmatter at the top (title, date, tags, excerpt)
+3. Write content below the frontmatter
+4. Push — blog index and home page preview update automatically
+
+### Preview locally
+
+```bash
+npm run dev    # http://localhost:5173
+```
+
+### Deploy
+
+Push to `main`. Vercel auto-deploys on push.
+
 ## Key Files
 
 - `src/data/experience.ts` — work history entries
