@@ -1,46 +1,139 @@
 import { motion } from 'framer-motion'
 
+function GridBackground() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Radial gradient glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-15"
+        style={{
+          background: 'radial-gradient(ellipse, #14b8a6 0%, transparent 70%)',
+        }}
+      />
+      {/* Grid lines */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'linear-gradient(#14b8a6 1px, transparent 1px), linear-gradient(90deg, #14b8a6 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
+      {/* Breathing glow */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full"
+        style={{
+          background: 'radial-gradient(ellipse, #14b8a6 0%, transparent 70%)',
+        }}
+        animate={{ opacity: [0.08, 0.18, 0.08], scale: [1, 1.05, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      />
+    </div>
+  )
+}
+
+function FloatingTag({ text, x, y, delay }: { text: string; x: string; y: string; delay: number }) {
+  return (
+    <motion.span
+      className="absolute hidden md:block px-3 py-1 text-xs font-mono text-teal-400/40 border border-teal-400/10 rounded bg-dark-900/50 backdrop-blur-sm select-none"
+      style={{ left: x, top: y }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, y: [0, -6, 0] }}
+      transition={{
+        opacity: { duration: 1, delay },
+        y: { duration: 4, repeat: Infinity, delay: delay + 1, ease: 'easeInOut' },
+      }}
+    >
+      {text}
+    </motion.span>
+  )
+}
+
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6">
-      <div className="max-w-3xl text-center">
+    <section className="relative min-h-screen flex items-center justify-center px-6">
+      <GridBackground />
+
+      <div className="relative z-10 max-w-4xl text-center">
+        {/* Role label */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-6"
+        >
+          <span className="inline-block px-4 py-1.5 text-xs font-mono tracking-widest uppercase text-teal-400 border border-teal-400/20 rounded-full bg-teal-400/5">
+            QA Lead &middot; Web3
+          </span>
+        </motion.div>
+
+        {/* Name */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-5xl md:text-7xl font-heading font-bold"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-5xl sm:text-6xl md:text-8xl font-heading font-bold tracking-tight leading-none"
         >
-          Benjamin{' '}
+          Benjamin
+          <br />
           <span className="text-teal-400">Lassaut</span>
         </motion.h1>
+
+        {/* Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 text-xl text-muted font-body"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-6 text-lg md:text-xl text-muted font-body max-w-lg mx-auto"
         >
-          QA Lead · Web3 · Making Smart Contracts Safer
+          10+ years building quality into software.
+          <br className="hidden sm:block" />
+          From fintech to blockchain.
         </motion.p>
+
+        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
           className="mt-10 flex gap-4 justify-center"
         >
           <a
             href="#experience"
-            className="px-6 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:bg-teal-500 transition-colors"
+            className="group relative px-7 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]"
           >
-            See my work
+            <span className="relative z-10">See my work</span>
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 border border-teal-400 text-teal-400 font-body font-semibold rounded-lg hover:bg-teal-400/10 transition-colors"
+            className="px-7 py-3 border border-teal-400/30 text-teal-400 font-body font-semibold rounded-lg hover:border-teal-400 hover:bg-teal-400/5 transition-all"
           >
             Get in touch
           </a>
         </motion.div>
+
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute left-1/2 -translate-x-1/2 bottom-[-80px]"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-5 h-8 border-2 border-white/10 rounded-full flex justify-center pt-1.5"
+          >
+            <div className="w-1 h-1.5 bg-teal-400/50 rounded-full" />
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Floating ambient tags */}
+      <FloatingTag text="Cypress" x="8%" y="25%" delay={1} />
+      <FloatingTag text="20+ Chains" x="85%" y="30%" delay={1.4} />
+      <FloatingTag text="Smart Contracts" x="5%" y="70%" delay={1.8} />
+      <FloatingTag text="Playwright" x="88%" y="65%" delay={2.2} />
     </section>
   )
 }

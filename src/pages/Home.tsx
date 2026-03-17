@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet-async'
 import Hero from '../components/sections/Hero'
+import About from '../components/sections/About'
 import Experience from '../components/sections/Experience'
 import Skills from '../components/sections/Skills'
 import BlogPreview from '../components/sections/BlogPreview'
@@ -7,7 +9,26 @@ import Contact from '../components/sections/Contact'
 export default function Home() {
   return (
     <>
+      <Helmet>
+        <title>Benjamin Lassaut - QA Lead · Web3</title>
+        <meta name="description" content="Benjamin Lassaut - QA Lead with 10+ years building quality into software. From fintech to blockchain." />
+        <link rel="canonical" href="https://benjaminlassaut.dev" />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Benjamin Lassaut',
+          url: 'https://benjaminlassaut.dev',
+          jobTitle: 'Lead QA Engineer',
+          worksFor: { '@type': 'Organization', name: 'Kiln' },
+          knowsAbout: ['QA', 'Test Automation', 'Smart Contract Testing', 'Web3', 'EVM'],
+          sameAs: [
+            'https://linkedin.com/in/benjaminlassaut',
+            'https://github.com/benjaminlassaut',
+          ],
+        })}</script>
+      </Helmet>
       <Hero />
+      <About />
       <Experience />
       <Skills />
       <BlogPreview />

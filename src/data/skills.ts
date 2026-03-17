@@ -6,14 +6,18 @@ export interface SkillCategory {
 export const skillCategories: SkillCategory[] = [
   {
     name: 'QA & Testing',
-    skills: ['Test Automation', 'Smart Contract Testing', 'CI/CD', 'E2E Testing', 'API Testing', 'Performance Testing'],
+    skills: ['Test Strategy', 'Test Automation', 'CI/CD', 'E2E Testing', 'API Testing', 'Performance Testing', 'BDD / Cucumber'],
   },
   {
     name: 'Web3',
-    skills: ['Solidity', 'EVM', 'Foundry', 'Hardhat', 'Ethereum', 'Arbitrum', 'Base', 'Optimism', 'Polygon'],
+    skills: ['Smart Contract Testing', 'EVM Networks', 'Solana', 'Polkadot', 'Cosmos', 'Viem', 'Fireblocks', 'MetaMask', 'Foundry / Anvil'],
   },
   {
-    name: 'Tech',
-    skills: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'AI/LLM Integration', 'Python', 'Docker'],
+    name: 'Tools',
+    skills: ['TypeScript', 'Cypress', 'Playwright', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
+  },
+  {
+    name: 'Infrastructure',
+    skills: ['AWS', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis'],
   },
 ]

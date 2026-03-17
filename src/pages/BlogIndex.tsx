@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { getAllPosts } from '../lib/blog'
 
@@ -12,6 +13,11 @@ export default function BlogIndex() {
 
   return (
     <div className="pt-24 pb-16 px-6">
+      <Helmet>
+        <title>Blog - Benjamin Lassaut</title>
+        <meta name="description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
+        <link rel="canonical" href="https://benjaminlassaut.dev/blog" />
+      </Helmet>
       <div className="max-w-3xl mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

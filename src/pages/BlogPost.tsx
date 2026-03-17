@@ -1,8 +1,10 @@
 import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
+import gherkin from 'highlight.js/lib/languages/gherkin'
 import { getPostBySlug } from '../lib/blog'
 
 export default function BlogPost() {
@@ -24,6 +26,27 @@ export default function BlogPost() {
 
   return (
     <div className="pt-24 pb-16 px-6">
+      <Helmet>
+        <title>{post.title} - Benjamin Lassaut</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={`https://benjaminlassaut.dev/blog/${slug}`} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://benjaminlassaut.dev/blog/${slug}`} />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: new Date(post.date).toISOString(),
+          url: `https://benjaminlassaut.dev/blog/${slug}`,
+          author: { '@type': 'Person', name: 'Benjamin Lassaut', url: 'https://benjaminlassaut.dev' },
+          keywords: post.tags.join(', '),
+        })}</script>
+      </Helmet>
       <motion.article
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -57,7 +80,7 @@ export default function BlogPost() {
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeHighlight]}
+            rehypePlugins={[[rehypeHighlight, { languages: { gherkin } }]]}
           >
             {post.content}
           </ReactMarkdown>
