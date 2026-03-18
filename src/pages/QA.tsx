@@ -226,7 +226,7 @@ const practices = [
     description: 'Every interactive element has a semantic test identifier, decoupling tests from CSS and DOM structure.',
     detail: 'nav-link-about, contact-input-email, experience-card-kiln...',
     icon: '{}',
-    source: { label: 'Hero.tsx', href: `${REPO}/blob/main/src/components/sections/Hero.tsx` },
+    source: { label: 'Intro.tsx', href: `${REPO}/blob/main/src/components/sections/Intro.tsx` },
   },
   {
     label: 'BDD / Gherkin',

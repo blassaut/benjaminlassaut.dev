@@ -6,14 +6,14 @@ Feature: Visitor explores "Who tests the tester?"
   @desktop
   Scenario: "Who tests the tester?" is accessible from desktop navigation
     Given I am on the homepage
-    When I click the "qa" nav link
+    When I click the "Who tests the tester?" nav link
     Then I should be on the "/qa" page
 
   @mobile
   Scenario: "Who tests the tester?" is accessible from mobile navigation
     Given I am on the homepage
     When I tap the hamburger button
-    And I tap the "qa" link in the mobile menu
+    And I tap the "Who tests the tester?" link in the mobile menu
     Then I should be on the "/qa" page
 
   Scenario: "Who tests the tester?" displays feature files

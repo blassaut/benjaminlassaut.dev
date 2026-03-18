@@ -14,7 +14,7 @@ Personal portfolio site for Benjamin Lassaut — QA Lead at Kiln, specializing i
 
 ## Architecture
 
-Single-page scroll site (Hero → Experience → Skills → Blog Preview → Contact) with blog on separate routes (`/blog`, `/blog/:slug`). Blog posts are markdown files in `src/content/blog/` with frontmatter.
+Single-page scroll site (Intro → Experience → Skills → Blog Preview → Contact) with blog on separate routes (`/blog`, `/blog/:slug`). Blog posts are markdown files in `src/content/blog/` with frontmatter.
 
 ## Development Commands
 
