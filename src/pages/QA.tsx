@@ -137,8 +137,8 @@ function GherkinLine({ line }: { line: string }) {
   )
 }
 
-function FeatureCard({ raw, index }: { raw: string; index: number }) {
-  const [open, setOpen] = useState(false)
+function FeatureCard({ raw, index, defaultOpen = false }: { raw: string; index: number; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen)
   const name = extractFeatureName(raw)
   const testid = `qa-feature-${slugify(name)}`
   const scenarioCount = countScenarios(raw)
@@ -497,7 +497,7 @@ export default function QaLab() {
 
           <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
             {features.map((raw, i) => (
-              <FeatureCard key={i} raw={raw} index={i} />
+              <FeatureCard key={i} raw={raw} index={i} defaultOpen={i === 0} />
             ))}
           </div>
         </motion.div>
