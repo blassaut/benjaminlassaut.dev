@@ -335,7 +335,7 @@ export default function QaLab() {
               { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
               { value: '3', label: 'Browsers' },
               { value: '5', label: 'User journeys' },
-              { value: ciStatus === 'loading' ? '...' : ciStatus, label: 'CI', isCi: true },
+              { value: ciStatus === 'loading' ? '...' : ciStatus.toUpperCase(), label: 'CI', isCi: true },
             ].map((stat, i) => {
               const isCi = 'isCi' in stat && stat.isCi
               const ciColor = ciStatus === 'passing' ? 'text-emerald-400' : ciStatus === 'failing' ? 'text-red-400' : 'text-muted/40'
@@ -348,8 +348,8 @@ export default function QaLab() {
                   className={`text-center py-4 rounded-xl border border-white/5 bg-dark-800/20 ${isCi ? 'hover:border-teal-400/20 transition-colors' : ''}`}
                   data-testid={isCi ? 'qa-status-badge' : undefined}
                 >
-                  <div className={`text-2xl font-heading font-bold ${isCi ? ciColor : 'text-teal-400'}`}>
-                    {isCi && ciStatus === 'passing' && <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2 align-middle" />}
+                  <div className={`font-heading font-bold ${isCi ? `text-sm tracking-wider font-mono ${ciColor}` : 'text-2xl text-teal-400'}`}>
+                    {isCi && ciStatus === 'passing' && <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5 align-middle" />}
                     {stat.value}
                   </div>
                   <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
