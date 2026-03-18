@@ -268,26 +268,6 @@ function useCIStatus() {
   return status
 }
 
-const ciStyles = {
-  passing: {
-    dot: 'bg-emerald-400',
-    text: 'text-emerald-400',
-    border: 'border-emerald-500/20',
-    bg: 'bg-emerald-500/10',
-  },
-  failing: {
-    dot: 'bg-red-400',
-    text: 'text-red-400',
-    border: 'border-red-500/20',
-    bg: 'bg-red-500/10',
-  },
-  loading: {
-    dot: 'bg-muted/40',
-    text: 'text-muted/40',
-    border: 'border-white/10',
-    bg: 'bg-white/5',
-  },
-}
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -300,7 +280,6 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 export default function QaLab() {
   const ciStatus = useCIStatus()
-  const ci = ciStyles[ciStatus]
 
   return (
     <div data-testid="qa" className="pt-24 pb-20 px-6">
@@ -350,26 +329,43 @@ export default function QaLab() {
           transition={{ delay: 0.1 }}
           className="mb-10"
         >
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             {[
               { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
               { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
               { value: '3', label: 'Browsers' },
               { value: '5', label: 'User journeys' },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.15 + i * 0.06 }}
-                className="text-center py-4 rounded-xl border border-white/5 bg-dark-800/20"
-              >
-                <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
-                <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
-              </motion.div>
-            ))}
+              { value: ciStatus === 'loading' ? '...' : ciStatus, label: 'CI', isCi: true },
+            ].map((stat, i) => {
+              const isCi = 'isCi' in stat && stat.isCi
+              const ciColor = ciStatus === 'passing' ? 'text-emerald-400' : ciStatus === 'failing' ? 'text-red-400' : 'text-muted/40'
+              const content = (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.15 + i * 0.06 }}
+                  className={`text-center py-4 rounded-xl border border-white/5 bg-dark-800/20 ${isCi ? 'hover:border-teal-400/20 transition-colors' : ''}`}
+                  data-testid={isCi ? 'qa-status-badge' : undefined}
+                >
+                  <div className={`text-2xl font-heading font-bold ${isCi ? ciColor : 'text-teal-400'}`}>
+                    {isCi && ciStatus === 'passing' && <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2 align-middle" />}
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
+                </motion.div>
+              )
+              if (isCi) {
+                return (
+                  <a key={stat.label} href="https://github.com/blassaut/benjaminlassaut.dev/actions" target="_blank" rel="noopener noreferrer">
+                    {content}
+                  </a>
+                )
+              }
+              return content
+            })}
           </div>
-          <div className="flex flex-wrap items-center gap-2 mt-4">
+          <div className="flex flex-wrap gap-2 mt-4">
             {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
               <span
                 key={browser}
@@ -378,17 +374,6 @@ export default function QaLab() {
                 {browser}
               </span>
             ))}
-            <span className="text-muted/20 mx-1">|</span>
-            <a
-              data-testid="qa-status-badge"
-              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${ci.bg} border ${ci.border} hover:opacity-80 transition-opacity`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${ci.dot} ${ciStatus === 'passing' ? 'animate-pulse' : ''}`} />
-              <span className={`text-[10px] font-mono font-semibold ${ci.text} uppercase tracking-widest`}>{ciStatus}</span>
-            </a>
           </div>
         </motion.div>
 
