@@ -41,16 +41,33 @@ function countTestRuns(raw: string): number {
   const lines = raw.split('\n')
   let runs = 0
   let currentTag: string | null = null
+  let inOutline = false
+  let outlineMultiplier = 3
+  let seenExamplesHeader = false
 
   for (const line of lines) {
     const trimmed = line.trim()
+
     if (trimmed.startsWith('@desktop')) currentTag = 'desktop'
     else if (trimmed.startsWith('@mobile')) currentTag = 'mobile'
-    else if (/^Scenario(?: Outline)?:/.test(trimmed)) {
-      if (currentTag === 'desktop') runs += 1       // 1 desktop browser
-      else if (currentTag === 'mobile') runs += 2   // 2 mobile browsers
-      else runs += 3                                 // all 3 browsers
+    else if (/^Scenario Outline:/.test(trimmed)) {
+      inOutline = true
+      seenExamplesHeader = false
+      outlineMultiplier = currentTag === 'desktop' ? 1 : currentTag === 'mobile' ? 2 : 3
       currentTag = null
+    } else if (/^Scenario:/.test(trimmed)) {
+      inOutline = false
+      seenExamplesHeader = false
+      runs += currentTag === 'desktop' ? 1 : currentTag === 'mobile' ? 2 : 3
+      currentTag = null
+    } else if (inOutline && trimmed.startsWith('Examples:')) {
+      seenExamplesHeader = false // next pipe row is the header
+    } else if (inOutline && trimmed.startsWith('|')) {
+      if (!seenExamplesHeader) {
+        seenExamplesHeader = true // this is the header row, skip it
+      } else {
+        runs += outlineMultiplier // data row = one scenario instance
+      }
     }
   }
   return runs
