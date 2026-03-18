@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -204,6 +204,44 @@ const practices = [
   },
 ]
 
+function useCIStatus() {
+  const [status, setStatus] = useState<'passing' | 'failing' | 'loading'>('loading')
+
+  useEffect(() => {
+    fetch('https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg')
+      .then((res) => res.text())
+      .then((svg) => {
+        if (svg.includes('passing')) setStatus('passing')
+        else if (svg.includes('failing')) setStatus('failing')
+        else setStatus('passing') // default if unknown
+      })
+      .catch(() => setStatus('passing'))
+  }, [])
+
+  return status
+}
+
+const ciStyles = {
+  passing: {
+    dot: 'bg-emerald-400',
+    text: 'text-emerald-400',
+    border: 'border-emerald-500/20',
+    bg: 'bg-emerald-500/10',
+  },
+  failing: {
+    dot: 'bg-red-400',
+    text: 'text-red-400',
+    border: 'border-red-500/20',
+    bg: 'bg-red-500/10',
+  },
+  loading: {
+    dot: 'bg-muted/40',
+    text: 'text-muted/40',
+    border: 'border-white/10',
+    bg: 'bg-white/5',
+  },
+}
+
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-4 mb-8">
@@ -214,6 +252,9 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 export default function QaLab() {
+  const ciStatus = useCIStatus()
+  const ci = ciStyles[ciStatus]
+
   return (
     <div data-testid="qa" className="pt-24 pb-20 px-6">
       <Helmet>
@@ -308,11 +349,10 @@ export default function QaLab() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-4 px-5 py-3.5 rounded-xl border border-white/5 bg-dark-800/20 hover:border-teal-400/20 transition-all group"
           >
-            <img
-              src="https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg"
-              alt="CI status"
-              className="h-5"
-            />
+            <div className={`flex items-center gap-2 px-2.5 py-1 rounded-md ${ci.bg} border ${ci.border}`}>
+              <span className={`w-2 h-2 rounded-full ${ci.dot} ${ciStatus === 'passing' ? 'animate-pulse' : ''}`} />
+              <span className={`text-xs font-mono font-semibold ${ci.text} uppercase tracking-wide`}>{ciStatus}</span>
+            </div>
             <div className="flex flex-col">
               <span className="text-sm text-light font-body group-hover:text-teal-400 transition-colors">
                 GitHub Actions CI
