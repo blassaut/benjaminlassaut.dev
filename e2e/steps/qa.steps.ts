@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 
 const { Given, Then } = createBdd()
 
-Given('I am on the QA lab page', async ({ page }) => {
+Given('I am on the QA page', async ({ page }) => {
   await page.goto('/qa')
   await page.waitForLoadState('networkidle')
 })
