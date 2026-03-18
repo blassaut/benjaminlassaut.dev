@@ -492,7 +492,7 @@ export default function QaLab() {
         >
           <SectionHeading>Feature files</SectionHeading>
           <p className="text-sm text-muted font-body mb-6 -mt-4">
-            Each file describes a user journey in Gherkin syntax. Click to expand.
+            Each file describes a user journey in Gherkin syntax.
           </p>
 
           <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
