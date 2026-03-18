@@ -213,30 +213,36 @@ const features = [
   qaFeature,
 ]
 
+const REPO = 'https://github.com/blassaut/benjaminlassaut.dev'
+
 const practices = [
   {
     label: 'data-testid',
     description: 'Every interactive element has a semantic test identifier, decoupling tests from CSS and DOM structure.',
     detail: 'nav-link-about, contact-input-email, experience-card-kiln...',
     icon: '{}',
+    source: { label: 'Hero.tsx', href: `${REPO}/blob/main/src/components/sections/Hero.tsx` },
   },
   {
     label: 'BDD / Gherkin',
     description: 'Feature files written in plain English describe user journeys. Step definitions translate them to Playwright actions.',
     detail: 'Given I am on the homepage / Then I should see the hero section',
     icon: 'Gw',
+    source: { label: 'e2e/features/', href: `${REPO}/tree/main/e2e/features` },
   },
   {
     label: 'Playwright',
     description: 'Cross-browser e2e tests run on Desktop Chrome, Mobile Safari, and Mobile Android on every push.',
     detail: `${features.reduce((sum, f) => sum + countScenarios(f), 0)} scenarios across 3 browser projects`,
     icon: 'Pw',
+    source: { label: 'playwright.config.ts', href: `${REPO}/blob/main/playwright.config.ts` },
   },
   {
     label: 'CI / GitHub Actions',
     description: 'Build, type-check, and full e2e suite run automatically. Failures block the merge.',
     detail: 'bddgen && playwright test on every PR',
     icon: 'CI',
+    source: { label: 'ci.yml', href: `${REPO}/blob/main/.github/workflows/ci.yml` },
   },
 ]
 
@@ -423,9 +429,20 @@ export default function QaLab() {
                   <p className="text-sm text-light/80 font-body leading-relaxed mb-2">
                     {p.description}
                   </p>
-                  <p className="text-xs font-mono text-muted/50 leading-relaxed">
+                  <p className="text-xs font-mono text-muted/50 leading-relaxed mb-3">
                     {p.detail}
                   </p>
+                  <a
+                    href={p.source.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-muted/40 hover:text-teal-400 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    {p.source.label}
+                  </a>
                 </div>
               </motion.div>
             ))}
