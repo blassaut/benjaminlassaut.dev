@@ -5,16 +5,16 @@ Feature: Recruiter visits portfolio
 
   Scenario: Homepage sections are all visible
     Given I am on the homepage
-    Then I should see the hero section
+    Then I should see the intro section
     And I should see the about section
     And I should see the experience section
     And I should see the skills section
     And I should see the blog preview section
     And I should see the contact section
 
-  Scenario: Hero displays name and role
+  Scenario: Intro displays name and role
     Given I am on the homepage
-    Then I should see "Benjamin Lassaut" in the hero section
+    Then I should see "Benjamin Lassaut" in the intro section
 
   Scenario: Experience entries are displayed
     Given I am on the homepage

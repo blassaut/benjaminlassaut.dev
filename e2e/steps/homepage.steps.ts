@@ -8,8 +8,8 @@ Given('I am on the homepage', async ({ page }) => {
   await page.waitForLoadState('networkidle')
 })
 
-Then('I should see the hero section', async ({ page }) => {
-  await expect(page.getByTestId('hero-section')).toBeAttached()
+Then('I should see the intro section', async ({ page }) => {
+  await expect(page.getByTestId('intro-section')).toBeAttached()
 })
 
 Then('I should see the about section', async ({ page }) => {
@@ -32,11 +32,11 @@ Then('I should see the contact section', async ({ page }) => {
   await expect(page.getByTestId('contact-section')).toBeAttached()
 })
 
-Then('I should see {string} in the hero section', async ({ page }, text: string) => {
-  const hero = page.getByTestId('hero-section')
+Then('I should see {string} in the intro section', async ({ page }, text: string) => {
+  const intro = page.getByTestId('intro-section')
   // Name may be split across elements (e.g. "Benjamin<br>Lassaut")
   for (const part of text.split(' ')) {
-    await expect(hero.getByText(part, { exact: false })).toBeVisible()
+    await expect(intro.getByText(part, { exact: false })).toBeVisible()
   }
 })
 

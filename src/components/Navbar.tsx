@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Experience', hash: '#experience' },
   { label: 'Skills', hash: '#skills' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Who tests the tester?', href: '/qa', testid: 'qa' },
+  { label: 'Who tests the tester?', href: '/qa' },
   { label: 'Contact', hash: '#contact' },
 ]
 

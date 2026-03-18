@@ -49,9 +49,9 @@ function FloatingTag({ text, x, y, delay }: { text: string; x: string; y: string
   )
 }
 
-export default function Hero() {
+export default function Intro() {
   return (
-    <section data-testid="hero-section" className="relative min-h-screen flex items-center justify-center px-6">
+    <section data-testid="intro-section" className="relative min-h-screen flex items-center justify-center px-6">
       <GridBackground />
 
       <div className="relative z-10 max-w-4xl text-center">

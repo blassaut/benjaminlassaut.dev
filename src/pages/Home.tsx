@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import Hero from '../components/sections/Hero'
+import Intro from '../components/sections/Intro'
 import About from '../components/sections/About'
 import Experience from '../components/sections/Experience'
 import Skills from '../components/sections/Skills'
@@ -27,7 +27,7 @@ export default function Home() {
           ],
         })}</script>
       </Helmet>
-      <Hero />
+      <Intro />
       <About />
       <Experience />
       <Skills />
