@@ -14,10 +14,10 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Tools',
-    skills: ['TypeScript', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
+    skills: ['TypeScript', 'Playwright', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
   },
   {
     name: 'Infrastructure',
-    skills: ['AWS', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis'],
+    skills: ['AWS', 'Vercel', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis'],
   },
 ]
