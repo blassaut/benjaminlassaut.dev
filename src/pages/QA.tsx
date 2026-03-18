@@ -193,7 +193,7 @@ const practices = [
   {
     label: 'Playwright',
     description: 'Cross-browser e2e tests run on Desktop Chrome, Mobile Safari, and Mobile Android on every push.',
-    detail: '64 scenarios across 3 browser projects',
+    detail: `${features.reduce((sum, f) => sum + countScenarios(f), 0)} scenarios across 3 browser projects`,
     icon: 'Pw',
   },
   {
