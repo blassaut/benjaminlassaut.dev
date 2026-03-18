@@ -17,7 +17,7 @@ export default function Footer() {
   const navigateToHash = useHashNavigation()
 
   return (
-    <footer className="border-t border-white/5 py-12">
+    <footer data-testid="footer" className="border-t border-white/5 py-12">
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
           {/* Brand */}
@@ -48,6 +48,7 @@ export default function Footer() {
                   item.hash ? (
                     <a
                       key={item.label}
+                      data-testid={`footer-link-${item.label.toLowerCase()}`}
                       href={item.hash}
                       onClick={(e) => navigateToHash(e, item.hash)}
                       className="text-sm text-muted hover:text-light transition-colors font-body"
@@ -57,6 +58,7 @@ export default function Footer() {
                   ) : (
                     <Link
                       key={item.label}
+                      data-testid={`footer-link-${item.label.toLowerCase()}`}
                       to={item.href!}
                       className="text-sm text-muted hover:text-light transition-colors font-body"
                     >
@@ -73,6 +75,7 @@ export default function Footer() {
                 {socials.map((link) => (
                   <a
                     key={link.label}
+                    data-testid={`footer-link-${link.label.toLowerCase()}`}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"

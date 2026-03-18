@@ -9,7 +9,7 @@ const stats = [
 
 export default function About() {
   return (
-    <AnimatedSection id="about" className="py-28 px-6">
+    <AnimatedSection id="about" className="py-28 px-6" data-testid="about-section">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-14">
           <h2 className="text-3xl font-heading font-bold">About</h2>
@@ -46,6 +46,7 @@ export default function About() {
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
+              data-testid={`about-stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

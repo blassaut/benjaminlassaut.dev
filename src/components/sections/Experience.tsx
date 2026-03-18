@@ -25,7 +25,7 @@ export default function Experience() {
   const groups = groupByCompany(experience)
 
   return (
-    <AnimatedSection id="experience" className="py-28 px-6">
+    <AnimatedSection id="experience" className="py-28 px-6" data-testid="experience-section">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-14">
           <h2 className="text-3xl font-heading font-bold">Experience</h2>
@@ -40,6 +40,7 @@ export default function Experience() {
             {groups.map((group, groupIndex) => (
               <motion.div
                 key={groupIndex}
+                data-testid={`experience-card-${group.company.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}

@@ -46,6 +46,7 @@ export default function Navbar() {
       return (
         <a
           key={item.label}
+          data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
           href={item.hash}
           onClick={(e) => handleHashClick(e, item.hash, mobile)}
           className={className}
@@ -57,6 +58,7 @@ export default function Navbar() {
     return (
       <Link
         key={item.label}
+        data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
         to={item.href!}
         onClick={handleLinkClick}
         className={className}
@@ -67,9 +69,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/5">
+    <nav data-testid="nav" className="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-white/5">
       <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="block" aria-label="Home">
+        <Link to="/" data-testid="nav-logo" className="block" aria-label="Home">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="w-8 h-8" role="img" aria-hidden="true">
             <defs>
               <linearGradient id="nav-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -89,6 +91,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
+          data-testid="nav-mobile-toggle"
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden flex flex-col gap-1.5 p-2"
           aria-label="Toggle menu"
@@ -118,6 +121,7 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             id="mobile-menu"
+            data-testid="nav-mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
