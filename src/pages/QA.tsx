@@ -308,10 +308,11 @@ export default function QaLab() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-4 px-5 py-3.5 rounded-xl border border-white/5 bg-dark-800/20 hover:border-teal-400/20 transition-all group"
           >
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wide">passing</span>
-            </div>
+            <img
+              src="https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg"
+              alt="CI status"
+              className="h-5"
+            />
             <div className="flex flex-col">
               <span className="text-sm text-light font-body group-hover:text-teal-400 transition-colors">
                 GitHub Actions CI
