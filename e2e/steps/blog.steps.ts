@@ -8,12 +8,12 @@ Then('I should see the blog index', async ({ page }) => {
 })
 
 Then('I should see at least one blog post card', async ({ page }) => {
-  const cards = page.locator('[data-testid^="blog-post-card-"]')
+  const cards = page.locator('[data-testid^="blog-post-"]')
   expect(await cards.count()).toBeGreaterThan(0)
 })
 
 When('I click on the first blog post card', async ({ page }) => {
-  await page.locator('[data-testid^="blog-post-card-"]').first().click()
+  await page.locator('[data-testid^="blog-post-"]').first().click()
 })
 
 Then('I should be on a blog post page', async ({ page }) => {
@@ -21,16 +21,16 @@ Then('I should be on a blog post page', async ({ page }) => {
 })
 
 Then('I should see the blog post content', async ({ page }) => {
-  await expect(page.getByTestId('blog-post-content')).toBeVisible()
+  await expect(page.getByTestId('blog-post')).toBeVisible()
 })
 
 Given('I am reading a blog post', async ({ page }) => {
   await page.goto('/blog')
   await page.waitForLoadState('networkidle')
-  await page.locator('[data-testid^="blog-post-card-"]').first().click()
+  await page.locator('[data-testid^="blog-post-"]').first().click()
   await page.waitForLoadState('networkidle')
 })
 
 When('I click the back link', async ({ page }) => {
-  await page.getByTestId('blog-back-link').click()
+  await page.getByTestId('blog-post-back').click()
 })

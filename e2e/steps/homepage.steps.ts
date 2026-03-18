@@ -34,7 +34,10 @@ Then('I should see the contact section', async ({ page }) => {
 
 Then('I should see {string} in the hero section', async ({ page }, text: string) => {
   const hero = page.getByTestId('hero-section')
-  await expect(hero.getByText(text)).toBeVisible()
+  // Name may be split across elements (e.g. "Benjamin<br>Lassaut")
+  for (const part of text.split(' ')) {
+    await expect(hero.getByText(part, { exact: false })).toBeVisible()
+  }
 })
 
 When('I scroll to the experience section', async ({ page }) => {

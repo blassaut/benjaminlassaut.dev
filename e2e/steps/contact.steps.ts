@@ -15,19 +15,19 @@ Then('I should see the contact form', async ({ page }) => {
 })
 
 Then('I should see the name input', async ({ page }) => {
-  await expect(page.getByTestId('contact-name-input')).toBeVisible()
+  await expect(page.getByTestId('contact-input-name')).toBeVisible()
 })
 
 Then('I should see the email input', async ({ page }) => {
-  await expect(page.getByTestId('contact-email-input')).toBeVisible()
+  await expect(page.getByTestId('contact-input-email')).toBeVisible()
 })
 
 Then('I should see the message input', async ({ page }) => {
-  await expect(page.getByTestId('contact-message-input')).toBeVisible()
+  await expect(page.getByTestId('contact-input-message')).toBeVisible()
 })
 
 Then('I should see the submit button', async ({ page }) => {
-  await expect(page.getByTestId('contact-submit-button')).toBeVisible()
+  await expect(page.getByTestId('contact-submit')).toBeVisible()
 })
 
 Then('I should see the {string} contact link', async ({ page }, label: string) => {
