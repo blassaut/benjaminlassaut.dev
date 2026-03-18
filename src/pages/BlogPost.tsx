@@ -34,6 +34,7 @@ export default function BlogPost() {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://benjaminlassaut.dev/blog/${slug}`} />
+        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
         <script type="application/ld+json">{JSON.stringify({

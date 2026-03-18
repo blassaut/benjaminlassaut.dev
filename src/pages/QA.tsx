@@ -311,7 +311,9 @@ export default function QaLab() {
           property="og:description"
           content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI."
         />
+        <meta property="og:type" content="website" />
         <meta property="og:url" content="https://benjaminlassaut.dev/qa" />
+        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
       </Helmet>
 
       <div className="max-w-4xl mx-auto">

@@ -17,6 +17,11 @@ export default function BlogIndex() {
         <title>Blog - Benjamin Lassaut</title>
         <meta name="description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
         <link rel="canonical" href="https://benjaminlassaut.dev/blog" />
+        <meta property="og:title" content="Blog - Benjamin Lassaut" />
+        <meta property="og:description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://benjaminlassaut.dev/blog" />
+        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
       </Helmet>
       <div className="max-w-3xl mx-auto">
         <motion.h1
