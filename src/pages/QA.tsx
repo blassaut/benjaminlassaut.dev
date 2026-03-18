@@ -434,8 +434,8 @@ export default function QaLab() {
           className="text-center"
         >
           <p className="text-sm font-mono text-muted/40">
-            Yes, this page is also tested.{' '}
-            <span className="text-teal-400/40">visitor-explores-qa.feature</span>
+            Yes, this page is also tested. See{' '}
+            <span className="text-teal-400/40">Visitor explores "Who tests the tester?"</span>
           </p>
         </motion.div>
       </div>
