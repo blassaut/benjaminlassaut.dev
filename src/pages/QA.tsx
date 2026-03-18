@@ -37,6 +37,25 @@ function countScenarios(raw: string): number {
   return (raw.match(/^\s*Scenario(?: Outline)?:/gm) || []).length
 }
 
+function countTestRuns(raw: string): number {
+  const lines = raw.split('\n')
+  let runs = 0
+  let currentTag: string | null = null
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('@desktop')) currentTag = 'desktop'
+    else if (trimmed.startsWith('@mobile')) currentTag = 'mobile'
+    else if (/^Scenario(?: Outline)?:/.test(trimmed)) {
+      if (currentTag === 'desktop') runs += 1       // 1 desktop browser
+      else if (currentTag === 'mobile') runs += 2   // 2 mobile browsers
+      else runs += 3                                 // all 3 browsers
+      currentTag = null
+    }
+  }
+  return runs
+}
+
 function GherkinLine({ line }: { line: string }) {
   const trimmed = line.trimStart()
   const indent = line.length - trimmed.length
@@ -397,7 +416,7 @@ export default function QaLab() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
-              { value: (features.reduce((sum, f) => sum + countScenarios(f), 0) * 3).toString(), label: 'Test runs' },
+              { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
               { value: '3', label: 'Browsers' },
               { value: '5', label: 'User journeys' },
             ].map((stat, i) => (
