@@ -369,7 +369,7 @@ export default function QaLab() {
               </motion.div>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="flex flex-wrap items-center gap-2 mt-4">
             {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
               <span
                 key={browser}
@@ -378,6 +378,17 @@ export default function QaLab() {
                 {browser}
               </span>
             ))}
+            <span className="text-muted/20 mx-1">|</span>
+            <a
+              data-testid="qa-status-badge"
+              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${ci.bg} border ${ci.border} hover:opacity-80 transition-opacity`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${ci.dot} ${ciStatus === 'passing' ? 'animate-pulse' : ''}`} />
+              <span className={`text-[10px] font-mono font-semibold ${ci.text} uppercase tracking-widest`}>{ciStatus}</span>
+            </a>
           </div>
         </motion.div>
 
@@ -454,40 +465,6 @@ export default function QaLab() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* CI Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.05 }}
-          className="mb-20"
-        >
-          <SectionHeading>Pipeline status</SectionHeading>
-          <a
-            data-testid="qa-status-badge"
-            href="https://github.com/blassaut/benjaminlassaut.dev/actions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-4 px-5 py-3.5 rounded-xl border border-white/5 bg-dark-800/20 hover:border-teal-400/20 transition-all group"
-          >
-            <div className={`flex items-center gap-2 px-2.5 py-1 rounded-md ${ci.bg} border ${ci.border}`}>
-              <span className={`w-2 h-2 rounded-full ${ci.dot} ${ciStatus === 'passing' ? 'animate-pulse' : ''}`} />
-              <span className={`text-xs font-mono font-semibold ${ci.text} uppercase tracking-wide`}>{ciStatus}</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm text-light font-body group-hover:text-teal-400 transition-colors">
-                GitHub Actions CI
-              </span>
-              <span className="text-xs text-muted/50 font-mono">
-                build + e2e on every push
-              </span>
-            </div>
-            <svg className="w-4 h-4 text-muted/30 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
         </motion.div>
 
         {/* Feature Files */}
