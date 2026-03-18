@@ -462,7 +462,7 @@ export default function QaLab() {
 
           <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
             {features.map((raw, i) => (
-              <FeatureCard key={i} raw={raw} index={i} defaultOpen={i === 0} />
+              <FeatureCard key={i} raw={raw} index={i} />
             ))}
           </div>
         </motion.div>
