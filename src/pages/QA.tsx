@@ -329,43 +329,26 @@ export default function QaLab() {
           transition={{ delay: 0.1 }}
           className="mb-10"
         >
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
               { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
               { value: '3', label: 'Browsers' },
               { value: '5', label: 'User journeys' },
-              { value: ciStatus === 'loading' ? '...' : ciStatus.toUpperCase(), label: 'CI', isCi: true },
-            ].map((stat, i) => {
-              const isCi = 'isCi' in stat && stat.isCi
-              const ciColor = ciStatus === 'passing' ? 'text-emerald-400' : ciStatus === 'failing' ? 'text-red-400' : 'text-muted/40'
-              const content = (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.15 + i * 0.06 }}
-                  className={`text-center py-4 rounded-xl border border-white/5 bg-dark-800/20 ${isCi ? 'hover:border-teal-400/20 transition-colors' : ''}`}
-                  data-testid={isCi ? 'qa-status-badge' : undefined}
-                >
-                  <div className={`font-heading font-bold ${isCi ? `text-sm tracking-wider font-mono ${ciColor}` : 'text-2xl text-teal-400'}`}>
-                    {isCi && ciStatus === 'passing' && <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5 align-middle" />}
-                    {stat.value}
-                  </div>
-                  <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
-                </motion.div>
-              )
-              if (isCi) {
-                return (
-                  <a key={stat.label} href="https://github.com/blassaut/benjaminlassaut.dev/actions" target="_blank" rel="noopener noreferrer">
-                    {content}
-                  </a>
-                )
-              }
-              return content
-            })}
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.15 + i * 0.06 }}
+                className="text-center py-4 rounded-xl border border-white/5 bg-dark-800/20"
+              >
+                <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
+                <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="flex flex-wrap items-center gap-2 mt-4">
             {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
               <span
                 key={browser}
@@ -374,6 +357,24 @@ export default function QaLab() {
                 {browser}
               </span>
             ))}
+            <a
+              data-testid="qa-status-badge"
+              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity ${
+                ciStatus === 'passing'
+                  ? 'text-emerald-400/60 border-emerald-400/10 bg-emerald-400/5'
+                  : ciStatus === 'failing'
+                    ? 'text-red-400/60 border-red-400/10 bg-red-400/5'
+                    : 'text-muted/40 border-white/10 bg-white/5'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                ciStatus === 'passing' ? 'bg-emerald-400 animate-pulse' : ciStatus === 'failing' ? 'bg-red-400' : 'bg-muted/40'
+              }`} />
+              {ciStatus === 'loading' ? '...' : ciStatus}
+            </a>
           </div>
         </motion.div>
 
