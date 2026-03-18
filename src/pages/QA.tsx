@@ -169,6 +169,11 @@ function FeatureCard({ raw, index, defaultOpen = false }: { raw: string; index: 
           <span className="text-xs font-mono text-muted/60">
             {scenarioCount} scenario{scenarioCount !== 1 ? 's' : ''}
           </span>
+          {index === 0 && (
+            <span className="text-xs font-body italic text-teal-400/50 ml-3">
+              psst - that's you right now
+            </span>
+          )}
         </div>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
