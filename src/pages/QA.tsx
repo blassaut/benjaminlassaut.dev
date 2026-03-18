@@ -379,14 +379,14 @@ export default function QaLab() {
             <h3 className="text-sm font-heading font-semibold text-light mb-3">Why this matters</h3>
             <div className="space-y-3 text-sm text-muted font-body leading-relaxed">
               <p>
-                Most portfolios claim quality - this one proves it. BDD scenarios written in plain English
-                make test intent readable by anyone, not just developers. A recruiter can open a feature file
-                and understand exactly what's being verified.
+                BDD scenarios written in plain English make test intent readable by anyone, not just developers.
+                You can open a feature file below and understand exactly what's being verified without reading
+                any code.
               </p>
               <p>
                 Using <span className="text-light/80 font-mono text-xs">data-testid</span> attributes
                 instead of CSS selectors means tests don't break when the design changes.
-                The test suite validates <span className="text-light/80">behavior</span>, not implementation -
+                The suite validates <span className="text-light/80">behavior</span>, not implementation -
                 so refactoring the UI never means rewriting tests.
               </p>
             </div>
