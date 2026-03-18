@@ -211,11 +211,11 @@ function FeatureCard({ raw, index, defaultOpen = false }: { raw: string; index: 
 }
 
 const features = [
+  qaFeature,
   recruiterFeature,
   navigatesFeature,
   blogFeature,
   contactsFeature,
-  qaFeature,
 ]
 
 const REPO = 'https://github.com/blassaut/benjaminlassaut.dev'
