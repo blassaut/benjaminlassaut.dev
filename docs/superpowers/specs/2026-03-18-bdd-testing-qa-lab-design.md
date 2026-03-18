@@ -347,6 +347,8 @@ This uses `href` (not `hash`), so `renderNavItem` renders it as a `<Link>` compo
 
 2. **CI Status Badge** - GitHub Actions badge showing latest workflow status. Links to the Actions tab. Uses the standard GitHub badge URL format for the existing CI workflow.
 
+3. **Playwright Report** - The Playwright HTML report (`playwright-report/index.html`) embedded in an iframe or linked prominently. This lets visitors browse real test results interactively - seeing pass/fail status, test durations, and error details.
+
 3. **Feature Files** - Each `.feature` file rendered as a collapsible card. Feature name as the card title, Gherkin content displayed with syntax highlighting. Gherkin keywords (`Feature`, `Scenario`, `Given`, `When`, `Then`, `And`, `Examples`) highlighted in teal accent color.
 
 4. **Meta Callout** - A small note at the bottom: "Yes, this page is also tested. See visitor-explores-qa.feature."
