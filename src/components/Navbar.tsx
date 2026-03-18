@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useHashNavigation } from '../hooks/useHashNavigation'
 
@@ -12,12 +12,25 @@ const navItems = [
 ]
 
 export default function Navbar() {
+  const location = useLocation()
   const navigateToHash = useHashNavigation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  function handleHashClick(e: React.MouseEvent, hash: string) {
-    setMobileOpen(false)
-    navigateToHash(e, hash)
+  function handleHashClick(e: React.MouseEvent, hash: string, mobile = false) {
+    if (mobile) {
+      e.preventDefault()
+      setMobileOpen(false)
+      // Wait for menu close animation (250ms) before scrolling
+      setTimeout(() => {
+        if (location.pathname === '/') {
+          document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          navigateToHash(e, hash)
+        }
+      }, 300)
+    } else {
+      navigateToHash(e, hash)
+    }
   }
 
   function handleLinkClick() {
@@ -34,7 +47,7 @@ export default function Navbar() {
         <a
           key={item.label}
           href={item.hash}
-          onClick={(e) => handleHashClick(e, item.hash)}
+          onClick={(e) => handleHashClick(e, item.hash, mobile)}
           className={className}
         >
           {item.label}
