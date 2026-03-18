@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Experience', hash: '#experience' },
   { label: 'Skills', hash: '#skills' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Who tests the tester?', href: '/qa', testid: 'qa' },
   { label: 'Contact', hash: '#contact' },
 ]
 
@@ -42,11 +43,13 @@ export default function Navbar() {
       ? 'block py-3 text-sm text-muted hover:text-light transition-colors font-body'
       : 'text-sm text-muted hover:text-light transition-colors font-body'
 
+    const testid = `nav-link-${'testid' in item && item.testid ? item.testid : item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`
+
     if (item.hash) {
       return (
         <a
           key={item.label}
-          data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+          data-testid={testid}
           href={item.hash}
           onClick={(e) => handleHashClick(e, item.hash, mobile)}
           className={className}
@@ -58,7 +61,7 @@ export default function Navbar() {
     return (
       <Link
         key={item.label}
-        data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+        data-testid={testid}
         to={item.href!}
         onClick={handleLinkClick}
         className={className}
