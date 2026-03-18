@@ -29,5 +29,7 @@ dist-ssr
 .claude/*
 skills-lock.json
 
-# playwright-bdd generated tests
+# playwright generated files
 .features-gen/
+playwright-report/
+test-results/
