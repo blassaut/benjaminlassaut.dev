@@ -330,6 +330,69 @@ export default function QaLab() {
           </p>
         </motion.div>
 
+        {/* Hero stat bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-10"
+        >
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
+              { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
+              { value: '3', label: 'Browsers' },
+              { value: '5', label: 'User journeys' },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.15 + i * 0.06 }}
+                className="text-center py-4 rounded-xl border border-white/5 bg-dark-800/20"
+              >
+                <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
+                <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
+              <span
+                key={browser}
+                className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-teal-400/60 border border-teal-400/10 rounded-full bg-teal-400/5"
+              >
+                {browser}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Why this matters */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-20"
+        >
+          <div className="rounded-xl border border-white/5 bg-dark-800/20 p-6">
+            <h3 className="text-sm font-heading font-semibold text-light mb-3">Why this matters</h3>
+            <div className="space-y-3 text-sm text-muted font-body leading-relaxed">
+              <p>
+                Most portfolios claim quality - this one proves it. BDD scenarios written in plain English
+                make test intent readable by anyone, not just developers. A recruiter can open a feature file
+                and understand exactly what's being verified.
+              </p>
+              <p>
+                Using <span className="text-light/80 font-mono text-xs">data-testid</span> attributes
+                instead of CSS selectors means tests don't break when the design changes.
+                The test suite validates <span className="text-light/80">behavior</span>, not implementation -
+                so refactoring the UI never means rewriting tests.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* QA Practices */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -418,46 +481,6 @@ export default function QaLab() {
           <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
             {features.map((raw, i) => (
               <FeatureCard key={i} raw={raw} index={i} />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Test Coverage Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <SectionHeading>Test coverage</SectionHeading>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
-              { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
-              { value: '3', label: 'Browsers' },
-              { value: '5', label: 'User journeys' },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.06 }}
-                className="text-center py-4 rounded-xl border border-white/5 bg-dark-800/20"
-              >
-                <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
-                <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2 mt-4">
-            {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
-              <span
-                key={browser}
-                className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-teal-400/60 border border-teal-400/10 rounded-full bg-teal-400/5"
-              >
-                {browser}
-              </span>
             ))}
           </div>
         </motion.div>
