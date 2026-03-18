@@ -307,11 +307,6 @@ export default function QaLab() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-16 max-w-2xl"
         >
-          <div className="mb-5">
-            <span className="inline-block px-3 py-1 text-[10px] font-mono tracking-[0.2em] uppercase text-teal-400 border border-teal-400/20 rounded-full bg-teal-400/5">
-              QA Engineering
-            </span>
-          </div>
           <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             Who tests the<br />
             <span className="text-teal-400">tester</span>?
