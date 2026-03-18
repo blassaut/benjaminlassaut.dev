@@ -1,4 +1,4 @@
-Feature: Visitor explores the QA lab
+Feature: Visitor explores "Who tests the tester?"
   As a visitor
   I want to see how this portfolio tests itself
   So that I can appreciate the meta QA approach
