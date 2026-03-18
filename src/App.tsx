@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import BlogIndex from './pages/BlogIndex'
 import BlogPost from './pages/BlogPost'
 import QA from './pages/QA'
+import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/qa" element={<QA />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
       </BrowserRouter>

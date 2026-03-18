@@ -69,3 +69,8 @@ Feature: Visitor navigates the site
     When I tap the hamburger button
     And I tap the "blog" link in the mobile menu
     Then I should be on the "/blog" page
+
+  Scenario: Unknown URL shows 404 page
+    Given I am on a page that does not exist
+    Then I should see the 404 page
+    And I should see a link back to the homepage
