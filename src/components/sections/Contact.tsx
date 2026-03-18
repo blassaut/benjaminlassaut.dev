@@ -33,7 +33,7 @@ export default function Contact() {
   }
 
   return (
-    <AnimatedSection id="contact" className="py-28 px-6">
+    <AnimatedSection id="contact" className="py-28 px-6" data-testid="contact-section">
       <div className="max-w-xl mx-auto">
         <div className="flex items-center justify-center gap-4 mb-14">
           <div className="flex-1 h-px bg-gradient-to-l from-teal-400/30 to-transparent" />
@@ -46,6 +46,7 @@ export default function Contact() {
         </p>
 
         <motion.form
+          data-testid="contact-form"
           onSubmit={handleSubmit}
           className="space-y-4 p-6 rounded-xl border border-white/5 bg-dark-800/20"
           initial={{ opacity: 0, y: 20 }}
@@ -55,6 +56,7 @@ export default function Contact() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
+              data-testid="contact-input-name"
               type="text"
               name="name"
               placeholder="Name"
@@ -62,6 +64,7 @@ export default function Contact() {
               className="w-full px-4 py-3 bg-dark-900/50 border border-white/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
             />
             <input
+              data-testid="contact-input-email"
               type="email"
               name="email"
               placeholder="Email"
@@ -70,6 +73,7 @@ export default function Contact() {
             />
           </div>
           <textarea
+            data-testid="contact-input-message"
             name="message"
             placeholder="Message"
             rows={4}
@@ -77,6 +81,7 @@ export default function Contact() {
             className="w-full px-4 py-3 bg-dark-900/50 border border-white/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors resize-none"
           />
           <button
+            data-testid="contact-submit"
             type="submit"
             disabled={status === 'sending'}
             className="w-full px-6 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.2)] transition-all disabled:opacity-50"
@@ -84,10 +89,10 @@ export default function Contact() {
             {status === 'sending' ? 'Sending...' : 'Send Message'}
           </button>
           {status === 'sent' && (
-            <p className="text-teal-400 font-body text-sm text-center">Message sent! I'll get back to you soon.</p>
+            <p data-testid="contact-status" className="text-teal-400 font-body text-sm text-center">Message sent! I'll get back to you soon.</p>
           )}
           {status === 'error' && (
-            <p className="text-red-400 font-body text-sm text-center">Something went wrong. Try again or reach out on LinkedIn.</p>
+            <p data-testid="contact-status" className="text-red-400 font-body text-sm text-center">Something went wrong. Try again or reach out on LinkedIn.</p>
           )}
         </motion.form>
 
@@ -95,6 +100,7 @@ export default function Contact() {
           {links.map((link) => (
             <a
               key={link.label}
+              data-testid={`contact-link-${link.label.toLowerCase()}`}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"

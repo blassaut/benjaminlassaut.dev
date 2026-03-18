@@ -4,7 +4,7 @@ import { skillCategories } from '../../data/skills'
 
 export default function Skills() {
   return (
-    <AnimatedSection id="skills" className="py-28 px-6">
+    <AnimatedSection id="skills" className="py-28 px-6" data-testid="skills-section">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-14">
           <h2 className="text-3xl font-heading font-bold">Skills</h2>
@@ -15,6 +15,7 @@ export default function Skills() {
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.name}
+              data-testid={`skills-category-${category.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}

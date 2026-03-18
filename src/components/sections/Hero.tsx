@@ -51,7 +51,7 @@ function FloatingTag({ text, x, y, delay }: { text: string; x: string; y: string
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6">
+    <section data-testid="hero-section" className="relative min-h-screen flex items-center justify-center px-6">
       <GridBackground />
 
       <div className="relative z-10 max-w-4xl text-center">
@@ -99,12 +99,14 @@ export default function Hero() {
           className="mt-10 flex gap-4 justify-center"
         >
           <a
+            data-testid="hero-cta-work"
             href="#experience"
             className="group relative px-7 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]"
           >
             <span className="relative z-10">See my work</span>
           </a>
           <a
+            data-testid="hero-cta-contact"
             href="#contact"
             className="px-7 py-3 border border-teal-400/30 text-teal-400 font-body font-semibold rounded-lg hover:border-teal-400 hover:bg-teal-400/5 transition-all"
           >

@@ -9,7 +9,7 @@ export default function BlogPreview() {
   if (posts.length === 0) return null
 
   return (
-    <AnimatedSection id="blog" className="py-28 px-6">
+    <AnimatedSection id="blog" className="py-28 px-6" data-testid="blog-preview-section">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-14">
           <h2 className="text-3xl font-heading font-bold">Latest Posts</h2>
@@ -27,6 +27,7 @@ export default function BlogPreview() {
             >
               <Link
                 to={`/blog/${post.slug}`}
+                data-testid={`blog-preview-card-${post.slug}`}
                 className="block p-6 rounded-xl border border-white/5 bg-dark-800/30 hover:border-teal-400/20 transition-colors group"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-2">

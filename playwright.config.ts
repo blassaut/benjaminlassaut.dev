@@ -1,7 +1,13 @@
 import { defineConfig, devices } from '@playwright/test'
+import { defineBddConfig } from 'playwright-bdd'
+
+const testDir = defineBddConfig({
+  features: 'e2e/features/**/*.feature',
+  steps: 'e2e/steps/**/*.steps.ts',
+})
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -15,14 +21,17 @@ export default defineConfig({
     {
       name: 'desktop-chrome',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@mobile/,
     },
     {
       name: 'mobile-safari',
       use: { ...devices['iPhone 14'] },
+      grepInvert: /@desktop/,
     },
     {
       name: 'mobile-android',
       use: { ...devices['Pixel 7'] },
+      grepInvert: /@desktop/,
     },
   ],
   webServer: {

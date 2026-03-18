@@ -12,11 +12,16 @@ export default function BlogIndex() {
   const filtered = activeTag ? posts.filter((p) => p.tags.includes(activeTag)) : posts
 
   return (
-    <div className="pt-24 pb-16 px-6">
+    <div data-testid="blog-index" className="pt-24 pb-16 px-6">
       <Helmet>
         <title>Blog - Benjamin Lassaut</title>
         <meta name="description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
         <link rel="canonical" href="https://benjaminlassaut.dev/blog" />
+        <meta property="og:title" content="Blog - Benjamin Lassaut" />
+        <meta property="og:description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://benjaminlassaut.dev/blog" />
+        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
       </Helmet>
       <div className="max-w-3xl mx-auto">
         <motion.h1
@@ -30,6 +35,7 @@ export default function BlogIndex() {
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-10">
             <button
+              data-testid="blog-tag-all"
               onClick={() => setActiveTag(null)}
               className={`px-3 py-1 text-sm font-mono rounded-md transition-colors ${
                 !activeTag ? 'bg-teal-400 text-dark-900' : 'bg-dark-700 text-muted hover:text-light'
@@ -40,6 +46,7 @@ export default function BlogIndex() {
             {allTags.map((tag) => (
               <button
                 key={tag}
+                data-testid={`blog-tag-${tag}`}
                 onClick={() => setActiveTag(tag)}
                 className={`px-3 py-1 text-sm font-mono rounded-md transition-colors ${
                   activeTag === tag ? 'bg-teal-400 text-dark-900' : 'bg-dark-700 text-muted hover:text-light'
@@ -61,6 +68,7 @@ export default function BlogIndex() {
             >
               <Link
                 to={`/blog/${post.slug}`}
+                data-testid={`blog-post-${post.slug}`}
                 className="block p-6 bg-dark-800 border border-white/5 rounded-lg hover:border-teal-400/30 transition-colors group"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-2">

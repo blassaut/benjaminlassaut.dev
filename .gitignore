@@ -28,3 +28,6 @@ dist-ssr
 .agents/*
 .claude/*
 skills-lock.json
+
+# playwright-bdd generated tests
+.features-gen/

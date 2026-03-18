@@ -25,7 +25,7 @@ export default function BlogPost() {
   }
 
   return (
-    <div className="pt-24 pb-16 px-6">
+    <div data-testid="blog-post" className="pt-24 pb-16 px-6">
       <Helmet>
         <title>{post.title} - Benjamin Lassaut</title>
         <meta name="description" content={post.excerpt} />
@@ -34,6 +34,7 @@ export default function BlogPost() {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://benjaminlassaut.dev/blog/${slug}`} />
+        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
         <script type="application/ld+json">{JSON.stringify({
@@ -52,7 +53,7 @@ export default function BlogPost() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-3xl mx-auto"
       >
-        <Link to="/blog" className="text-sm text-teal-400 hover:text-teal-500 font-body mb-8 inline-block">
+        <Link to="/blog" data-testid="blog-post-back" className="text-sm text-teal-400 hover:text-teal-500 font-body mb-8 inline-block">
           ← Back to blog
         </Link>
 
