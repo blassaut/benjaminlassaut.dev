@@ -1,6 +1,98 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
+import type { SkillEntry } from '../../data/skills'
+
+function getSkillName(skill: SkillEntry): string {
+  return typeof skill === 'string' ? skill : skill.name
+}
+
+function isBugSkill(skill: SkillEntry): skill is { name: string; bug: true } {
+  return typeof skill !== 'string' && skill.bug === true
+}
+
+function BugSkillTag({ name }: { name: string }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <span
+      className="relative px-2.5 py-1 text-xs font-mono bg-amber-400/[0.04] border border-amber-400/20 rounded text-amber-300/70 hover:text-amber-300 hover:border-amber-400/40 transition-colors cursor-pointer inline-flex items-center gap-1.5"
+      tabIndex={0}
+      role="button"
+      aria-haspopup="true"
+      aria-expanded={open}
+      data-testid="bug-skill-tag"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onClick={() => setOpen((prev) => !prev)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false)
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') setOpen(false)
+      }}
+    >
+      {name}
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-amber-400/50"
+        aria-hidden="true"
+      >
+        <path d="M8 2l1.88 1.88" />
+        <path d="M14.12 3.88 16 2" />
+        <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" />
+        <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6" />
+        <path d="M12 20v-9" />
+        <path d="M6.53 9C4.6 8.8 3 7.1 3 5" />
+        <path d="M6 13H2" />
+        <path d="M3 21c0-2.1 1.7-3.9 3.8-4" />
+        <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4" />
+        <path d="M22 13h-4" />
+        <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4" />
+      </svg>
+
+      {open && (
+        <span
+          className="absolute bottom-full left-1/2 -translate-x-1/2 pb-3 z-50"
+        >
+          <span
+            className="block w-64 p-3 rounded-lg bg-[#1a1a2e] border border-teal-500/30 text-left relative"
+            data-testid="bug-popover"
+            role="tooltip"
+          >
+            <span className="block font-heading text-sm text-teal-400 mb-1">
+              You found a deliberate bug!
+            </span>
+            <span className="block text-xs text-light/60 font-sans">
+              Playwright is a duplicate and doesn't belong in Infrastructure. Visit the{' '}
+              <Link
+                to="/qa"
+                className="text-teal-400 underline hover:text-teal-300"
+                data-testid="bug-popover-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                "Who tests the tester?"
+              </Link>{' '}
+              page to see how this site tests itself.
+            </span>
+            {/* Arrow */}
+            <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-teal-500/30" />
+          </span>
+        </span>
+      )}
+    </span>
+  )
+}
 
 export default function Skills() {
   return (
@@ -26,14 +118,20 @@ export default function Skills() {
                 {category.name}
               </h3>
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
+                {category.skills.map((skill) => {
+                  const name = getSkillName(skill)
+                  if (isBugSkill(skill)) {
+                    return <BugSkillTag key={`${category.name}-${name}`} name={name} />
+                  }
+                  return (
+                    <span
+                      key={`${category.name}-${name}`}
+                      className="px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
+                    >
+                      {name}
+                    </span>
+                  )
+                })}
               </div>
             </motion.div>
           ))}

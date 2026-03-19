@@ -28,7 +28,8 @@ Given('I am reading a blog post', async ({ page }) => {
   await page.goto('/blog')
   await page.waitForLoadState('networkidle')
   await page.locator('[data-testid^="blog-post-"]').first().click()
-  await page.waitForLoadState('networkidle')
+  await expect(page).toHaveURL(/\/blog\/.+/)
+  await expect(page.getByTestId('blog-post')).toBeVisible()
 })
 
 When('I click the back link', async ({ page }) => {
