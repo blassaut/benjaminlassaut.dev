@@ -12,11 +12,4 @@ Feature: Visitor finds the deliberate bug easter egg
     Given I am on the homepage
     When I scroll to the skills section
     And I hover the bug-tagged skill
-    Then I should see the bug popover with a link to the QA page
-
-  Scenario: Clicking the QA link in the popover navigates to the QA page
-    Given I am on the homepage
-    When I scroll to the skills section
-    And I hover the bug-tagged skill
-    And I click the QA link in the popover
-    Then I should be on the QA page
+    Then I should see the bug popover mentioning the QA page

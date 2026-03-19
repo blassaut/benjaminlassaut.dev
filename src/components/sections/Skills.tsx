@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
@@ -66,18 +65,12 @@ function BugSkillTag({ name }: { name: string }) {
           role="tooltip"
         >
           <span className="block font-heading text-sm text-teal-400 mb-1">
-            You found the bug!
+            You found a deliberate bug!
           </span>
           <span className="block text-xs text-light/60 font-sans">
-            See{' '}
-            <Link
-              to="/qa"
-              className="text-teal-400 underline hover:text-teal-300"
-              data-testid="bug-popover-link"
-            >
-              /qa
-            </Link>{' '}
-            to learn how this site tests itself.
+            Playwright doesn't belong in Infrastructure. Visit the{' '}
+            <span className="text-teal-400">"Who tests the tester?"</span>{' '}
+            page to see how this site tests itself.
           </span>
           {/* Arrow */}
           <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-teal-500/30" />
