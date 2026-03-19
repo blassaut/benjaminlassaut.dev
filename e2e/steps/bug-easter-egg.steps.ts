@@ -25,7 +25,7 @@ When('I hover the bug-tagged skill', async ({ page }) => {
   await bugTag.hover()
 })
 
-Then('I should see the bug popover mentioning the QA page', async ({ page }) => {
+Then('I should see the bug popover mentioning the "Who tests the tester?" page', async ({ page }) => {
   const popover = page.getByTestId('bug-popover')
   await expect(popover).toBeVisible()
   await expect(popover).toContainText('You found a deliberate bug!')

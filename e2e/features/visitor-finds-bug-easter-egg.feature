@@ -1,7 +1,7 @@
 Feature: Visitor finds the deliberate bug easter egg
   As a visitor
   I want to discover the deliberate bug in the skills section
-  So that I can learn about the site's QA practices
+  So that I can learn about the "Who tests the tester?" page
 
   Scenario: Bug-tagged Playwright skill appears in Infrastructure
     Given I am on the homepage
@@ -12,4 +12,4 @@ Feature: Visitor finds the deliberate bug easter egg
     Given I am on the homepage
     When I scroll to the skills section
     And I hover the bug-tagged skill
-    Then I should see the bug popover mentioning the QA page
+    Then I should see the bug popover mentioning the "Who tests the tester?" page
