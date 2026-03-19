@@ -1,6 +1,15 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
+import type { SkillEntry } from '../../data/skills'
+
+function getSkillName(skill: SkillEntry): string {
+  return typeof skill === 'string' ? skill : skill.name
+}
+
+function isBugSkill(skill: SkillEntry): skill is { name: string; bug: true } {
+  return typeof skill !== 'string' && skill.bug === true
+}
 
 export default function Skills() {
   return (
@@ -26,14 +35,17 @@ export default function Skills() {
                 {category.name}
               </h3>
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
+                {category.skills.map((skill) => {
+                  const name = getSkillName(skill)
+                  return (
+                    <span
+                      key={`${category.name}-${name}`}
+                      className="px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
+                    >
+                      {name}
+                    </span>
+                  )
+                })}
               </div>
             </motion.div>
           ))}
