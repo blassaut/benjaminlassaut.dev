@@ -4,7 +4,9 @@ import { useHashNavigation } from '../hooks/useHashNavigation'
 const footerLinks = [
   { label: 'About', hash: '#about' },
   { label: 'Experience', hash: '#experience' },
+  { label: 'Skills', hash: '#skills' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Who tests the tester?', href: '/qa' },
   { label: 'Contact', hash: '#contact' },
 ]
 
