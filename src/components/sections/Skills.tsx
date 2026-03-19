@@ -74,7 +74,7 @@ function BugSkillTag({ name }: { name: string }) {
               You found a deliberate bug!
             </span>
             <span className="block text-xs text-light/60 font-sans">
-              Playwright doesn't belong in Infrastructure. Visit the{' '}
+              Playwright is a duplicate and doesn't belong in Infrastructure. Visit the{' '}
               <Link
                 to="/qa"
                 className="text-teal-400 underline hover:text-teal-300"
