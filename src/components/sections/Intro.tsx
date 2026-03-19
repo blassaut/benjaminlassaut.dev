@@ -86,9 +86,7 @@ export default function Intro() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-6 text-lg md:text-xl text-muted font-body max-w-lg mx-auto"
         >
-          10+ years building quality into software.
-          <br className="hidden sm:block" />
-          From fintech to blockchain.
+          I design systems that catch bugs before users ever see them.
         </motion.p>
 
         {/* CTAs */}
