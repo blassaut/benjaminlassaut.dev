@@ -1,6 +1,8 @@
+export type SkillEntry = string | { name: string; bug: true }
+
 export interface SkillCategory {
   name: string
-  skills: string[]
+  skills: SkillEntry[]
 }
 
 export const skillCategories: SkillCategory[] = [
@@ -18,6 +20,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Infrastructure',
-    skills: ['AWS', 'Vercel', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis'],
+    skills: ['AWS', 'Vercel', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis', { name: 'Playwright', bug: true }],
   },
 ]
