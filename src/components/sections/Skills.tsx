@@ -18,7 +18,7 @@ function BugSkillTag({ name }: { name: string }) {
 
   return (
     <span
-      className="relative px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-pointer inline-flex items-center gap-1.5"
+      className="relative px-2.5 py-1 text-xs font-mono bg-amber-400/[0.04] border border-amber-400/20 rounded text-amber-300/70 hover:text-amber-300 hover:border-amber-400/40 transition-colors cursor-pointer inline-flex items-center gap-1.5"
       tabIndex={0}
       role="button"
       aria-haspopup="true"
@@ -45,7 +45,7 @@ function BugSkillTag({ name }: { name: string }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-light/40"
+        className="text-amber-400/50"
         aria-hidden="true"
       >
         <path d="M8 2l1.88 1.88" />
