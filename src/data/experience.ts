@@ -14,7 +14,9 @@ export const experience: ExperienceEntry[] = [
     current: true,
     highlights: [
       'Own quality across all Kiln products - staking APIs, DeFi vaults, dashboard, and smart contracts.',
-      'Built an enterprise-grade Cypress + Cucumber test framework covering 20+ blockchain networks (EVM, Solana, Polkadot, Cosmos, TON, Cardano).',
+      'Built an enterprise-grade Cypress + Cucumber framework covering 20+ blockchain networks.',
+      'Replaced manual QA bottlenecks with automated pipelines teams rely on to ship safely across multiple product teams.',
+      'Reduced production incidents by catching issues through hourly automated monitoring before users ever saw them.',
     ],
   },
   {
@@ -24,6 +26,7 @@ export const experience: ExperienceEntry[] = [
     highlights: [
       'Designed the full QA architecture from scratch - BDD feature files, Cypress commands, and API tasks.',
       'Automated transaction crafting, signing (Fireblocks), broadcasting, and verification flows across multiple chains.',
+      'Unblocked faster releases by replacing manual validation with automated cross-chain test coverage.',
     ],
   },
   {
