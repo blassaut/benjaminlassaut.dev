@@ -29,5 +29,19 @@ Then('I should see the bug popover mentioning the "Who tests the tester?" page',
   const popover = page.getByTestId('bug-popover')
   await expect(popover).toBeVisible()
   await expect(popover).toContainText('You found a deliberate bug!')
-  await expect(popover).toContainText('Who tests the tester?')
+  await expect(popover.getByTestId('bug-popover-link')).toHaveAttribute('href', '/qa')
+})
+
+When('I click the "Who tests the tester?" link in the popover', async ({ page }) => {
+  // On mobile, hover doesn't persist - ensure popover is open by clicking the tag
+  const popover = page.getByTestId('bug-popover')
+  if (!(await popover.isVisible())) {
+    await page.getByTestId('bug-skill-tag').click()
+  }
+  await expect(popover).toBeVisible()
+  // Use evaluate to click - avoids Playwright stability issues with popover elements
+  await page.evaluate(() => {
+    const link = document.querySelector('[data-testid="bug-popover-link"]') as HTMLElement
+    link?.click()
+  })
 })
