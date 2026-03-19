@@ -314,8 +314,9 @@ export default function QaLab() {
             <span className="text-teal-400">tester</span>?
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
-            This portfolio is its own test subject. Every page, every interaction, every section
-            is described in BDD scenarios that run automatically on every push.
+            Instead of just telling you I'm good at testing, I built this page to show it.
+            Everything here is automatically verified before it reaches you - the same way
+            I'd set things up on your team's product.
           </p>
         </motion.div>
 
