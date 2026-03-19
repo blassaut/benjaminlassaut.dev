@@ -18,26 +18,24 @@ export default function About() {
 
         <div className="space-y-6 text-muted font-body text-base leading-relaxed">
           <p>
-            I'm a QA engineer who believes quality is about more than finding bugs - it's about
-            building confidence in every release. Over the past decade I've worked across{' '}
-            <span className="text-light">fintech</span>,{' '}
-            <span className="text-light">capital markets</span>,{' '}
-            <span className="text-light">AI</span>, and{' '}
-            <span className="text-light">blockchain</span>, always focused on the same thing:
-            making sure the software people depend on actually works.
+            Most QA doesn't improve quality - it creates the illusion of it. Manual regression
+            suites and checkbox testing feel safe, but they miss real risk. I don't test features.
+            I build systems that continuously validate them, from{' '}
+            <span className="text-light">CI</span> to{' '}
+            <span className="text-light">production</span>.
           </p>
           <p>
-            At <span className="text-teal-400">Kiln</span>, I lead QA across staking
-            infrastructure, DeFi vaults, and smart contracts deployed on 20+ chains. I built the
-            test architecture from scratch - BDD feature files, cross-chain transaction flows,
-            Fireblocks signing pipelines - and turned it into a framework the whole team relies on.
+            At <span className="text-teal-400">Kiln</span>, I built the QA architecture from
+            zero and scaled it across teams - BDD frameworks, cross-chain transaction flows
+            spanning 20+ networks, and production monitoring that runs every hour and feeds
+            directly into incident response. When something breaks, we catch it before clients
+            ever notice.
           </p>
           <p>
-            Before web3, I cut my teeth on electronic trading desks at{' '}
+            Before web3, I worked on electronic trading desks at{' '}
             <span className="text-light">BNP Paribas</span> and{' '}
-            <span className="text-light">Société Générale</span>, migrated datacenters to AWS,
-            and scaled QA practices at startups where I was the first quality hire. I like
-            building things from zero.
+            <span className="text-light">Societe Generale</span>, migrated datacenters to AWS,
+            and built QA practices from scratch at startups where I was the first quality hire.
           </p>
         </div>
 
