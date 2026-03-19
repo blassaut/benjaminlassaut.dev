@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
 import gherkin from 'highlight.js/lib/languages/gherkin'
+import typescript from 'highlight.js/lib/languages/typescript'
 import { getPostBySlug } from '../lib/blog'
 
 export default function BlogPost() {
@@ -81,7 +82,7 @@ export default function BlogPost() {
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[[rehypeHighlight, { languages: { gherkin } }]]}
+            rehypePlugins={[[rehypeHighlight, { languages: { gherkin, typescript } }]]}
           >
             {post.content}
           </ReactMarkdown>
