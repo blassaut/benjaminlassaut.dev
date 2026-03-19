@@ -7,6 +7,7 @@ import navigatesFeature from '../../e2e/features/visitor-navigates-site.feature?
 import blogFeature from '../../e2e/features/reader-browses-blog.feature?raw'
 import contactsFeature from '../../e2e/features/visitor-contacts-benjamin.feature?raw'
 import qaFeature from '../../e2e/features/visitor-explores-qa.feature?raw'
+import bugEasterEggFeature from '../../e2e/features/visitor-finds-bug-easter-egg.feature?raw'
 
 const GHERKIN_KEYWORDS = [
   'Feature:',
@@ -216,6 +217,7 @@ const features = [
   navigatesFeature,
   blogFeature,
   contactsFeature,
+  bugEasterEggFeature,
 ]
 
 const REPO = 'https://github.com/blassaut/benjaminlassaut.dev'
@@ -329,7 +331,7 @@ export default function QaLab() {
               { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
               { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
               { value: '3', label: 'Browsers' },
-              { value: '5', label: 'User journeys' },
+              { value: features.length.toString(), label: 'User journeys' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
