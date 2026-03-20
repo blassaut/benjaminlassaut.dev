@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import DownloadResumeButton from '../ui/DownloadResumeButton'
 import { experience, type ExperienceEntry } from '../../data/experience'
 
 interface CompanyGroup {
@@ -29,6 +30,7 @@ export default function Experience() {
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-4 mb-14">
           <h2 className="text-3xl font-heading font-bold">Experience</h2>
+          <DownloadResumeButton />
           <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
         </div>
 
