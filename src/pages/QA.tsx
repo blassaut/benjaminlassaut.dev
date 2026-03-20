@@ -307,7 +307,7 @@ export default function QaLab() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16 max-w-2xl"
+          className="mb-8 max-w-2xl"
         >
           <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             Who tests the<br />
