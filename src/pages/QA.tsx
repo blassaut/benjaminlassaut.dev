@@ -364,11 +364,11 @@ export default function QaLab() {
               </motion.div>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-2 mt-4">
+          <div className="flex flex-wrap items-center gap-1.5 mt-2">
             {['Chrome', 'Mobile Safari', 'Mobile Chrome'].map((browser) => (
               <span
                 key={browser}
-                className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-teal-400/60 border border-teal-400/10 rounded-full bg-teal-400/5"
+                className="px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest text-muted/40 border border-white/5 rounded-full"
               >
                 {browser}
               </span>
