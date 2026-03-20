@@ -29,7 +29,6 @@ export default function DownloadResumeButton() {
       onClick={handleClick}
       disabled={generating}
       aria-label="Download Resume"
-      title="Download Resume"
       data-testid="download-resume-button"
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-muted/60 hover:text-teal-400 border border-white/5 hover:border-teal-400/20 transition-colors disabled:opacity-50 cursor-pointer"
     >
@@ -45,7 +44,7 @@ export default function DownloadResumeButton() {
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
       )}
-      <span>{generating ? 'Generating...' : 'Download Resume'}</span>
+      <span>{generating ? 'Generating...' : 'Resume (PDF)'}</span>
     </button>
   )
 }
