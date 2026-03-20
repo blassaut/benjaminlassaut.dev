@@ -63,8 +63,10 @@ export default function Intro() {
           className="mb-8"
         >
           <img
-            src="/headshot.jpg"
-            alt="Benjamin Lassaut"
+            src="/headshot-optimized.webp"
+            alt="Benjamin Lassaut - QA Lead specializing in web3 testing"
+            width={128}
+            height={128}
             className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-[#0a0a0f]"
           />
         </motion.div>
@@ -91,6 +93,7 @@ export default function Intro() {
           Benjamin
           <br />
           <span className="text-teal-400">Lassaut</span>
+          <span className="sr-only"> - QA Lead | Web3 Quality Engineering</span>
         </motion.h1>
 
         {/* Tagline */}
