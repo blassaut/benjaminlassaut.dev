@@ -364,16 +364,6 @@ export default function QaLab() {
               </motion.div>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            {['Chrome', 'Mobile Safari', 'Mobile Chrome'].map((browser) => (
-              <span
-                key={browser}
-                className="px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest text-muted/40 border border-white/5 rounded-full"
-              >
-                {browser}
-              </span>
-            ))}
-          </div>
         </motion.div>
 
         {/* QA Practices */}
