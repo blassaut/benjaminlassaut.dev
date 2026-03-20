@@ -55,11 +55,25 @@ export default function Intro() {
       <GridBackground />
 
       <div className="relative z-10 max-w-4xl text-center">
+        {/* Headshot */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
+          <img
+            src="/headshot.jpg"
+            alt="Benjamin Lassaut"
+            className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-[#0a0a0f]"
+          />
+        </motion.div>
+
         {/* Role label */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-6"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono tracking-widest uppercase text-teal-400 border border-teal-400/20 rounded-full bg-teal-400/5">
