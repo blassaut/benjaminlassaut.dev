@@ -314,7 +314,7 @@ export default function QaLab() {
             <span className="text-teal-400">tester</span>?
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
-            Instead of just telling you I'm good at testing, I built this page to show it.
+            Instead of telling you I'm good at testing, this page shows it.
             Everything here is automatically verified before it reaches you{' '}
             <a
               data-testid="qa-status-badge"
@@ -323,9 +323,9 @@ export default function QaLab() {
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
                 ciStatus === 'passing'
-                  ? 'text-emerald-400/60 border-emerald-400/10 bg-emerald-400/5'
+                  ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
                   : ciStatus === 'failing'
-                    ? 'text-red-400/60 border-red-400/10 bg-red-400/5'
+                    ? 'text-red-400 border-red-400/20 bg-red-400/10'
                     : 'text-muted/40 border-white/10 bg-white/5'
               }`}
             >
