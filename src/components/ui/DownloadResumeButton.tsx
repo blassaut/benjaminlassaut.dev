@@ -29,7 +29,7 @@ export default function DownloadResumeButton() {
       aria-label="Download Resume"
       title="Download Resume"
       data-testid="download-resume-button"
-      className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-white/10 text-muted hover:text-teal-400 hover:border-teal-400/30 transition-colors disabled:opacity-50 cursor-pointer"
+      className="inline-flex items-center justify-center w-11 h-11 rounded-lg text-muted/50 hover:text-teal-400 transition-colors disabled:opacity-50 cursor-pointer"
     >
       {generating ? (
         <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
