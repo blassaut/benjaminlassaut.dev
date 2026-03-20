@@ -330,7 +330,7 @@ export default function QaLab() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { value: features.reduce((sum, f) => sum + countScenarios(f), 0).toString(), label: 'Scenarios' },
-              { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Test runs' },
+              { value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(), label: 'Tests' },
               { value: '3', label: 'Browsers' },
               { value: features.length.toString(), label: 'User journeys' },
             ].map((stat, i) => (
