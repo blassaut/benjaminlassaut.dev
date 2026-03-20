@@ -31,20 +31,21 @@ export default function DownloadResumeButton() {
       aria-label="Download Resume"
       title="Download Resume"
       data-testid="download-resume-button"
-      className="inline-flex items-center justify-center w-11 h-11 rounded-lg text-muted/50 hover:text-teal-400 transition-colors disabled:opacity-50 cursor-pointer"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-muted/60 hover:text-teal-400 border border-white/5 hover:border-teal-400/20 transition-colors disabled:opacity-50 cursor-pointer"
     >
       {generating ? (
-        <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+        <svg className="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" opacity="0.3" />
           <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ) : (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
       )}
+      <span>{generating ? 'Generating...' : 'Download Resume'}</span>
     </button>
   )
 }
