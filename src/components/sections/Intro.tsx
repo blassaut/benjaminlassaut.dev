@@ -93,6 +93,7 @@ export default function Intro() {
           Benjamin
           <br />
           <span className="text-teal-400">Lassaut</span>
+          <span className="sr-only"> - QA Lead | Web3 Quality Engineering</span>
         </motion.h1>
 
         {/* Tagline */}
