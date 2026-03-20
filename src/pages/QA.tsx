@@ -239,7 +239,7 @@ const practices = [
   },
   {
     label: 'Playwright',
-    description: 'Cross-browser e2e tests run on Desktop Chrome, Mobile Safari, and Mobile Android on every push.',
+    description: 'Cross-browser e2e tests run on Chrome, Mobile Safari, and Mobile Chrome on every push.',
     detail: `${features.reduce((sum, f) => sum + countScenarios(f), 0)} scenarios across 3 browser projects`,
     icon: 'Pw',
     source: { label: 'playwright.config.ts', href: `${REPO}/blob/main/playwright.config.ts` },
@@ -307,16 +307,34 @@ export default function QaLab() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16 max-w-2xl"
+          className="mb-8 max-w-2xl"
         >
           <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             Who tests the<br />
             <span className="text-teal-400">tester</span>?
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
-            Instead of just telling you I'm good at testing, I built this page to show it.
-            Everything here is automatically verified before it reaches you - the same way
-            I'd set things up on your team's product.
+            Instead of telling you I'm good at testing, this page shows it.
+            Everything here is automatically verified before it reaches you{' '}
+            <a
+              data-testid="qa-status-badge"
+              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
+                ciStatus === 'passing'
+                  ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
+                  : ciStatus === 'failing'
+                    ? 'text-red-400 border-red-400/20 bg-red-400/10'
+                    : 'text-muted/40 border-white/10 bg-white/5'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                ciStatus === 'passing' ? 'bg-emerald-400 animate-pulse' : ciStatus === 'failing' ? 'bg-red-400' : 'bg-muted/40'
+              }`} />
+              {ciStatus === 'loading' ? '...' : ciStatus}
+            </a>{' '}
+            - the same way I'd set things up on your team's product.
           </p>
         </motion.div>
 
@@ -345,34 +363,6 @@ export default function QaLab() {
                 <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-2 mt-4">
-            {['Desktop Chrome', 'Mobile Safari', 'Mobile Android'].map((browser) => (
-              <span
-                key={browser}
-                className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-teal-400/60 border border-teal-400/10 rounded-full bg-teal-400/5"
-              >
-                {browser}
-              </span>
-            ))}
-            <a
-              data-testid="qa-status-badge"
-              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity ${
-                ciStatus === 'passing'
-                  ? 'text-emerald-400/60 border-emerald-400/10 bg-emerald-400/5'
-                  : ciStatus === 'failing'
-                    ? 'text-red-400/60 border-red-400/10 bg-red-400/5'
-                    : 'text-muted/40 border-white/10 bg-white/5'
-              }`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${
-                ciStatus === 'passing' ? 'bg-emerald-400 animate-pulse' : ciStatus === 'failing' ? 'bg-red-400' : 'bg-muted/40'
-              }`} />
-              {ciStatus === 'loading' ? '...' : ciStatus}
-            </a>
           </div>
         </motion.div>
 
