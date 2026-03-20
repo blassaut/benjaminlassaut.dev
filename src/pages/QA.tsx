@@ -321,7 +321,7 @@ export default function QaLab() {
               href="https://github.com/blassaut/benjaminlassaut.dev/actions"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-middle ${
+              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
                 ciStatus === 'passing'
                   ? 'text-emerald-400/60 border-emerald-400/10 bg-emerald-400/5'
                   : ciStatus === 'failing'
