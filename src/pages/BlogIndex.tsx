@@ -26,6 +26,22 @@ export default function BlogIndex() {
         <meta name="twitter:title" content="Blog - Benjamin Lassaut" />
         <meta name="twitter:description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
         <meta name="twitter:image" content="https://benjaminlassaut.dev/og-image.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Blog - Benjamin Lassaut',
+          description: 'Thoughts on QA, web3, smart contract testing, and building quality into software.',
+          url: 'https://benjaminlassaut.dev/blog',
+          mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: posts.map((post, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: `https://benjaminlassaut.dev/blog/${post.slug}`,
+              name: post.title,
+            })),
+          },
+        })}</script>
       </Helmet>
       <div className="max-w-3xl mx-auto">
         <motion.h1
