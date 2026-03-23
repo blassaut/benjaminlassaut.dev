@@ -22,6 +22,10 @@ export default function BlogIndex() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://benjaminlassaut.dev/blog" />
         <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog - Benjamin Lassaut" />
+        <meta name="twitter:description" content="Thoughts on QA, web3, smart contract testing, and building quality into software." />
+        <meta name="twitter:image" content="https://benjaminlassaut.dev/og-image.png" />
       </Helmet>
       <div className="max-w-3xl mx-auto">
         <motion.h1
