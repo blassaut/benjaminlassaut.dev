@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal portfolio site for Benjamin Lassaut — QA Lead at Kiln, specializing in web3 smart contract testing. Goals: recruiter magnet + thought leadership via blog.
+Personal portfolio site for Benjamin Lassaut — Lead QA Engineer at Kiln, specializing in web3 smart contract testing. Goals: recruiter magnet + thought leadership via blog.
 
 ## Tech Stack
 

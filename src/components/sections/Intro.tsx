@@ -65,7 +65,7 @@ export default function Intro() {
         >
           <img
             src="/headshot-optimized.webp"
-            alt="Benjamin Lassaut - QA Lead specializing in web3 testing"
+            alt="Benjamin Lassaut - Lead QA Engineer specializing in web3 testing"
             width={128}
             height={128}
             className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-[#0a0a0f]"
@@ -80,7 +80,7 @@ export default function Intro() {
           className="mb-6"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono tracking-widest uppercase text-teal-400 border border-teal-400/20 rounded-full bg-teal-400/5">
-            QA Lead &middot; Web3
+            Lead QA Engineer &middot; Web3
           </span>
         </motion.div>
 
@@ -94,7 +94,7 @@ export default function Intro() {
           Benjamin
           <br />
           <span className="text-teal-400">Lassaut</span>
-          <span className="sr-only"> - QA Lead | Web3 Quality Engineering</span>
+          <span className="sr-only"> - Lead QA Engineer | Web3 Quality Engineering</span>
         </motion.h1>
 
         {/* Tagline */}
