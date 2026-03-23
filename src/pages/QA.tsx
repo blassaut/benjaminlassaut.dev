@@ -304,19 +304,6 @@ export default function QaLab() {
         <meta name="twitter:title" content="Who tests the tester? - Benjamin Lassaut" />
         <meta name="twitter:description" content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI." />
         <meta name="twitter:image" content="https://benjaminlassaut.dev/og-image.png" />
-        <script type="application/ld+json">{JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'Who tests the tester? - Benjamin Lassaut',
-          description: 'This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI.',
-          url: 'https://benjaminlassaut.dev/qa',
-          author: { '@type': 'Person', name: 'Benjamin Lassaut', url: 'https://benjaminlassaut.dev' },
-          about: [
-            { '@type': 'Thing', name: 'Quality Assurance' },
-            { '@type': 'Thing', name: 'Behavior-Driven Development' },
-            { '@type': 'Thing', name: 'Test Automation' },
-          ],
-        })}</script>
       </Helmet>
 
       <div className="max-w-4xl mx-auto">

@@ -1,5 +1,5 @@
-import { readdirSync, writeFileSync } from 'fs'
-import { spawnSync } from 'child_process'
+import { readdirSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -8,19 +8,12 @@ const blogDir = join(__dirname, '..', 'src', 'content', 'blog')
 const outPath = join(__dirname, '..', 'public', 'sitemap.xml')
 
 const SITE = 'https://benjaminlassaut.dev'
-
-function getGitLastmod(filePath) {
-  const result = spawnSync('git', ['log', '-1', '--format=%aI', '--', filePath], {
-    encoding: 'utf-8',
-  })
-  const date = result.stdout?.trim()
-  return date ? date.split('T')[0] : null
-}
+const today = new Date().toISOString().split('T')[0]
 
 const staticPages = [
-  { loc: '/', file: 'src/pages/Home.tsx', priority: '1.0', changefreq: 'monthly' },
-  { loc: '/blog', file: 'src/pages/BlogIndex.tsx', priority: '0.8', changefreq: 'weekly' },
-  { loc: '/qa', file: 'src/pages/QA.tsx', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/', priority: '1.0', changefreq: 'monthly' },
+  { loc: '/blog', priority: '0.8', changefreq: 'weekly' },
+  { loc: '/qa', priority: '0.8', changefreq: 'monthly' },
 ]
 
 const blogSlugs = readdirSync(blogDir)
@@ -29,36 +22,15 @@ const blogSlugs = readdirSync(blogDir)
   .sort()
   .reverse()
 
-function buildUrlEntry({ loc, lastmod, changefreq, priority }) {
-  return [
-    '  <url>',
-    `    <loc>${SITE}${loc}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
-    `    <changefreq>${changefreq}</changefreq>`,
-    `    <priority>${priority}</priority>`,
-    '  </url>',
-  ].join('\n')
-}
-
 const urls = [
-  ...staticPages.map((p) =>
-    buildUrlEntry({
-      loc: p.loc,
-      lastmod: getGitLastmod(p.file) || new Date().toISOString().split('T')[0],
-      changefreq: p.changefreq,
-      priority: p.priority,
-    })
+  ...staticPages.map(
+    (p) =>
+      `  <url>\n    <loc>${SITE}${p.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
   ),
   ...blogSlugs.map((slug) => {
     const dateMatch = slug.match(/^(\d{4}-\d{2}-\d{2})/)
-    const gitDate = getGitLastmod(`src/content/blog/${slug}.md`)
-    const lastmod = gitDate || (dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0])
-    return buildUrlEntry({
-      loc: `/blog/${slug}`,
-      lastmod,
-      changefreq: 'monthly',
-      priority: '0.6',
-    })
+    const lastmod = dateMatch ? dateMatch[1] : today
+    return `  <url>\n    <loc>${SITE}/blog/${slug}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`
   }),
 ]
 
