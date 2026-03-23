@@ -1,12 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.benjaminlassaut.dev" }],
-      "destination": "https://benjaminlassaut.dev/:path*",
-      "statusCode": 308
-    }
-  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

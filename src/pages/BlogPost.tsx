@@ -28,7 +28,7 @@ export default function BlogPost() {
   return (
     <div data-testid="blog-post" className="pt-24 pb-16 px-6">
       <Helmet>
-        <title>{`${post.title} - Benjamin Lassaut`}</title>
+        <title>{post.title} - Benjamin Lassaut</title>
         <meta name="description" content={post.excerpt} />
         <link rel="canonical" href={`https://benjaminlassaut.dev/blog/${slug}`} />
         <meta property="og:title" content={post.title} />
@@ -36,10 +36,8 @@ export default function BlogPost() {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://benjaminlassaut.dev/blog/${slug}`} />
         <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:image" content="https://benjaminlassaut.dev/og-image.png" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
@@ -49,15 +47,6 @@ export default function BlogPost() {
           url: `https://benjaminlassaut.dev/blog/${slug}`,
           author: { '@type': 'Person', name: 'Benjamin Lassaut', url: 'https://benjaminlassaut.dev' },
           keywords: post.tags.join(', '),
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://benjaminlassaut.dev' },
-            { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://benjaminlassaut.dev/blog' },
-            { '@type': 'ListItem', position: 3, name: post.title, item: `https://benjaminlassaut.dev/blog/${slug}` },
-          ],
         })}</script>
       </Helmet>
       <motion.article

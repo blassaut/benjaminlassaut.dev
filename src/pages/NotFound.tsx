@@ -6,8 +6,6 @@ export default function NotFound() {
     <div data-testid="not-found-page" className="min-h-[60vh] flex items-center justify-center px-6">
       <Helmet>
         <title>404 - Page Not Found - Benjamin Lassaut</title>
-        <meta name="robots" content="noindex, nofollow" />
-        <meta name="description" content="Page not found. Return to Benjamin Lassaut's portfolio." />
       </Helmet>
       <div className="text-center">
         <h1 className="text-8xl font-heading font-bold text-teal-400 mb-4">404</h1>

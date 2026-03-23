@@ -90,7 +90,7 @@ export default function Intro() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-5xl sm:text-6xl md:text-8xl font-heading font-bold tracking-tight leading-none"
         >
-          Benjamin{' '}
+          Benjamin
           <br />
           <span className="text-teal-400">Lassaut</span>
           <span className="sr-only"> - QA Lead | Web3 Quality Engineering</span>
