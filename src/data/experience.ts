@@ -31,7 +31,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     company: 'Coinhouse',
-    role: 'QA Lead',
+    role: 'Lead QA Engineer',
     period: 'Jul 2023 - Oct 2023',
     highlights: [
       'Owned quality for the crypto exchange platform during a critical growth phase.',
