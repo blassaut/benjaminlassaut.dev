@@ -300,6 +300,10 @@ export default function QaLab() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://benjaminlassaut.dev/qa" />
         <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Who tests the tester? - Benjamin Lassaut" />
+        <meta name="twitter:description" content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI." />
+        <meta name="twitter:image" content="https://benjaminlassaut.dev/og-image.png" />
       </Helmet>
 
       <div className="max-w-4xl mx-auto">
