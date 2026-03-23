@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 function GridBackground() {
@@ -103,7 +104,8 @@ export default function Intro() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-6 text-lg md:text-xl text-muted font-body max-w-lg mx-auto"
         >
-          I design systems that catch bugs before users ever see them.
+          I design systems that catch bugs before users ever see them.{' '}
+          <Link to="/qa" className="italic text-muted/70 hover:text-teal-400 transition-colors">Including this one.</Link>
         </motion.p>
 
         {/* CTAs */}

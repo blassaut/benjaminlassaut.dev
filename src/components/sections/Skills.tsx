@@ -70,20 +70,19 @@ function BugSkillTag({ name }: { name: string }) {
             data-testid="bug-popover"
             role="tooltip"
           >
-            <span className="block font-heading text-sm text-teal-400 mb-1">
-              You found a deliberate bug!
+            <span className="block font-heading text-sm text-amber-400 mb-1">
+              This shouldn't be here.
             </span>
             <span className="block text-xs text-light/60 font-sans">
-              Playwright is a duplicate and doesn't belong in Infrastructure. Visit the{' '}
+              Playwright is already listed under Tools. Duplicate detected.{' '}
               <Link
                 to="/qa"
                 className="text-teal-400 underline hover:text-teal-300"
                 data-testid="bug-popover-link"
                 onClick={(e) => e.stopPropagation()}
               >
-                "Who tests the tester?"
-              </Link>{' '}
-              page to see how this site tests itself.
+                See how this site tests itself.
+              </Link>
             </span>
             {/* Arrow */}
             <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-teal-500/30" />
