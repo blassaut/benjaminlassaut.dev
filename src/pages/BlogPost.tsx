@@ -28,7 +28,7 @@ export default function BlogPost() {
   return (
     <div data-testid="blog-post" className="pt-24 pb-16 px-6">
       <Helmet>
-        <title>{post.title} - Benjamin Lassaut</title>
+        <title>{`${post.title} - Benjamin Lassaut`}</title>
         <meta name="description" content={post.excerpt} />
         <link rel="canonical" href={`https://benjaminlassaut.dev/blog/${slug}`} />
         <meta property="og:title" content={post.title} />
