@@ -63,3 +63,69 @@ describe('QA page - Get in touch CTA', () => {
     vi.useRealTimers()
   })
 })
+
+describe('QA page - Web3 staking demo section', () => {
+  it('renders the transition line between sections', () => {
+    renderQA()
+    expect(
+      screen.getByText(
+        /The same approach applies beyond UI testing/,
+      ),
+    ).toBeInTheDocument()
+  })
+
+  it('renders the Section 2 heading', () => {
+    renderQA()
+    expect(screen.getByText('A web3 staking demo')).toBeInTheDocument()
+  })
+
+  it('renders the intro copy', () => {
+    renderQA()
+    expect(
+      screen.getByText(/Testing web3 apps is not just UI automation/),
+    ).toBeInTheDocument()
+  })
+
+  it('renders web3 stats', () => {
+    renderQA()
+    const statsEl = document.querySelector('[data-testid="web3-stats"]')
+    expect(statsEl).toBeInTheDocument()
+  })
+
+  it('renders 4 web3 practice cards', () => {
+    renderQA()
+    expect(screen.getByText('Automated wallet interactions')).toBeInTheDocument()
+    expect(screen.getByText('Transaction lifecycle testing')).toBeInTheDocument()
+    expect(screen.getByText('Wrong-network resilience')).toBeInTheDocument()
+    expect(screen.getByText('Browser-level web3 testing')).toBeInTheDocument()
+  })
+
+  it('renders 5 web3 feature cards', () => {
+    renderQA()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-connects-wallet"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-stakes-successfully"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-rejects-transaction"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-is-on-wrong-network"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-unstakes-successfully"]')).toBeInTheDocument()
+  })
+
+  it('renders the visual preview placeholder', () => {
+    renderQA()
+    expect(screen.getByText('Preview coming from the live demo.')).toBeInTheDocument()
+  })
+
+  it('renders demo and repo CTAs', () => {
+    renderQA()
+    const demoLink = screen.getByRole('link', { name: /Try the live demo/ })
+    expect(demoLink).toHaveAttribute('href', expect.stringContaining('web3-staking-demo'))
+    const repoLinks = screen.getAllByRole('link', { name: /See the full implementation/ })
+    expect(repoLinks.some((l) => l.getAttribute('href')?.includes('web3-staking-demo'))).toBe(true)
+  })
+
+  it('renders the transparency line', () => {
+    renderQA()
+    expect(
+      screen.getByText(/The live demo uses real wallet interaction/),
+    ).toBeInTheDocument()
+  })
+})
