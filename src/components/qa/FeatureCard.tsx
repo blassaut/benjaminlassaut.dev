@@ -8,11 +8,13 @@ export function FeatureCard({
   index,
   defaultOpen = false,
   testIdPrefix = 'qa',
+  hook,
 }: {
   raw: string
   index: number
   defaultOpen?: boolean
   testIdPrefix?: string
+  hook?: string
 }) {
   const [open, setOpen] = useState(defaultOpen)
   const name = extractFeatureName(raw)
@@ -45,6 +47,7 @@ export function FeatureCard({
           </div>
           <span className="text-xs font-mono text-muted/60">
             {scenarioCount} scenario{scenarioCount !== 1 ? 's' : ''}
+            {hook && <span className="text-muted/40 ml-1"> · {hook}</span>}
           </span>
           {name.includes('Who tests the tester') && (
             <span className="text-xs font-body italic text-teal-400/50 ml-3">

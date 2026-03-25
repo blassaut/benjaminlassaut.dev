@@ -250,7 +250,7 @@ export default function QaLab() {
             Testing isn't about clicks. It's about transactions you can't undo.
           </p>
           <p className="text-muted font-body leading-relaxed mb-4">
-            The real failures happen in rejection, network mismatch, and transaction confirmation.
+            Failures happen in rejection, network mismatch, and transaction confirmation.
             The goal is to verify transaction outcomes and trust boundaries.
           </p>
           <p className="text-muted/60 font-body text-sm italic mb-10">
@@ -266,6 +266,9 @@ export default function QaLab() {
           className="mb-10"
         >
           <StatGrid stats={web3Stats} testIdPrefix="web3" />
+          <p className="text-[10px] font-mono text-muted/30 text-center mt-3">
+            Deterministic test environment. No flaky RPC or network dependency.
+          </p>
         </motion.div>
 
         {/* Web3 Practices */}
@@ -297,7 +300,18 @@ export default function QaLab() {
 
           <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
             {web3Features.map((raw, i) => (
-              <FeatureCard key={i} raw={raw} index={i} testIdPrefix="web3" />
+              <FeatureCard
+                key={i}
+                raw={raw}
+                index={i}
+                testIdPrefix="web3"
+                hook={
+                  {
+                    2: 'recovery without reload',
+                    3: 'blocked before any transaction',
+                  }[i]
+                }
+              />
             ))}
           </div>
         </motion.div>

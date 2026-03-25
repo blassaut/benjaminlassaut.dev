@@ -136,7 +136,7 @@ export const web3Practices = [
   {
     label: 'Transaction lifecycle testing',
     description:
-      'Validate pending, confirmed, and rejected states instead of only happy-path UI. Each transition is asserted, including recovery back to idle.',
+      'Validate pending, confirmed, and rejected states instead of only happy-path UI. Each transition is asserted - including recovery to idle.',
     detail: 'Processing -> confirmed / rejected -> idle',
     icon: 'Tx',
     caption: 'Dappwright + Playwright' as const,
