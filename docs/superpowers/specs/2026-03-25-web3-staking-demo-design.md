@@ -1,7 +1,7 @@
 # Web3 Staking Demo + QA Showcase
 
 **Date:** 2026-03-25
-**Status:** Draft
+**Status:** Final
 
 ## Goal
 
@@ -42,6 +42,7 @@ The separation is environment-driven (an env var like `VITE_MODE=demo|test`), no
 - ethers.js (wallet interaction)
 - Tailwind CSS (styling)
 - Hardhat (local node + contract deployment for tests)
+- Vitest + React Testing Library (unit tests, TDD)
 - Playwright + Dappwright (e2e wallet automation)
 
 ### Smart contract (~30 lines Solidity)
@@ -59,7 +60,7 @@ Six states, in order:
 1. **Disconnected** - no wallet connected. Only Connect Wallet button is active. All other UI elements are visible but visually disabled/inert (so visitors can see what the app does before connecting).
 2. **Connected, unsupported network** - wallet connected, wrong chain. Stake/unstake disabled. Banner: "Unsupported network detected: {network name}" / "Switch to Ethereum Hoodi to continue". Network chip shows amber. Network name is read from MetaMask (works in both demo and test modes since wallet connection is real).
 3. **Connected, supported network, idle** - ready to act. Shows staked balance (0 initially). Amount input and action buttons enabled based on preconditions.
-4. **Transaction pending** - wallet action approved, awaiting confirmation. Buttons disabled. Status panel shows "Transaction pending...".
+4. **Transaction pending** - wallet action approved, awaiting confirmation. Buttons disabled. Status panel shows "Processing stake..." or "Processing unstake...".
 5. **Transaction confirmed** - success. Balance updated. Status panel shows result (e.g., "Stake confirmed for 0.1 ETH") for 5 seconds, then app returns to state 3 (idle). Amount input resets to empty.
 6. **Transaction rejected** - user rejected in wallet. Status panel shows "Transaction rejected". Buttons re-enable. Amount preserved. App returns to state 3 (idle) after 5 seconds.
 
@@ -76,7 +77,7 @@ Six states, in order:
 - **Staked balance display** - read-only, updates after stake/unstake. Shows "0 ETH" when nothing staked.
 - **Amount input** - number field, only enabled in state 3
 - **Stake button** - disabled when: disconnected, unsupported network, empty/zero amount
-- **Unstake button** - disabled when: disconnected, unsupported network, zero staked balance. Only visible/enabled when staked balance > 0.
+- **Unstake button** - visible whenever connected (visible but disabled). Enabled only when: supported network AND staked balance > 0. Disabled otherwise.
 - **Persistent status panel** - two lines:
   - Current system state (e.g., "Connected on Ethereum Hoodi")
   - Last meaningful action result (e.g., "Stake confirmed for 0.1 ETH")
@@ -108,13 +109,13 @@ Built into the UI, not a separate journey:
 - No wallet installed: message shown, nothing else enabled
 - No wallet connected: only Connect button active
 - Empty/zero amount: Stake button disabled
-- Zero staked balance: Unstake button disabled/hidden
+- Zero staked balance: Unstake button disabled
 - Wrong network: both action buttons disabled, banner shown
 
 ### Behavioral details
 
 - After successful stake: reset amount input, update balance
-- After successful unstake: update balance to 0, hide unstake button
+- After successful unstake: update balance to 0, unstake button becomes disabled
 - After rejection: preserve entered amount, re-enable buttons
 - After wrong network: preserve entered amount
 - After confirmation: status panel holds result for 5 seconds, then returns to idle
@@ -156,11 +157,11 @@ Ethereum Hoodi testnet (chain ID 560048). All other networks are treated as unsu
 #### 4. Visitor is on wrong network (3 scenarios)
 - Connected on unsupported network, banner shows network name and switch guidance
 - Stake button is disabled on unsupported network
-- Unstake button is disabled on unsupported network
+- Unstake button remains disabled on unsupported network
 
 #### 5. Visitor unstakes successfully (2 scenarios)
 - Connected on Hoodi with staked balance, unstakes, balance returns to 0
-- After unstake, unstake button becomes disabled
+- After unstake, unstake button returns to disabled state
 
 **Total: 13 scenarios across 5 journeys.**
 
@@ -172,13 +173,28 @@ Two distinct failure modes tested:
 
 Stats row will show "2 failure modes" (not 3).
 
-### Test setup
+### Development approach: TDD
 
-- Playwright + Dappwright for browser-level wallet automation
+All implementation follows test-driven development. Write the test first, watch it fail, implement the minimum code to pass, then refine.
+
+#### Unit tests (Vitest + React Testing Library)
+
+Written before implementation. Cover logic and component behavior in isolation:
+
+- **Hooks** (`useWallet`, `useStaking`, `useNetwork`): state transitions, error handling, return values
+- **Providers** (`controlled-provider`, `contract-provider`): correct method calls, state updates, error propagation
+- **Components**: render states (disconnected, connected, pending, etc.), disabled/enabled conditions, displayed values, user interactions
+- **State model**: transition logic between the 6 states, edge cases (no wallet, connection cancelled)
+
+Provider dependencies (ethers.js, MetaMask) are mocked in unit tests. Each hook and component is tested against all relevant states before the code is written.
+
+#### E2E tests (Playwright + Dappwright)
+
 - Hardhat local node starts before test suite (via `globalSetup`)
 - Contract deployed in test setup fixture
 - Gherkin feature files with BDD step definitions (playwright-bdd)
 - Tests assert on: UI state, status panel content, balance display, button enabled/disabled states, banner visibility
+- 13 scenarios across 5 journeys validate the full user experience with a real wallet
 
 ### Done criteria
 
@@ -188,6 +204,7 @@ Stats row will show "2 failure modes" (not 3).
 - Stake rejection visible, app recovers (buttons re-enable, amount preserved)
 - Unstake success visible, balance updates
 - Staked balance reflects round-trip correctly (0 -> staked -> 0)
+- Unit test suite passes (all hooks, providers, and components covered)
 - Dappwright suite passes deterministically against Hardhat
 
 ---
@@ -209,7 +226,11 @@ Section 1: "This portfolio" (existing content, unchanged)
   - Feature files accordion
   - Repo link
 
-Transition line: "The same approach applies beyond UI testing — including wallet-driven transaction flows."
+Transition block:
+  "In web3, bugs don't just break UX - they lose money."
+  "Testing isn't about clicks. It's about transactions you can't undo."
+  "That means validating rejection, network mismatch, and confirmation - not just UI."
+  "Most QA systems stop at the UI. This one tests what actually happens inside the wallet."
 
 Section 2: "A web3 staking demo" (new)
   - Intro copy
@@ -228,10 +249,6 @@ The existing CTA moves to the very end, after both sections. It serves as the pa
 ### Section 2 heading
 
 "A web3 staking demo" - rendered with the same `SectionHeading` component used in Section 1.
-
-### Intro copy
-
-> Testing web3 apps is not just UI automation with a wallet popup. The real failures happen in rejection, network mismatch, and transaction confirmation. The goal is not to verify clicks - it is to verify transaction outcomes and trust boundaries.
 
 ### Stats row (4 items, same grid as Section 1)
 
@@ -300,6 +317,21 @@ web3-staking-demo/
 |   |   +-- controlled-provider.ts      # personal_sign + local state for demo mode
 |   |   +-- contract-provider.ts   # real contract calls for test mode
 |   +-- types.ts
++-- src/__tests__/
+|   +-- hooks/
+|   |   +-- useWallet.test.ts
+|   |   +-- useStaking.test.ts
+|   |   +-- useNetwork.test.ts
+|   +-- lib/
+|   |   +-- controlled-provider.test.ts
+|   |   +-- contract-provider.test.ts
+|   +-- components/
+|   |   +-- ConnectWallet.test.tsx
+|   |   +-- NetworkChip.test.tsx
+|   |   +-- StakeForm.test.tsx
+|   |   +-- StatusPanel.test.tsx
+|   |   +-- StakedBalance.test.tsx
+|   |   +-- NetworkBanner.test.tsx
 +-- contracts/
 |   +-- Staking.sol
 +-- e2e/
@@ -356,15 +388,16 @@ web3-staking-demo/
 ## Timeline estimate
 
 ### Weekend 1
-- Init repo, set up Vite + React + Tailwind + ethers.js
-- Build UI components (all 8 elements)
+- Init repo, set up Vite + React + Tailwind + ethers.js + Vitest
+- TDD: write unit tests for hooks and providers, then implement
+- TDD: write unit tests for components, then build core UI components
 - Implement controlled-provider.ts (personal_sign + local state)
 - Wire up state model and all 6 states
 - Handle all preconditions and edge states
 
 ### Weekend 2
 - Hardhat contract + local node setup
-- Implement contract-provider.ts
+- TDD: write unit tests for contract-provider, then implement
 - Dappwright + Playwright test suite (13 scenarios)
 - Portfolio `/qa` page Section 2 integration
 - Feature file content in `src/data/web3-features.ts`

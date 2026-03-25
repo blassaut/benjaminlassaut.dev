@@ -68,9 +68,13 @@ describe('QA page - Web3 staking demo section', () => {
   it('renders the transition line between sections', () => {
     renderQA()
     expect(
-      screen.getByText(
-        /The same approach applies where failures are more expensive/,
-      ),
+      screen.getByText(/bugs don't just break UX/),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/validating rejection, network mismatch/),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Most QA systems stop at the UI/),
     ).toBeInTheDocument()
   })
 

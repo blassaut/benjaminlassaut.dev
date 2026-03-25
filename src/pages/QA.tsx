@@ -161,14 +161,14 @@ export default function QaLab() {
           </p>
         </motion.div>
 
-        {/* Section 1: This portfolio */}
+        {/* Section 1: How this is tested */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
           className="mb-10"
         >
-          <SectionHeading>This portfolio</SectionHeading>
+          <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
             Tested the same way I'd test your product - every interaction, every state, every edge case.
           </p>
@@ -191,7 +191,7 @@ export default function QaLab() {
           transition={{ delay: 0.1 }}
           className="mb-20"
         >
-          <SectionHeading>How it's built</SectionHeading>
+          <SectionHeading>How it works</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {practices.map((p, i) => (
               <PracticeCard key={p.label} practice={p} index={i} />
@@ -245,8 +245,15 @@ export default function QaLab() {
           viewport={{ once: true }}
           className="text-center py-16"
         >
-          <p className="text-muted font-body text-sm italic">
-            The same approach applies where failures are more expensive - including wallet-driven transaction flows.
+          <p className="text-light/90 font-body font-medium leading-relaxed">
+            In web3, bugs don't just break UX - they lose money.<br />
+            Testing isn't about clicks. It's about transactions you can't undo.
+          </p>
+          <p className="text-muted font-body leading-relaxed mt-3">
+            That means validating rejection, network mismatch, and confirmation - not just UI.
+          </p>
+          <p className="text-muted/60 font-body text-sm italic mt-3">
+            Most QA systems stop at the UI. This one tests what actually happens inside the wallet.
           </p>
         </motion.div>
 
@@ -258,16 +265,6 @@ export default function QaLab() {
           className="mb-8"
         >
           <SectionHeading>A web3 staking demo</SectionHeading>
-          <p className="text-light/90 font-body font-medium leading-relaxed -mt-4 mb-4">
-            In web3, bugs don't just break UX - they lose money.<br />
-            Testing isn't about clicks. It's about transactions you can't undo.
-          </p>
-          <p className="text-muted font-body leading-relaxed mb-4">
-            This means validating rejection, network mismatch, and transaction confirmation - not just UI.
-          </p>
-          <p className="text-muted/60 font-body text-sm italic mb-10">
-            Most QA systems stop at the UI. This one tests what actually happens inside the wallet.
-          </p>
         </motion.div>
 
         {/* Web3 stat bar */}
@@ -290,7 +287,7 @@ export default function QaLab() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <SectionHeading>How it's built</SectionHeading>
+          <SectionHeading>How it works</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {web3Practices.map((p, i) => (
               <PracticeCard key={p.label} practice={p} index={i} />
