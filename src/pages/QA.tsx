@@ -161,7 +161,17 @@ export default function QaLab() {
           </p>
         </motion.div>
 
-        {/* Hero stat bar */}
+        {/* Section 1: This portfolio */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08 }}
+          className="mb-10"
+        >
+          <SectionHeading>This portfolio</SectionHeading>
+        </motion.div>
+
+        {/* Section 1 stat bar */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
