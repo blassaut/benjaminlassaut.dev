@@ -19,7 +19,7 @@ describe('PracticeCard', () => {
     detail: 'Dappwright drives MetaMask',
     icon: 'Wx',
     caption: 'Dappwright + Playwright' as const,
-    source: { label: 'e2e/steps/', href: 'https://github.com/blassaut/web3-staking-demo/tree/main/e2e/steps' },
+    source: { label: 'e2e/steps/', href: 'https://github.com/blassaut/dapp-demo/tree/main/e2e/steps' },
   }
 
   it('renders label, description, and detail', () => {

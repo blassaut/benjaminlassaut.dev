@@ -349,7 +349,7 @@ export default function QaLab() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
-            href="https://web3-staking-demo.vercel.app"
+            href="https://dapp-demo.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-2.5 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
@@ -357,7 +357,7 @@ export default function QaLab() {
             Test the wallet flow live
           </a>
           <a
-            href="https://github.com/blassaut/web3-staking-demo"
+            href="https://github.com/blassaut/dapp-demo"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-mono text-light/60 hover:text-teal-400 hover:underline transition-colors"

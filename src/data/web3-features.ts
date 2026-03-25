@@ -1,4 +1,4 @@
-const WEB3_REPO = 'https://github.com/blassaut/web3-staking-demo'
+const WEB3_REPO = 'https://github.com/blassaut/dapp-demo'
 
 export const web3Features: string[] = [
   `Feature: Visitor connects wallet

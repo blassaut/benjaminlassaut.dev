@@ -121,9 +121,9 @@ describe('QA page - Web3 staking demo section', () => {
   it('renders demo and repo CTAs', () => {
     renderQA()
     const demoLink = screen.getByRole('link', { name: /Test the wallet flow live/ })
-    expect(demoLink).toHaveAttribute('href', expect.stringContaining('web3-staking-demo'))
+    expect(demoLink).toHaveAttribute('href', expect.stringContaining('dapp-demo'))
     const repoLink = screen.getByRole('link', { name: /Explore the test suite/ })
-    expect(repoLink).toHaveAttribute('href', expect.stringContaining('web3-staking-demo'))
+    expect(repoLink).toHaveAttribute('href', expect.stringContaining('dapp-demo'))
   })
 
   it('renders the transparency line', () => {

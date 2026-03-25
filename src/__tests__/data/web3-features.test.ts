@@ -52,9 +52,9 @@ describe('web3-features data', () => {
       }
     })
 
-    it('all source links point to web3-staking-demo repo', () => {
+    it('all source links point to dapp-demo repo', () => {
       for (const p of web3Practices) {
-        expect(p.source.href).toContain('github.com/blassaut/web3-staking-demo')
+        expect(p.source.href).toContain('github.com/blassaut/dapp-demo')
       }
     })
 
