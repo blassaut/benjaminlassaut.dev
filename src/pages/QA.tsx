@@ -250,7 +250,7 @@ export default function QaLab() {
             Testing isn't about clicks. It's about transactions you can't undo.
           </p>
           <p className="text-muted font-body leading-relaxed mt-3">
-            That means validating rejection, network mismatch, and confirmation - not just UI.
+            This means validating rejection, network mismatch, and confirmation - not just UI.
           </p>
           <p className="text-muted/60 font-body text-sm italic mt-3">
             Most QA systems stop at the UI. This one tests what actually happens inside the wallet.
