@@ -56,10 +56,10 @@ Deployed to local Hardhat node for test mode only.
 
 Six states, in order:
 
-1. **Disconnected** - no wallet connected. Only Connect Wallet button is active. All other elements are hidden or visually inert.
+1. **Disconnected** - no wallet connected. Only Connect Wallet button is active. All other UI elements are visible but visually disabled/inert (so visitors can see what the app does before connecting).
 2. **Connected, unsupported network** - wallet connected, wrong chain. Stake/unstake disabled. Banner: "Unsupported network detected: {network name}" / "Switch to Ethereum Hoodi to continue". Network chip shows amber. Network name is read from MetaMask (works in both demo and test modes since wallet connection is real).
 3. **Connected, supported network, idle** - ready to act. Shows staked balance (0 initially). Amount input and action buttons enabled based on preconditions.
-4. **Transaction pending** - stake or unstake submitted, awaiting wallet response. Buttons disabled. Status panel shows "Transaction pending...".
+4. **Transaction pending** - wallet action approved, awaiting confirmation. Buttons disabled. Status panel shows "Transaction pending...".
 5. **Transaction confirmed** - success. Balance updated. Status panel shows result (e.g., "Stake confirmed for 0.1 ETH") for 5 seconds, then app returns to state 3 (idle). Amount input resets to empty.
 6. **Transaction rejected** - user rejected in wallet. Status panel shows "Transaction rejected". Buttons re-enable. Amount preserved. App returns to state 3 (idle) after 5 seconds.
 
@@ -104,7 +104,7 @@ Built into the UI, not a separate journey:
 
 ### Demo mode mechanics
 
-The `demo-provider.ts` module implements a `StakingProvider` interface identical to `contract-provider.ts`:
+The `controlled-provider.ts` module implements a `StakingProvider` interface identical to `contract-provider.ts`:
 
 1. **Wallet connection**: real MetaMask via ethers.js `BrowserProvider`. No simulation.
 2. **Network detection**: real, read from MetaMask's connected chain. No simulation.
@@ -190,6 +190,8 @@ Section 1: "This portfolio" (existing content, unchanged)
   - Feature files accordion
   - Repo link
 
+Transition line: "The same approach applies beyond UI testing — including wallet-driven transaction flows."
+
 Section 2: "A web3 staking demo" (new)
   - Intro copy
   - Stats row
@@ -224,7 +226,7 @@ Hardcoded values (since feature files live in a separate repo and cannot be dyna
 ### "How it's built" cards (4 cards, same layout as Section 1)
 
 1. **Automated wallet interactions** - Connect MetaMask, approve or reject wallet actions, and switch networks inside end-to-end tests.
-2. **Transaction lifecycle testing** - Validate pending, confirmed, rejected, and failed states instead of only happy-path UI.
+2. **Transaction lifecycle testing** - Validate pending, confirmed, and rejected states instead of only happy-path UI.
 3. **Wrong-network resilience** - Tests verify that unsupported networks are detected and recovery guidance is shown before any action is taken.
 4. **Browser-level web3 testing** - Wallet-driven flows are tested in the browser where failures actually happen - network selection, confirmation, rejection, and post-transaction state.
 
@@ -276,7 +278,7 @@ web3-staking-demo/
 |   |   +-- useNetwork.ts
 |   +-- lib/
 |   |   +-- types.ts              # StakingProvider interface
-|   |   +-- demo-provider.ts      # personal_sign + local state for demo mode
+|   |   +-- controlled-provider.ts      # personal_sign + local state for demo mode
 |   |   +-- contract-provider.ts   # real contract calls for test mode
 |   +-- types.ts
 +-- contracts/
@@ -337,7 +339,7 @@ web3-staking-demo/
 ### Weekend 1
 - Init repo, set up Vite + React + Tailwind + ethers.js
 - Build UI components (all 8 elements)
-- Implement demo-provider.ts (personal_sign + local state)
+- Implement controlled-provider.ts (personal_sign + local state)
 - Wire up state model and all 6 states
 - Handle all preconditions and edge states
 
