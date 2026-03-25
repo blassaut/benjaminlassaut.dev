@@ -82,6 +82,25 @@ Six states, in order:
   - Last meaningful action result (e.g., "Stake confirmed for 0.1 ETH")
   - Persists until next action or 5-second timeout. Not toasts.
 
+### data-testid attributes
+
+Every interactive and assertable element gets a `data-testid`, following the same `{section}-{element}-{qualifier}` convention used in the portfolio site. Dappwright tests target these exclusively - never CSS selectors or DOM structure.
+
+| Element | data-testid |
+|---------|-------------|
+| Connect Wallet button | `wallet-connect-button` |
+| Connected address | `wallet-address` |
+| Network chip | `network-chip` |
+| Network banner (unsupported) | `network-banner-unsupported` |
+| Staked balance | `staking-balance` |
+| Amount input | `staking-input-amount` |
+| Stake button | `staking-button-stake` |
+| Unstake button | `staking-button-unstake` |
+| Status panel | `status-panel` |
+| Status - current state | `status-current` |
+| Status - last action | `status-last-action` |
+| No wallet message | `wallet-not-detected` |
+
 ### Precondition handling
 
 Built into the UI, not a separate journey:
