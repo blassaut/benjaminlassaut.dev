@@ -132,7 +132,7 @@ export default function QaLab() {
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
             Instead of telling you I'm good at testing, this page proves it. Everything here is
-            automatically verified before it reaches you{' '}
+            automatically verified{' '}
             <a
               data-testid="qa-status-badge"
               href="https://github.com/blassaut/benjaminlassaut.dev/actions"
@@ -157,7 +157,7 @@ export default function QaLab() {
               />
               {ciStatus === 'loading' ? '...' : ciStatus}
             </a>{' '}
-            - the same way I'd set things up on your team's product.
+            - the same way I'd set things up on your product.
           </p>
         </motion.div>
 
@@ -263,11 +263,10 @@ export default function QaLab() {
             Testing isn't about clicks. It's about transactions you can't undo.
           </p>
           <p className="text-muted font-body leading-relaxed mb-4">
-            Failures happen in rejection, network mismatch, and transaction confirmation.
-            The goal is to verify transaction outcomes and trust boundaries.
+            This means validating rejection, network mismatch, and transaction confirmation - not just UI.
           </p>
           <p className="text-muted/60 font-body text-sm italic mb-10">
-            Most QA systems stop at the UI. This one validates what happens inside the wallet.
+            Most QA systems stop at the UI. This one tests what actually happens inside the wallet.
           </p>
         </motion.div>
 

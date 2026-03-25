@@ -82,7 +82,7 @@ describe('web3-features data', () => {
       expect(map['User journeys']).toBe('5')
       expect(map['Scenarios']).toBe('13')
       expect(map['Failure modes']).toBe('2')
-      expect(map['Wallet interactions']).toBe('Real')
+      expect(map['Wallet-level interactions']).toBe('Real')
     })
   })
 })
