@@ -127,8 +127,8 @@ export const web3Practices = [
   {
     label: 'Automated wallet interactions',
     description:
-      'Connect MetaMask, approve or reject wallet actions, and switch networks inside end-to-end tests.',
-    detail: 'Dappwright drives a real MetaMask extension in Playwright',
+      'Connect MetaMask, approve or reject transactions, and switch networks inside end-to-end tests - driven by a real wallet extension in Playwright.',
+    detail: '0 mocked wallet interactions',
     icon: 'Wx',
     caption: 'Dappwright + Playwright' as const,
     source: { label: 'e2e/steps/', href: `${WEB3_REPO}/tree/main/e2e/steps` },
@@ -136,8 +136,8 @@ export const web3Practices = [
   {
     label: 'Transaction lifecycle testing',
     description:
-      'Validate pending, confirmed, and rejected states instead of only happy-path UI.',
-    detail: 'Processing -> confirmed / rejected -> idle recovery',
+      'Validate pending, confirmed, and rejected states instead of only happy-path UI. Each transition is asserted, including recovery back to idle.',
+    detail: 'Processing -> confirmed / rejected -> idle',
     icon: 'Tx',
     caption: 'Dappwright + Playwright' as const,
     source: { label: 'e2e/features/', href: `${WEB3_REPO}/tree/main/e2e/features` },
@@ -145,8 +145,8 @@ export const web3Practices = [
   {
     label: 'Wrong-network resilience',
     description:
-      'Tests verify that unsupported networks are detected and recovery guidance is shown before any action is taken.',
-    detail: 'Banner, disabled buttons, amber network chip',
+      'Tests verify that unsupported networks are detected and action buttons are disabled before any transaction can be attempted. Recovery guidance is shown automatically.',
+    detail: 'Banner + disabled buttons + amber network chip',
     icon: 'Nw',
     caption: 'Dappwright + Playwright' as const,
     source: {
@@ -157,8 +157,8 @@ export const web3Practices = [
   {
     label: 'Browser-level web3 testing',
     description:
-      'Wallet-driven flows are tested in the browser where failures actually happen - network selection, confirmation, rejection, and post-transaction state.',
-    detail: 'Real MetaMask extension, real wallet prompts',
+      'Wallet-driven flows are tested in the browser where failures actually happen. No API shortcuts - every interaction goes through a real MetaMask extension.',
+    detail: 'Network selection, confirmation, rejection, post-transaction state',
     icon: 'W3',
     caption: 'Dappwright + Playwright' as const,
     source: {
@@ -172,5 +172,5 @@ export const web3Stats = [
   { value: '5', label: 'User journeys' },
   { value: '13', label: 'Scenarios' },
   { value: '2', label: 'Failure modes' },
-  { value: '1', label: 'Wallet (MetaMask)' },
+  { value: 'Real', label: 'Wallet interactions' },
 ]

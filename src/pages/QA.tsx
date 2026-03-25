@@ -246,11 +246,15 @@ export default function QaLab() {
         >
           <SectionHeading>A web3 staking demo</SectionHeading>
           <p className="text-light/90 font-body font-medium leading-relaxed -mt-4 mb-4">
-            In web3, testing isn't about clicks - it's about transactions you can't undo.
+            In web3, bugs don't just break UX - they lose money.<br />
+            Testing isn't about clicks. It's about transactions you can't undo.
           </p>
-          <p className="text-muted font-body leading-relaxed mb-10">
+          <p className="text-muted font-body leading-relaxed mb-4">
             The real failures happen in rejection, network mismatch, and transaction confirmation.
-            The goal is not to verify clicks - it is to verify transaction outcomes and trust boundaries.
+            The goal is to verify transaction outcomes and trust boundaries.
+          </p>
+          <p className="text-muted/60 font-body text-sm italic mb-10">
+            Most QA systems stop at the UI. This one validates what happens inside the wallet.
           </p>
         </motion.div>
 
@@ -305,9 +309,12 @@ export default function QaLab() {
           viewport={{ once: true }}
           className="mb-10"
         >
-          <div className="rounded-xl border border-dashed border-white/10 bg-dark-800/10 p-12 text-center">
-            <p className="text-muted/50 font-mono text-sm">Demo flow preview coming soon.</p>
-            <p className="text-muted/30 font-mono text-xs mt-2">Connect wallet, stake, confirm in MetaMask, success state - in a 5-second loop.</p>
+          <div className="rounded-xl border border-dashed border-white/10 bg-dark-800/10 py-10 px-6 text-center">
+            <p className="text-light/60 font-heading font-semibold text-sm mb-3">End-to-end wallet flow</p>
+            <p className="text-muted/40 font-mono text-xs leading-relaxed">
+              Connect &rarr; sign in MetaMask &rarr; confirm &rarr; state updates &rarr; recovery
+            </p>
+            <p className="text-muted/25 font-mono text-[10px] mt-4">Preview coming from the live demo</p>
           </div>
         </motion.div>
 
@@ -324,7 +331,7 @@ export default function QaLab() {
             rel="noopener noreferrer"
             className="inline-block px-6 py-2.5 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
           >
-            Try the live demo
+            Test the wallet flow live
           </a>
           <a
             href="https://github.com/blassaut/web3-staking-demo"
@@ -335,7 +342,7 @@ export default function QaLab() {
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
             </svg>
-            See the full implementation
+            Explore the test suite
           </a>
         </motion.div>
 

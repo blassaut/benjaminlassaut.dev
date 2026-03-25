@@ -82,7 +82,7 @@ describe('QA page - Web3 staking demo section', () => {
   it('renders the intro copy', () => {
     renderQA()
     expect(
-      screen.getByText(/testing isn't about clicks/),
+      screen.getByText(/bugs don't just break UX/),
     ).toBeInTheDocument()
   })
 
@@ -111,15 +111,15 @@ describe('QA page - Web3 staking demo section', () => {
 
   it('renders the visual preview placeholder', () => {
     renderQA()
-    expect(screen.getByText('Demo flow preview coming soon.')).toBeInTheDocument()
+    expect(screen.getByText('End-to-end wallet flow')).toBeInTheDocument()
   })
 
   it('renders demo and repo CTAs', () => {
     renderQA()
-    const demoLink = screen.getByRole('link', { name: /Try the live demo/ })
+    const demoLink = screen.getByRole('link', { name: /Test the wallet flow live/ })
     expect(demoLink).toHaveAttribute('href', expect.stringContaining('web3-staking-demo'))
-    const repoLinks = screen.getAllByRole('link', { name: /See the full implementation/ })
-    expect(repoLinks.some((l) => l.getAttribute('href')?.includes('web3-staking-demo'))).toBe(true)
+    const repoLink = screen.getByRole('link', { name: /Explore the test suite/ })
+    expect(repoLink).toHaveAttribute('href', expect.stringContaining('web3-staking-demo'))
   })
 
   it('renders the transparency line', () => {
