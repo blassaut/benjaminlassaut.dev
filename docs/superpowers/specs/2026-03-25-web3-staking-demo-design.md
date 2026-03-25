@@ -93,13 +93,14 @@ Every interactive and assertable element gets a `data-testid`, following the sam
 | Connected address | `wallet-address` |
 | Network chip | `network-chip` |
 | Network banner (unsupported) | `network-banner-unsupported` |
-| Staked balance | `staking-balance` |
-| Amount input | `staking-input-amount` |
-| Stake button | `staking-button-stake` |
-| Unstake button | `staking-button-unstake` |
+| Locked balance | `lockbox-balance` |
+| Amount input | `lockbox-input-amount` |
+| Deposit button | `lockbox-button-deposit` |
+| Withdraw button | `lockbox-button-withdraw` |
 | Status panel | `status-panel` |
 | Status - current state | `status-current` |
 | Status - last action | `status-last-action` |
+| Transaction hash link | `status-tx-link` |
 | No wallet message | `wallet-not-detected` |
 
 ### Precondition handling
