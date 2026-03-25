@@ -172,5 +172,5 @@ export const web3Stats = [
   { value: '5', label: 'User journeys' },
   { value: '13', label: 'Scenarios' },
   { value: '2', label: 'Failure modes' },
-  { value: '1', label: 'Wallets' },
+  { value: '1', label: 'Wallet (MetaMask)' },
 ]

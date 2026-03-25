@@ -69,7 +69,7 @@ describe('QA page - Web3 staking demo section', () => {
     renderQA()
     expect(
       screen.getByText(
-        /The same approach applies beyond UI testing/,
+        /The same approach applies where failures are more expensive/,
       ),
     ).toBeInTheDocument()
   })
@@ -82,7 +82,7 @@ describe('QA page - Web3 staking demo section', () => {
   it('renders the intro copy', () => {
     renderQA()
     expect(
-      screen.getByText(/Testing web3 apps is not just UI automation/),
+      screen.getByText(/testing isn't about clicks/),
     ).toBeInTheDocument()
   })
 
@@ -111,7 +111,7 @@ describe('QA page - Web3 staking demo section', () => {
 
   it('renders the visual preview placeholder', () => {
     renderQA()
-    expect(screen.getByText('Preview coming from the live demo.')).toBeInTheDocument()
+    expect(screen.getByText('Demo flow preview coming soon.')).toBeInTheDocument()
   })
 
   it('renders demo and repo CTAs', () => {
