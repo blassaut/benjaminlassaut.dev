@@ -37,7 +37,7 @@ export default function Footer() {
               </svg>
             </Link>
             <p className="text-sm text-muted font-body max-w-xs">
-              Lead QA Engineer building quality into web3 infrastructure.
+              Lead QA Engineer focused on testing real-world web3 systems end-to-end.
             </p>
           </div>
 

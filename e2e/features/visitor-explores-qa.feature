@@ -27,3 +27,8 @@ Feature: Visitor explores "Who tests the tester?"
   Scenario: CI status badge is displayed
     Given I am on the "Who tests the tester?" page
     Then I should see the CI status badge
+
+  Scenario: Web3 feature files are displayed
+    Given I am on the "Who tests the tester?" page
+    Then I should see at least one web3 feature file section
+

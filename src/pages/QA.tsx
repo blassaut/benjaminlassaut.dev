@@ -76,13 +76,11 @@ const stats = [
   { value: '3', label: 'Browsers' },
 ]
 
-function useCIStatus() {
+function useCIStatus(badgeUrl: string) {
   const [status, setStatus] = useState<'passing' | 'failing' | 'loading'>('loading')
 
   useEffect(() => {
-    fetch(
-      'https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg',
-    )
+    fetch(badgeUrl)
       .then((res) => res.text())
       .then((svg) => {
         if (svg.includes('passing')) setStatus('passing')
@@ -90,13 +88,14 @@ function useCIStatus() {
         else setStatus('passing')
       })
       .catch(() => setStatus('passing'))
-  }, [])
+  }, [badgeUrl])
 
   return status
 }
 
 export default function QaLab() {
-  const ciStatus = useCIStatus()
+  const ciStatus = useCIStatus('https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg')
+  const dappCIStatus = useCIStatus('https://github.com/blassaut/dapp-demo/actions/workflows/ci.yml/badge.svg')
   const navigate = useNavigate()
 
   return (
@@ -132,7 +131,8 @@ export default function QaLab() {
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
             Instead of telling you I'm good at testing, this page proves it. Everything here is
-            automatically verified{' '}
+            automatically verified - the same way I'd set things up on your product.<br />
+            Status:{' '}
             <a
               data-testid="qa-status-badge"
               href="https://github.com/blassaut/benjaminlassaut.dev/actions"
@@ -156,8 +156,7 @@ export default function QaLab() {
                 }`}
               />
               {ciStatus === 'loading' ? '...' : ciStatus}
-            </a>{' '}
-            - the same way I'd set things up on your product.
+            </a>
           </p>
         </motion.div>
 
@@ -234,37 +233,96 @@ export default function QaLab() {
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
             </svg>
-            Inspect the test suite
+            Explore the test suite
           </a>
         </motion.div>
 
-        {/* Transition line */}
+        {/* Section divider */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center py-16"
+          className="mt-20 mb-12 pt-16 max-w-2xl"
         >
-          <p className="text-light/90 font-body font-medium leading-relaxed">
-            In web3, bugs don't just break UX - they lose money.<br />
-            Testing isn't about clicks. It's about transactions you can't undo.
-          </p>
-          <p className="text-muted font-body leading-relaxed mt-3">
-            This means validating rejection, network mismatch, and confirmation - not just UI.
-          </p>
-          <p className="text-muted/60 font-body text-sm italic mt-3">
-            Most QA systems stop at the UI. This one tests what actually happens inside the wallet.
+          <hr className="border-white/5 mb-16" />
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
+            From UI to<br />
+            <span className="text-teal-400">on-chain</span> systems
+          </h2>
+          <p className="text-muted font-body text-lg leading-relaxed">
+            In web3, bugs don't just break UX - they lose money.
+            Same approach, applied to real transactions on a live contract.<br />
+            Status:{' '}
+            <a
+              data-testid="dapp-status-badge"
+              href="https://github.com/blassaut/dapp-demo/actions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
+                dappCIStatus === 'passing'
+                  ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
+                  : dappCIStatus === 'failing'
+                    ? 'text-red-400 border-red-400/20 bg-red-400/10'
+                    : 'text-muted/40 border-white/10 bg-white/5'
+              }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  dappCIStatus === 'passing'
+                    ? 'bg-emerald-400 animate-pulse'
+                    : dappCIStatus === 'failing'
+                      ? 'bg-red-400'
+                      : 'bg-muted/40'
+                }`}
+              />
+              {dappCIStatus === 'loading' ? '...' : dappCIStatus}
+            </a>
           </p>
         </motion.div>
 
-        {/* Section 2: Web3 staking demo */}
+        {/* Section 2: Web3 demo */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-8"
         >
-          <SectionHeading>A web3 staking demo</SectionHeading>
+          <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
+        </motion.div>
+
+        {/* Live demo iframe */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <div className="rounded-xl border border-white/10 overflow-hidden">
+            <iframe
+              src="https://lockbox.benjaminlassaut.dev"
+              title="LockBox demo"
+              className="w-full h-[750px] bg-dark-900"
+              style={{ overflow: 'hidden' }}
+              sandbox="allow-scripts allow-same-origin allow-popups"
+              allow="clipboard-write"
+            />
+          </div>
+          <p className="text-[10px] font-mono text-muted/30 text-center mt-3">
+            Live demo on Hoodi testnet. Connect MetaMask to interact.
+          </p>
+        </motion.div>
+
+        {/* Web3 "How this is tested" */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10"
+        >
+          <SectionHeading>How this is tested</SectionHeading>
+          <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
+            Real transactions on a local Hardhat node - every deposit, withdrawal, and rejection verified end-to-end.
+          </p>
         </motion.div>
 
         {/* Web3 stat bar */}
@@ -317,27 +375,11 @@ export default function QaLab() {
                 hook={
                   {
                     2: 'recovery without reload',
-                    3: 'blocked before any transaction',
+                    3: 'full round-trip flow',
                   }[i]
                 }
               />
             ))}
-          </div>
-        </motion.div>
-
-        {/* Visual preview placeholder */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10"
-        >
-          <div className="rounded-xl border border-dashed border-white/10 bg-dark-800/10 py-10 px-6 text-center">
-            <p className="text-light/60 font-heading font-semibold text-sm mb-3">End-to-end wallet flow</p>
-            <p className="text-muted/40 font-mono text-xs leading-relaxed">
-              Connect &rarr; sign in MetaMask &rarr; confirm &rarr; state updates &rarr; recovery
-            </p>
-            <p className="text-muted/25 font-mono text-[10px] mt-4">Preview coming from the live demo</p>
           </div>
         </motion.div>
 
@@ -349,14 +391,6 @@ export default function QaLab() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
-            href="https://dapp-demo.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-2.5 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
-          >
-            Test the wallet flow live
-          </a>
-          <a
             href="https://github.com/blassaut/dapp-demo"
             target="_blank"
             rel="noopener noreferrer"
@@ -367,20 +401,6 @@ export default function QaLab() {
             </svg>
             Explore the test suite
           </a>
-        </motion.div>
-
-        {/* Transparency line */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <p className="text-xs text-muted/40 font-body leading-relaxed max-w-xl mx-auto">
-            The live demo uses real wallet interaction with a controlled transaction flow. The
-            automated suite runs against a chain-backed environment to validate confirmation,
-            rejection, and network handling.
-          </p>
         </motion.div>
 
         {/* Page-level CTA */}

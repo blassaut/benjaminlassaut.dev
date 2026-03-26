@@ -4,19 +4,17 @@ export const web3Features: string[] = [
   `Feature: Visitor connects wallet
   As a visitor
   I want to connect my MetaMask wallet
-  So that I can interact with the staking demo
+  So that I can interact with the LockBox
 
   Scenario: Wallet is available and user connects
-    Given MetaMask is installed
-    And I am on the staking demo page
+    Given I am on the LockBox demo page
     When I click the Connect Wallet button
     And I approve the connection in MetaMask
     Then I should see my truncated wallet address
     And the network chip should show the current network
 
   Scenario: Wallet is available but user cancels connection
-    Given MetaMask is installed
-    And I am on the staking demo page
+    Given I am on the LockBox demo page
     When I click the Connect Wallet button
     And I close the MetaMask connection prompt
     Then the app should remain in disconnected state
@@ -24,141 +22,140 @@ export const web3Features: string[] = [
 
   Scenario: No wallet is installed
     Given MetaMask is not installed
-    And I am on the staking demo page
+    And I am on the LockBox demo page
     When I click the Connect Wallet button
-    Then I should see a message "MetaMask not detected. Install MetaMask to continue."
-    And no other UI elements should be enabled`,
+    Then I should see "MetaMask not detected. Install MetaMask to continue."`,
 
-  `Feature: Visitor stakes successfully
+  `Feature: Visitor deposits successfully
   As a connected visitor on a supported network
-  I want to stake ETH
-  So that I can see the staking flow in action
+  I want to deposit ETH into the LockBox
+  So that I can see the on-chain deposit flow
 
-  Scenario: User stakes and balance updates
-    Given I am connected on Ethereum Hoodi
-    And my staked balance shows "0 ETH"
+  Scenario: User deposits and balance updates
+    Given I am connected on the supported network
     When I enter "0.1" in the amount input
-    And I click the Stake button
+    And I click the Deposit button
     And I approve the transaction in MetaMask
-    Then the status panel should show "Processing stake..."
-    And after confirmation the status should show "Stake confirmed for 0.1 ETH"
-    And my staked balance should show "0.1 ETH"
+    Then after confirmation the locked balance should update
+    And the status should show a deposit confirmation message
+    And the transaction history should be visible
+    And the history should have grown by 1
 
-  Scenario: User stakes twice and balance accumulates
-    Given I am connected on Ethereum Hoodi
-    And I have already staked "0.1" ETH
+  Scenario: User deposits twice and balance accumulates
+    Given I am connected on the supported network
+    And I have already deposited successfully
     When I enter "0.2" in the amount input
-    And I click the Stake button
+    And I click the Deposit button
     And I approve the transaction in MetaMask
-    Then after confirmation my staked balance should show "0.3 ETH"
+    Then after confirmation the locked balance should be higher than before
 
-  Scenario: Amount input resets after successful stake
-    Given I am connected on Ethereum Hoodi
+  Scenario: Amount input resets after successful deposit
+    Given I am connected on the supported network
     When I enter "0.1" in the amount input
-    And I click the Stake button
+    And I click the Deposit button
     And I approve the transaction in MetaMask
-    Then after confirmation the amount input should be empty`,
+    Then after confirmation the amount input should be empty
+
+  Scenario: Deposit button disabled when amount exceeds wallet balance
+    Given I am connected on the supported network
+    When I enter "999999" in the amount input
+    Then the Deposit button should be disabled
+    And I should see the deposit hint showing the max wallet balance
+
+  Scenario: Contract balance updates after deposit
+    Given I am connected on the supported network
+    When I enter "0.1" in the amount input
+    And I click the Deposit button
+    And I approve the transaction in MetaMask
+    Then the contract balance should show a non-zero value`,
 
   `Feature: Visitor rejects transaction
   As a connected visitor
   I want to reject a transaction in my wallet
   So that the app recovers gracefully
 
-  Scenario: User rejects a stake transaction
-    Given I am connected on Ethereum Hoodi
+  Scenario: User rejects a deposit transaction
+    Given I am connected on the supported network
     And I enter "0.5" in the amount input
-    When I click the Stake button
+    When I click the Deposit button
     And I reject the transaction in MetaMask
     Then the status panel should show "Transaction rejected"
     And the amount input should still contain "0.5"
-    And the Stake button should be enabled
+    And the Deposit button should be enabled
 
-  Scenario: User rejects an unstake transaction
-    Given I am connected on Ethereum Hoodi
-    And my staked balance shows "0.1 ETH"
-    When I click the Unstake button
+  Scenario: User rejects a withdrawal transaction
+    Given I am connected on the supported network
+    And I have already deposited successfully
+    When I enter "0.1" in the amount input
+    And I click the Withdraw button
     And I reject the transaction in MetaMask
     Then the status panel should show "Transaction rejected"
-    And my staked balance should still show "0.1 ETH"`,
+    And my locked balance should be unchanged`,
 
-  `Feature: Visitor is on wrong network
-  As a connected visitor on an unsupported network
-  I want to see clear guidance
-  So that I know to switch networks before staking
-
-  Scenario: Unsupported network shows banner with switch guidance
-    Given I am connected on an unsupported network
-    Then I should see a banner with the detected network name
-    And the banner should say "Switch to Ethereum Hoodi to continue"
-    And the network chip should be amber
-
-  Scenario: Stake button is disabled on unsupported network
-    Given I am connected on an unsupported network
-    When I enter "0.1" in the amount input
-    Then the Stake button should be disabled
-
-  Scenario: Unstake button remains disabled on unsupported network
-    Given I am connected on an unsupported network
-    Then the Unstake button should be disabled`,
-
-  `Feature: Visitor unstakes successfully
-  As a connected visitor with a staked balance
-  I want to unstake my ETH
+  `Feature: Visitor withdraws successfully
+  As a connected visitor with a locked balance
+  I want to withdraw my ETH
   So that I can see the full round-trip flow
 
-  Scenario: User unstakes and balance returns to zero
-    Given I am connected on Ethereum Hoodi
-    And my staked balance shows "0.1 ETH"
-    When I click the Unstake button
+  Scenario: User withdraws and balance decreases
+    Given I am connected on the supported network
+    And I have already deposited successfully
+    When I enter "0.1" in the amount input
+    And I click the Withdraw button
     And I approve the transaction in MetaMask
-    Then the status panel should show "Processing unstake..."
-    And after confirmation the status should show "Unstake confirmed"
-    And my staked balance should show "0 ETH"
+    Then after confirmation the locked balance should decrease
+    And the status should show a withdrawal confirmation message
+    And the transaction history should be visible
+    And the history should have grown by 1
 
-  Scenario: Unstake button returns to disabled state after unstake
-    Given I am connected on Ethereum Hoodi
-    And my staked balance shows "0.1 ETH"
-    When I click the Unstake button
-    And I approve the transaction in MetaMask
-    Then after confirmation the Unstake button should be disabled`,
+  Scenario: Withdraw button disabled when amount exceeds balance
+    Given I am connected on the supported network
+    When I enter "99999" in the amount input
+    Then the Withdraw button should be disabled
+
+  Scenario: Withdraw hint shows max balance
+    Given I am connected on the supported network
+    And I have already deposited successfully
+    When I enter "99999" in the amount input
+    Then I should see the withdraw hint showing the max locked balance`,
 ]
 
 export const web3Practices = [
   {
-    label: 'Automated wallet interactions',
+    label: 'Real wallet interactions',
     description:
-      'Connect MetaMask, approve or reject transactions, and switch networks inside end-to-end tests - driven by a real wallet extension in Playwright.',
+      'Connect MetaMask, approve/reject transactions, switch networks',
     detail: '0 mocked wallet interactions',
     icon: 'Wx',
     caption: 'Dappwright + Playwright' as const,
     source: { label: 'e2e/steps/', href: `${WEB3_REPO}/tree/main/e2e/steps` },
   },
   {
-    label: 'Transaction lifecycle testing',
+    label: 'Transaction lifecycle',
     description:
-      'Validate pending, confirmed, and rejected states instead of only happy-path UI. Each transition is asserted - including recovery to idle.',
+      'Pending, confirmed, rejected - each state transition is asserted, including recovery to idle',
     detail: 'Processing -> confirmed / rejected -> idle',
     icon: 'Tx',
     caption: 'Dappwright + Playwright' as const,
     source: { label: 'e2e/features/', href: `${WEB3_REPO}/tree/main/e2e/features` },
   },
   {
-    label: 'Wrong-network resilience',
+    label: 'On-chain state validation',
     description:
-      'Tests verify that unsupported networks are detected and action buttons are disabled before any transaction can be attempted. Recovery guidance is shown automatically.',
-    detail: 'Banner + disabled buttons + amber network chip',
-    icon: 'Nw',
+      'Contract balance, tx history, and pagination verified against real chain state',
+    detail: 'Locked balance + contract total + tx history',
+    icon: 'Sc',
     caption: 'Dappwright + Playwright' as const,
     source: {
-      label: 'wrong-network.feature',
-      href: `${WEB3_REPO}/blob/main/e2e/features/wrong-network.feature`,
+      label: 'deposit-successfully.feature',
+      href: `${WEB3_REPO}/blob/main/e2e/features/deposit-successfully.feature`,
     },
   },
   {
-    label: 'Browser-level web3 testing',
+    label: 'No API shortcuts',
     description:
-      'Wallet-driven flows are tested in the browser where failures actually happen. No API shortcuts - every interaction goes through a real MetaMask extension.',
-    detail: 'Network selection, confirmation, rejection, post-transaction state',
+      'Tested in the browser with a real MetaMask wallet',
+    detail: 'Confirmation, rejection, input validation, post-transaction state',
     icon: 'W3',
     caption: 'Dappwright + Playwright' as const,
     source: {
@@ -169,7 +166,7 @@ export const web3Practices = [
 ]
 
 export const web3Stats = [
-  { value: '5', label: 'User journeys' },
+  { value: '4', label: 'User journeys' },
   { value: '13', label: 'Scenarios' },
   { value: '2', label: 'Failure modes' },
   { value: 'Real', label: 'Wallet-level interactions' },

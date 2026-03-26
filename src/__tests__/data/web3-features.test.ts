@@ -3,8 +3,8 @@ import { web3Features, web3Practices, web3Stats } from '../../data/web3-features
 
 describe('web3-features data', () => {
   describe('web3Features', () => {
-    it('contains exactly 5 feature files', () => {
-      expect(web3Features).toHaveLength(5)
+    it('contains exactly 4 feature files', () => {
+      expect(web3Features).toHaveLength(4)
     })
 
     it('every feature starts with "Feature:"', () => {
@@ -19,13 +19,12 @@ describe('web3-features data', () => {
       }
     })
 
-    it('features cover all 5 expected journeys', () => {
+    it('features cover all 4 expected journeys', () => {
       const names = web3Features.map((f) => f.split('\n')[0].replace('Feature: ', ''))
       expect(names).toContain('Visitor connects wallet')
-      expect(names).toContain('Visitor stakes successfully')
+      expect(names).toContain('Visitor deposits successfully')
       expect(names).toContain('Visitor rejects transaction')
-      expect(names).toContain('Visitor is on wrong network')
-      expect(names).toContain('Visitor unstakes successfully')
+      expect(names).toContain('Visitor withdraws successfully')
     })
 
     it('contains a total of 13 scenarios across all features', () => {
@@ -79,7 +78,7 @@ describe('web3-features data', () => {
 
     it('has the expected values', () => {
       const map = Object.fromEntries(web3Stats.map((s) => [s.label, s.value]))
-      expect(map['User journeys']).toBe('5')
+      expect(map['User journeys']).toBe('4')
       expect(map['Scenarios']).toBe('13')
       expect(map['Failure modes']).toBe('2')
       expect(map['Wallet-level interactions']).toBe('Real')
