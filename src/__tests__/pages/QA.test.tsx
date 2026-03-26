@@ -63,3 +63,49 @@ describe('QA page - Get in touch CTA', () => {
     vi.useRealTimers()
   })
 })
+
+describe('QA page - Web3 demo section', () => {
+  it('renders the section divider', () => {
+    renderQA()
+    expect(screen.getByText(/From UI to/)).toBeInTheDocument()
+    expect(
+      screen.getByText(/bugs don't just break UX/),
+    ).toBeInTheDocument()
+  })
+
+  it('renders the Section 2 heading', () => {
+    renderQA()
+    expect(screen.getByText(/LockBox/)).toBeInTheDocument()
+  })
+
+
+  it('renders web3 stats', () => {
+    renderQA()
+    const statsEl = document.querySelector('[data-testid="web3-stats"]')
+    expect(statsEl).toBeInTheDocument()
+  })
+
+  it('renders 4 web3 practice cards', () => {
+    renderQA()
+    expect(screen.getByText('Real wallet interactions')).toBeInTheDocument()
+    expect(screen.getByText('Transaction lifecycle')).toBeInTheDocument()
+    expect(screen.getByText('On-chain state validation')).toBeInTheDocument()
+    expect(screen.getByText('No API shortcuts')).toBeInTheDocument()
+  })
+
+  it('renders 4 web3 feature cards', () => {
+    renderQA()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-connects-wallet"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-deposits-successfully"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-rejects-transaction"]')).toBeInTheDocument()
+    expect(document.querySelector('[data-testid="web3-feature-visitor-withdraws-successfully"]')).toBeInTheDocument()
+  })
+
+  it('renders demo and repo CTAs', () => {
+    renderQA()
+    const repoLinks = screen.getAllByRole('link', { name: /Explore the test suite/ })
+    const dappLink = repoLinks.find((l) => l.getAttribute('href')?.includes('dapp-demo'))
+    expect(dappLink).toBeTruthy()
+  })
+
+})
