@@ -317,14 +317,15 @@ export default function QaLab() {
           </p>
         </motion.div>
 
-        {/* Live demo iframe */}
+        {/* Live demo iframe (desktop) / link (mobile) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-12"
         >
-          <div className="rounded-xl border border-white/10 overflow-hidden">
+          {/* Desktop: embedded iframe */}
+          <div className="hidden sm:block rounded-xl border border-white/10 overflow-hidden">
             <iframe
               src="https://lockbox.benjaminlassaut.dev"
               title="LockBox demo"
@@ -334,9 +335,24 @@ export default function QaLab() {
               allow="clipboard-write"
             />
           </div>
-          <p className="text-[10px] font-mono text-muted/30 text-center mt-3">
+          <p className="hidden sm:block text-[10px] font-mono text-muted/30 text-center mt-3">
             Live demo on Hoodi testnet. Connect MetaMask to interact.
           </p>
+          {/* Mobile: link to demo */}
+          <div className="sm:hidden rounded-xl border border-white/10 bg-dark-800/20 py-8 px-6 text-center">
+            <p className="text-light/60 font-heading font-semibold text-sm mb-2">Live on Hoodi testnet</p>
+            <p className="text-muted/40 font-mono text-xs mb-5">
+              Connect MetaMask to deposit &amp; withdraw ETH
+            </p>
+            <a
+              href="https://lockbox.benjaminlassaut.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-5 py-2.5 bg-teal-400 text-dark-900 font-body font-semibold text-sm rounded-lg hover:shadow-[0_0_24px_rgba(20,184,166,0.25)] transition-all"
+            >
+              Open the demo
+            </a>
+          </div>
         </motion.div>
 
         {/* Web3 "How this is tested" */}
