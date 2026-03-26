@@ -251,7 +251,7 @@ export default function QaLab() {
           </h2>
           <p className="text-muted font-body text-lg leading-relaxed">
             In web3, bugs don't just break UX - they lose money.
-            Same approach, applied to real transactions on a live contract.<br />
+            Real deposits, real withdrawals, real wallet interactions.<br />
             Status:{' '}
             <a
               data-testid="dapp-status-badge"
@@ -288,6 +288,9 @@ export default function QaLab() {
           className="mb-8"
         >
           <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
+          <p className="text-muted font-body leading-relaxed -mt-4 mb-6">
+            A real dApp, tested the same way as production systems.
+          </p>
         </motion.div>
 
         {/* Live demo iframe */}
