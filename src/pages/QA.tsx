@@ -1,7 +1,29 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+
+function Tooltip({ children, label }: { children: React.ReactNode; label: string }) {
+  const [show, setShow] = useState(false)
+  return (
+    <span className="relative inline-flex" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {children}
+      <AnimatePresence>
+        {show && (
+          <motion.span
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2.5 py-1 rounded-md bg-dark-800 border border-white/10 text-[10px] font-mono text-light/70 whitespace-nowrap pointer-events-none z-10"
+          >
+            {label}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  )
+}
 
 import { countScenarios, countTestRuns } from '../lib/gherkin'
 import { SectionHeading } from '../components/qa/SectionHeading'
@@ -131,32 +153,7 @@ export default function QaLab() {
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
             Instead of telling you I'm good at testing, this page proves it. Everything here is
-            automatically verified - the same way I'd set things up on your product.<br />
-            Status:{' '}
-            <a
-              data-testid="qa-status-badge"
-              href="https://github.com/blassaut/benjaminlassaut.dev/actions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
-                ciStatus === 'passing'
-                  ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
-                  : ciStatus === 'failing'
-                    ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                    : 'text-muted/40 border-white/10 bg-white/5'
-              }`}
-            >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  ciStatus === 'passing'
-                    ? 'bg-emerald-400 animate-pulse'
-                    : ciStatus === 'failing'
-                      ? 'bg-red-400'
-                      : 'bg-muted/40'
-                }`}
-              />
-              {ciStatus === 'loading' ? '...' : ciStatus}
-            </a>
+            automatically verified - the same way I'd set things up on your product.
           </p>
         </motion.div>
 
@@ -169,7 +166,33 @@ export default function QaLab() {
         >
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
-            Tested the same way I'd test your product - every interaction, every state, every edge case.
+            Tested the same way I'd test your product - every interaction, every state, every edge case.{' '}
+            <Tooltip label="CI: GitHub Actions">
+              <a
+                data-testid="qa-status-badge"
+                href="https://github.com/blassaut/benjaminlassaut.dev/actions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
+                  ciStatus === 'passing'
+                    ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
+                    : ciStatus === 'failing'
+                      ? 'text-red-400 border-red-400/20 bg-red-400/10'
+                      : 'text-muted/40 border-white/10 bg-white/5'
+                }`}
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    ciStatus === 'passing'
+                      ? 'bg-emerald-400 animate-pulse'
+                      : ciStatus === 'failing'
+                        ? 'bg-red-400'
+                        : 'bg-muted/40'
+                  }`}
+                />
+                {ciStatus === 'loading' ? '...' : ciStatus}
+              </a>
+            </Tooltip>
           </p>
         </motion.div>
 
@@ -251,32 +274,7 @@ export default function QaLab() {
           </h2>
           <p className="text-muted font-body text-lg leading-relaxed">
             In web3, bugs don't just break UX - they lose money.
-            Real deposits, real withdrawals, real wallet interactions.<br />
-            Status:{' '}
-            <a
-              data-testid="dapp-status-badge"
-              href="https://github.com/blassaut/dapp-demo/actions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
-                dappCIStatus === 'passing'
-                  ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
-                  : dappCIStatus === 'failing'
-                    ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                    : 'text-muted/40 border-white/10 bg-white/5'
-              }`}
-            >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  dappCIStatus === 'passing'
-                    ? 'bg-emerald-400 animate-pulse'
-                    : dappCIStatus === 'failing'
-                      ? 'bg-red-400'
-                      : 'bg-muted/40'
-                }`}
-              />
-              {dappCIStatus === 'loading' ? '...' : dappCIStatus}
-            </a>
+            Real deposits, real withdrawals, real wallet interactions.
           </p>
         </motion.div>
 
@@ -289,7 +287,33 @@ export default function QaLab() {
         >
           <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-6">
-            A real dApp, tested the same way as production systems.
+            A real dApp, tested the same way as production systems.{' '}
+            <Tooltip label="CI: GitHub Actions">
+              <a
+                data-testid="dapp-status-badge"
+                href="https://github.com/blassaut/dapp-demo/actions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
+                  dappCIStatus === 'passing'
+                    ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
+                    : dappCIStatus === 'failing'
+                      ? 'text-red-400 border-red-400/20 bg-red-400/10'
+                      : 'text-muted/40 border-white/10 bg-white/5'
+                }`}
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    dappCIStatus === 'passing'
+                      ? 'bg-emerald-400 animate-pulse'
+                      : dappCIStatus === 'failing'
+                        ? 'bg-red-400'
+                        : 'bg-muted/40'
+                  }`}
+                />
+                {dappCIStatus === 'loading' ? '...' : dappCIStatus}
+              </a>
+            </Tooltip>
           </p>
         </motion.div>
 
