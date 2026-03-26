@@ -12,11 +12,11 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: 'Web3',
-    skills: ['Smart Contract Testing', 'EVM Networks', 'Solana', 'Polkadot', 'Cosmos', 'Viem', 'Fireblocks', 'MetaMask', 'Foundry / Anvil'],
+    skills: ['Smart Contract Testing', 'EVM Networks', 'Solana', 'Polkadot', 'Cosmos', 'Viem', 'Fireblocks', 'MetaMask', 'Hardhat', 'Foundry / Anvil'],
   },
   {
     name: 'Tools',
-    skills: ['TypeScript', 'Playwright', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
+    skills: ['TypeScript', 'Playwright', 'Dappwright', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
   },
   {
     name: 'Infrastructure',
