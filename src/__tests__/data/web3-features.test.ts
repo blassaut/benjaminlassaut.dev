@@ -51,9 +51,9 @@ describe('web3-features data', () => {
       }
     })
 
-    it('all source links point to dapp-demo repo', () => {
+    it('all source links point to lockbox repo', () => {
       for (const p of web3Practices) {
-        expect(p.source.href).toContain('github.com/blassaut/dapp-demo')
+        expect(p.source.href).toContain('github.com/blassaut/lockbox')
       }
     })
 

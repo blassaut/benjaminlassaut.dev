@@ -104,7 +104,7 @@ describe('QA page - Web3 demo section', () => {
   it('renders demo and repo CTAs', () => {
     renderQA()
     const repoLinks = screen.getAllByRole('link', { name: /Explore the test suite/ })
-    const dappLink = repoLinks.find((l) => l.getAttribute('href')?.includes('dapp-demo'))
+    const dappLink = repoLinks.find((l) => l.getAttribute('href')?.includes('lockbox'))
     expect(dappLink).toBeTruthy()
   })
 
