@@ -117,7 +117,7 @@ function useCIStatus(badgeUrl: string) {
 
 export default function QaLab() {
   const ciStatus = useCIStatus('https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg')
-  const dappCIStatus = useCIStatus('https://github.com/blassaut/dapp-demo/actions/workflows/ci.yml/badge.svg')
+  const dappCIStatus = useCIStatus('https://github.com/blassaut/lockbox/actions/workflows/ci.yml/badge.svg')
   const navigate = useNavigate()
 
   return (
@@ -291,7 +291,7 @@ export default function QaLab() {
             <Tooltip label="CI: GitHub Actions">
               <a
                 data-testid="dapp-status-badge"
-                href="https://github.com/blassaut/dapp-demo/actions"
+                href="https://github.com/blassaut/lockbox/actions"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
@@ -434,7 +434,7 @@ export default function QaLab() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
-            href="https://github.com/blassaut/dapp-demo"
+            href="https://github.com/blassaut/lockbox"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-mono text-light/60 hover:text-teal-400 hover:underline transition-colors"
