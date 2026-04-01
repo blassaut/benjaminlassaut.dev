@@ -124,7 +124,7 @@ export const web3Practices = [
   {
     label: 'Real wallet interactions',
     description:
-      'Connect MetaMask, approve/reject transactions, switch networks',
+      'Tests use MetaMask on a local Hardhat node',
     detail: '0 mocked wallet interactions',
     icon: 'Wx',
     caption: 'Dappwright + Playwright' as const,
@@ -133,7 +133,7 @@ export const web3Practices = [
   {
     label: 'Transaction lifecycle',
     description:
-      'Pending, confirmed, rejected - each state transition is asserted, including recovery to idle',
+      'Every step from pending to confirmed or rejected is tested',
     detail: 'Processing -> confirmed / rejected -> idle',
     icon: 'Tx',
     caption: 'Dappwright + Playwright' as const,
@@ -142,7 +142,7 @@ export const web3Practices = [
   {
     label: 'On-chain state validation',
     description:
-      'Contract balance, tx history, and pagination verified against real chain state',
+      'Balances and transaction history are checked against the blockchain',
     detail: 'Locked balance + contract total + tx history',
     icon: 'Sc',
     caption: 'Dappwright + Playwright' as const,
@@ -154,7 +154,7 @@ export const web3Practices = [
   {
     label: 'No API shortcuts',
     description:
-      'Tested in the browser with a real MetaMask wallet',
+      'Everything runs in a real browser, just like a user would',
     detail: 'Confirmation, rejection, input validation, post-transaction state',
     icon: 'W3',
     caption: 'Dappwright + Playwright' as const,

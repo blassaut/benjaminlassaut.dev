@@ -287,7 +287,7 @@ export default function QaLab() {
         >
           <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-6">
-            A real dApp, tested the same way as production systems.{' '}
+            A demo dApp built to showcase production-grade testing.{' '}
             <Tooltip label="CI: GitHub Actions">
               <a
                 data-testid="dapp-status-badge"
