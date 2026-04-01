@@ -79,3 +79,42 @@ When('I scroll to the bottom of the page', async ({ page }) => {
 Then('I should see the footer', async ({ page }) => {
   await expect(page.getByTestId('footer')).toBeVisible()
 })
+
+Then('I should see the testimonials section', async ({ page }) => {
+  await expect(page.getByTestId('testimonials-section')).toBeAttached()
+})
+
+When('I scroll to the testimonials section', async ({ page }) => {
+  await page.getByTestId('testimonials-section').scrollIntoViewIfNeeded()
+})
+
+Then('I should see at least one testimonial card', async ({ page }) => {
+  const cards = page.locator('[data-testid^="testimonial-card-"]')
+  await expect(cards.first()).toBeVisible()
+  expect(await cards.count()).toBeGreaterThan(0)
+})
+
+When('I click {string} on the first testimonial', async ({ page }, buttonText: string) => {
+  const card = page.locator('[data-testid^="testimonial-card-"]').first()
+  await card.getByRole('button', { name: buttonText }).click()
+})
+
+Then('I should see the full testimonial text', async ({ page }) => {
+  const card = page.locator('[data-testid^="testimonial-card-"]').first()
+  await expect(card.locator('blockquote')).toContainText('I had the pleasure of recruiting')
+  await expect(card.locator('blockquote')).toContainText('build and scale quality from the ground up')
+})
+
+Then('I should see the excerpt testimonial text', async ({ page }) => {
+  const card = page.locator('[data-testid^="testimonial-card-"]').first()
+  await expect(card.locator('blockquote')).toContainText('From day one')
+  await expect(card.locator('blockquote')).not.toContainText('I had the pleasure of recruiting')
+})
+
+Then('the first testimonial should have a LinkedIn link', async ({ page }) => {
+  const card = page.locator('[data-testid^="testimonial-card-"]').first()
+  const link = card.getByRole('link', { name: 'View original recommendation on LinkedIn' })
+  await expect(link).toBeVisible()
+  await expect(link).toHaveAttribute('href', /linkedin\.com/)
+  await expect(link).toHaveAttribute('target', '_blank')
+})
