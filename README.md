@@ -1,6 +1,6 @@
 # benjaminlassaut.dev
 
-Personal portfolio site for **Benjamin Lassaut** — Lead QA Engineer at [Kiln](https://kiln.fi), specializing in web3 smart contract testing across 20+ blockchain networks.
+Personal portfolio site for **Benjamin Lassaut** — Lead QA Engineer at [Kiln](https://kiln.fi), specializing in testing in the web3 space.
 
 ## Tech Stack
 
