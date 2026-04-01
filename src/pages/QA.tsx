@@ -364,7 +364,7 @@ export default function QaLab() {
         >
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
-            Real transactions on a local Hardhat node - every deposit, withdrawal, and rejection verified end-to-end.
+            Real transactions on a local Hardhat node with MetaMask - every deposit, withdrawal, and rejection verified end-to-end.
           </p>
         </motion.div>
 
