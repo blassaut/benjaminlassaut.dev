@@ -69,7 +69,7 @@ describe('QA page - Web3 demo section', () => {
     renderQA()
     expect(screen.getByText(/From UI to/)).toBeInTheDocument()
     expect(
-      screen.getByText(/bugs don't just break UX/),
+      screen.getByText(/Same approach, applied to a smart contract/),
     ).toBeInTheDocument()
   })
 
