@@ -152,8 +152,8 @@ export default function QaLab() {
             <span className="text-teal-400">tester</span>?
           </h1>
           <p className="text-muted font-body text-lg leading-relaxed">
-            Instead of telling you I'm good at testing, this page proves it. Everything here is
-            automatically verified - the same way I'd set things up on your product.
+            Everything on this page is automatically verified - the same way I'd set things up
+            on your product.
           </p>
         </motion.div>
 
@@ -166,7 +166,7 @@ export default function QaLab() {
         >
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
-            Tested the same way I'd test your product - every interaction, every state, every edge case.{' '}
+            BDD scenarios, Playwright, CI on every push.{' '}
             <Tooltip label="CI: GitHub Actions">
               <a
                 data-testid="qa-status-badge"
@@ -273,8 +273,7 @@ export default function QaLab() {
             <span className="text-teal-400">on-chain</span> systems
           </h2>
           <p className="text-muted font-body text-lg leading-relaxed">
-            In web3, bugs don't just break UX - they lose money.
-            Real deposits, real withdrawals, real wallet interactions.
+            Same approach, applied to a smart contract.
           </p>
         </motion.div>
 
@@ -364,7 +363,7 @@ export default function QaLab() {
         >
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
-            Real transactions on a local Hardhat node with MetaMask - every deposit, withdrawal, and rejection verified end-to-end.
+            Dappwright + Playwright on a local Hardhat node. No mocked wallet interactions.
           </p>
         </motion.div>
 
@@ -454,7 +453,7 @@ export default function QaLab() {
           className="text-center pt-16 pb-10"
         >
           <p className="text-lg text-muted font-body mb-6">
-            If your system needs this level of confidence, let's talk.
+            Want this on your product?
           </p>
           <a
             href="#contact"
