@@ -18,24 +18,22 @@ export default function About() {
 
         <div className="space-y-6 text-muted font-body text-base leading-relaxed">
           <p>
-            Most QA doesn't improve quality - it creates the illusion of it. Manual regression
-            suites and checkbox testing feel safe, but they miss real risk. I don't test features.
-            I build systems that continuously validate them, from{' '}
+            I design QA systems that run continuously, from{' '}
             <span className="text-light">CI</span> to{' '}
-            <span className="text-light">production</span>.
+            <span className="text-light">production</span>. Automated, cross-chain,
+            feeding directly into incident response. Not regression checklists.
           </p>
           <p>
             At <span className="text-teal-400">Kiln</span>, I built the QA architecture from
-            zero and scaled it across teams - BDD frameworks, cross-chain transaction flows
-            spanning 20+ networks, and production monitoring that runs every hour and feeds
-            directly into incident response. When something breaks, we catch it before clients
-            ever notice.
+            zero and scaled it across teams. BDD frameworks, cross-chain transaction testing
+            spanning 20+ networks, production monitoring running every hour. When something
+            breaks, we know before clients do.
           </p>
           <p>
-            Before web3, I worked on electronic trading desks at{' '}
+            Before web3: electronic trading desks at{' '}
             <span className="text-light">BNP Paribas</span> and{' '}
-            <span className="text-light">Societe Generale</span>, migrated datacenters to AWS,
-            and built QA practices from scratch at startups where I was the first quality hire.
+            <span className="text-light">Societe Generale</span>, datacenter migrations to AWS,
+            and QA practices built from scratch at startups where I was the first quality hire.
           </p>
         </div>
 
