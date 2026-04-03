@@ -1,6 +1,6 @@
 # benjaminlassaut.dev
 
-Personal portfolio site for **Benjamin Lassaut** — Lead QA Engineer at [Kiln](https://kiln.fi), specializing in testing in the web3 space.
+Personal portfolio site for **Benjamin Lassaut** - Lead QA Engineer at [Kiln](https://kiln.fi), specializing in testing in the web3 space.
 
 ## Tech Stack
 
@@ -51,10 +51,10 @@ e2e/
 
 ## Site Structure
 
-- **`/`** — Single-page scroll: Intro, About, Experience, Skills, Testimonials, Blog Preview, Contact
-- **`/blog`** — Blog index
-- **`/blog/:slug`** — Individual blog post
-- **`/qa`** — Interactive QA portfolio ("Who Tests the Tester?")
+- **`/`** - Single-page scroll: Intro, About, Experience, Skills, Testimonials, Blog Preview, Contact
+- **`/blog`** - Blog index
+- **`/blog/:slug`** - Individual blog post
+- **`/qa`** - Interactive QA portfolio ("Who Tests the Tester?")
 
 ## Blog
 
@@ -82,7 +82,7 @@ Post content here...
 
 ## Deployment
 
-Push to `main` — Vercel auto-deploys. CI runs on every push/PR via GitHub Actions (build, lint, unit tests, E2E).
+Push to `main` - Vercel auto-deploys. CI runs on every push/PR via GitHub Actions (build, lint, unit tests, E2E).
 
 ## License
 
