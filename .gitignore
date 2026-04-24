@@ -29,7 +29,7 @@ dist-ssr
 .claude/*
 skills-lock.json
 docs
-.CLAUDE.md
+CLAUDE.md
 
 # playwright generated files
 .features-gen/
