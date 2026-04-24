@@ -20,4 +20,15 @@ export const testimonials: Testimonial[] = [
       'I had the pleasure of recruiting and working with Benjamin as our very first QA hire, and his impact was immediate and lasting.\n\nFrom day one, he took ownership of quality across the organization, building our QA function entirely from scratch. They designed and implemented a robust QA framework, establishing processes that brought structure, consistency, and confidence to our development lifecycle. Developing comprehensive automated E2E test suites across multiple products, covering both UI and API. On top of that, they built a sophisticated automated testing suite for staking systems across blockchains like Ethereum and Solana, leveraging Fireblocks.\n\nHis reporting on test coverage, bugs, and release cycles enabled better decision-making and significantly improved our delivery reliability.\n\nIf you\'re looking for someone who can build and scale quality from the ground up, Benjamin is the right choice.',
     linkedinUrl: 'https://www.linkedin.com/in/benjaminlassaut/details/recommendations/',
   },
+  {
+    author: 'Ernest Oppetit',
+    role: 'Co-founder & CPO',
+    company: 'Kiln',
+    date: 'April 2026',
+    excerpt:
+      'Benjamin was Kiln\'s first QA hire and set great foundations for testing automation across our whole product stack. [...] I would work with Benjamin again in a heartbeat!',
+    fullText:
+      'Benjamin was Kiln\'s first QA hire and set great foundations for testing automation across our whole product stack. He also grew a productive team & evangelised QA across the company. I would work with Benjamin again in a heartbeat!',
+    linkedinUrl: 'https://www.linkedin.com/in/benjaminlassaut/details/recommendations/',
+  },
 ]
