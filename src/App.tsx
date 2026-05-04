@@ -3,8 +3,6 @@ import { useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import BlogIndex from './pages/BlogIndex'
-import BlogPost from './pages/BlogPost'
 import QA from './pages/QA'
 import NotFound from './pages/NotFound'
 
@@ -24,8 +22,6 @@ export default function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<BlogIndex />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/qa" element={<QA />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

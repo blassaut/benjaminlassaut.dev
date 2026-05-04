@@ -17,14 +17,8 @@ Feature: Visitor navigates the site
       | contact    |
 
   @desktop
-  Scenario: Blog link navigates to blog page
-    Given I am on the homepage
-    When I click the "blog" nav link
-    Then I should be on the "/blog" page
-
-  @desktop
   Scenario: Logo navigates back to home
-    Given I am on the blog page
+    Given I am on the qa page
     When I click the logo
     Then I should be on the "/" page
 
@@ -62,13 +56,6 @@ Feature: Visitor navigates the site
       | experience |
       | skills     |
       | contact    |
-
-  @mobile
-  Scenario: Mobile blog link navigates to blog page
-    Given I am on the homepage
-    When I tap the hamburger button
-    And I tap the "blog" link in the mobile menu
-    Then I should be on the "/blog" page
 
   Scenario: Unknown URL shows 404 page
     Given I am on a page that does not exist

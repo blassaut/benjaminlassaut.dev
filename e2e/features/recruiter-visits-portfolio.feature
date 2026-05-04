@@ -10,7 +10,6 @@ Feature: Recruiter visits portfolio
     And I should see the experience section
     And I should see the skills section
     And I should see the testimonials section
-    And I should see the blog preview section
     And I should see the contact section
 
   Scenario: Intro displays name and role

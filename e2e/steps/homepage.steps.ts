@@ -24,10 +24,6 @@ Then('I should see the skills section', async ({ page }) => {
   await expect(page.getByTestId('skills-section')).toBeAttached()
 })
 
-Then('I should see the blog preview section', async ({ page }) => {
-  await expect(page.getByTestId('blog-preview-section')).toBeAttached()
-})
-
 Then('I should see the contact section', async ({ page }) => {
   await expect(page.getByTestId('contact-section')).toBeAttached()
 })
