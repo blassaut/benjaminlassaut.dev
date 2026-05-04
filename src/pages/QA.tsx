@@ -34,7 +34,6 @@ import { web3Features, web3Practices, web3Stats } from '../data/web3-features'
 
 import recruiterFeature from '../../e2e/features/recruiter-visits-portfolio.feature?raw'
 import navigatesFeature from '../../e2e/features/visitor-navigates-site.feature?raw'
-import blogFeature from '../../e2e/features/reader-browses-blog.feature?raw'
 import contactsFeature from '../../e2e/features/visitor-contacts-benjamin.feature?raw'
 import qaFeature from '../../e2e/features/visitor-explores-qa.feature?raw'
 import bugEasterEggFeature from '../../e2e/features/visitor-finds-bug-easter-egg.feature?raw'
@@ -43,7 +42,6 @@ const features = [
   qaFeature,
   recruiterFeature,
   navigatesFeature,
-  blogFeature,
   contactsFeature,
   bugEasterEggFeature,
 ]

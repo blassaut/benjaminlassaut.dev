@@ -10,8 +10,8 @@ function slugify(text: string): string {
     .replace(/[^a-z0-9-]/g, '')
 }
 
-Given('I am on the blog page', async ({ page }) => {
-  await page.goto('/blog')
+Given('I am on the qa page', async ({ page }) => {
+  await page.goto('/qa')
   await page.waitForLoadState('networkidle')
 })
 

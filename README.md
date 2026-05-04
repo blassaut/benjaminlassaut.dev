@@ -7,7 +7,6 @@ Personal portfolio site for **Benjamin Lassaut** - Lead QA Engineer at [Kiln](ht
 - **Framework:** React 19 + Vite 7 + TypeScript 5.9
 - **Styling:** Tailwind CSS v4 + Framer Motion
 - **Routing:** React Router 7
-- **Blog:** Markdown with gray-matter + react-markdown + rehype-highlight
 - **Testing:** Vitest + Playwright + playwright-bdd (Gherkin/Cucumber)
 - **Hosting:** Vercel
 
@@ -38,10 +37,9 @@ src/
     sections/       Home page sections (Intro, About, Experience, Skills, etc.)
     qa/             QA portfolio showcase components
     ui/             Reusable UI components
-  pages/            Route pages (Home, BlogIndex, BlogPost, QA)
+  pages/            Route pages (Home, QA)
   data/             Static data (experience, skills, testimonials)
-  content/blog/     Markdown blog posts
-  lib/              Utilities (blog loader, resume generator, Gherkin parser)
+  lib/              Utilities (resume generator, Gherkin parser)
   hooks/            Custom React hooks
   __tests__/        Unit & component tests
 e2e/
@@ -51,25 +49,8 @@ e2e/
 
 ## Site Structure
 
-- **`/`** - Single-page scroll: Intro, About, Experience, Skills, Testimonials, Blog Preview, Contact
-- **`/blog`** - Blog index
-- **`/blog/:slug`** - Individual blog post
+- **`/`** - Single-page scroll: Intro, About, Experience, Skills, Testimonials, Contact
 - **`/qa`** - Interactive QA portfolio ("Who Tests the Tester?")
-
-## Blog
-
-Add a markdown file in `src/content/blog/` with frontmatter:
-
-```md
----
-title: "Post Title"
-date: 2026-03-17
-tags: [web3, qa]
-excerpt: "Short description..."
----
-
-Post content here...
-```
 
 ## Design System
 
