@@ -1,6 +1,6 @@
 # benjaminlassaut.dev
 
-Personal portfolio site for **Benjamin Lassaut** - Lead QA Engineer at [Kiln](https://kiln.fi), specializing in testing in the web3 space.
+Personal portfolio site for **Benjamin Lassaut** - Lead QA Engineer / SDET, ex-[Kiln](https://kiln.fi), specializing in testing in the web3 space.
 
 ## Tech Stack
 
