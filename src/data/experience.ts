@@ -10,8 +10,7 @@ export const experience: ExperienceEntry[] = [
   {
     company: 'Kiln',
     role: 'Lead QA Engineer',
-    period: 'May 2025 - Present',
-    current: true,
+    period: 'May 2025 - Jun 2026',
     highlights: [
       'Own quality across all Kiln products - staking APIs, DeFi vaults, dashboard, and smart contracts.',
       'Built an enterprise-grade Cypress + Cucumber framework covering 20+ blockchain networks.',
