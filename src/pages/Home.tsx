@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Benjamin Lassaut - Lead QA Engineer | Web3 Quality Engineering</title>
-        <meta name="description" content="Benjamin Lassaut - Lead QA Engineer at Kiln with 10+ years building quality into software. From fintech to blockchain, across 20+ networks." />
+        <meta name="description" content="Benjamin Lassaut - Lead QA Engineer / SDET, ex-Kiln, with 10+ years building quality into software. From fintech to blockchain, across 20+ networks." />
         <link rel="canonical" href="https://benjaminlassaut.dev" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
@@ -19,7 +19,7 @@ export default function Home() {
           name: 'Benjamin Lassaut',
           url: 'https://benjaminlassaut.dev',
           jobTitle: 'Lead QA Engineer',
-          worksFor: { '@type': 'Organization', name: 'Kiln' },
+          alumniOf: { '@type': 'Organization', name: 'Kiln' },
           knowsAbout: ['QA', 'Test Automation', 'Smart Contract Testing', 'Web3', 'EVM'],
           sameAs: [
             'https://linkedin.com/in/benjaminlassaut',

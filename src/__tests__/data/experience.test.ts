@@ -6,9 +6,9 @@ describe('experience data', () => {
     expect(experience.length).toBeGreaterThan(0)
   })
 
-  it('has exactly one current role', () => {
+  it('has no current role', () => {
     const currentRoles = experience.filter((e) => e.current)
-    expect(currentRoles).toHaveLength(1)
+    expect(currentRoles).toHaveLength(0)
   })
 
   it('every entry has required fields', () => {
@@ -22,6 +22,7 @@ describe('experience data', () => {
 
   it('is ordered newest first', () => {
     const first = experience[0]
-    expect(first.current).toBe(true)
+    expect(first.company).toBe('Kiln')
+    expect(first.role).toBe('Lead QA Engineer')
   })
 })
