@@ -15,7 +15,7 @@ function Tooltip({ children, label }: { children: React.ReactNode; label: string
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2.5 py-1 rounded-md bg-dark-800 border border-white/10 text-[10px] font-mono text-light/70 whitespace-nowrap pointer-events-none z-10"
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2.5 py-1 rounded-md bg-dark-800 border border-hairline/10 text-[10px] font-mono text-light/70 whitespace-nowrap pointer-events-none z-10"
           >
             {label}
           </motion.span>
@@ -37,12 +37,14 @@ import navigatesFeature from '../../e2e/features/visitor-navigates-site.feature?
 import contactsFeature from '../../e2e/features/visitor-contacts-benjamin.feature?raw'
 import qaFeature from '../../e2e/features/visitor-explores-qa.feature?raw'
 import bugEasterEggFeature from '../../e2e/features/visitor-finds-bug-easter-egg.feature?raw'
+import themeFeature from '../../e2e/features/visitor-toggles-theme.feature?raw'
 
 const features = [
   qaFeature,
   recruiterFeature,
   navigatesFeature,
   contactsFeature,
+  themeFeature,
   bugEasterEggFeature,
 ]
 
@@ -176,7 +178,7 @@ export default function QaLab() {
                     ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
                     : ciStatus === 'failing'
                       ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                      : 'text-muted/40 border-white/10 bg-white/5'
+                      : 'text-muted/40 border-hairline/10 bg-hairline/5'
                 }`}
               >
                 <span
@@ -231,7 +233,7 @@ export default function QaLab() {
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
           </p>
 
-          <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
+          <div className="space-y-1 rounded-xl border border-hairline/5 bg-dark-800/10 py-2 overflow-hidden">
             {features.map((raw, i) => (
               <FeatureCard key={i} raw={raw} index={i} />
             ))}
@@ -265,7 +267,7 @@ export default function QaLab() {
           viewport={{ once: true }}
           className="mt-20 mb-12 pt-16 max-w-2xl"
         >
-          <hr className="border-white/5 mb-16" />
+          <hr className="border-hairline/5 mb-16" />
           <h2 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             From UI to<br />
             <span className="text-teal-400">on-chain</span> systems
@@ -296,7 +298,7 @@ export default function QaLab() {
                     ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
                     : dappCIStatus === 'failing'
                       ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                      : 'text-muted/40 border-white/10 bg-white/5'
+                      : 'text-muted/40 border-hairline/10 bg-hairline/5'
                 }`}
               >
                 <span
@@ -322,7 +324,7 @@ export default function QaLab() {
           className="mb-12"
         >
           {/* Desktop: embedded iframe */}
-          <div className="hidden sm:block rounded-xl border border-white/10 overflow-hidden">
+          <div className="hidden sm:block rounded-xl border border-hairline/10 overflow-hidden">
             <iframe
               src="https://lockbox.benjaminlassaut.dev"
               title="LockBox demo"
@@ -336,7 +338,7 @@ export default function QaLab() {
             Live demo on Hoodi testnet. Connect MetaMask to interact.
           </p>
           {/* Mobile: link to demo */}
-          <div className="sm:hidden rounded-xl border border-white/10 bg-dark-800/20 py-8 px-6 text-center">
+          <div className="sm:hidden rounded-xl border border-hairline/10 bg-dark-800/20 py-8 px-6 text-center">
             <p className="text-light/60 font-heading font-semibold text-sm mb-2">Live on Hoodi testnet</p>
             <p className="text-muted/40 font-mono text-xs mb-5">
               Connect MetaMask to deposit &amp; withdraw ETH
@@ -345,7 +347,7 @@ export default function QaLab() {
               href="https://lockbox.benjaminlassaut.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-5 py-2.5 bg-teal-400 text-dark-900 font-body font-semibold text-sm rounded-lg hover:shadow-[0_0_24px_rgba(20,184,166,0.25)] transition-all"
+              className="inline-block px-5 py-2.5 bg-teal-400 text-ink font-body font-semibold text-sm rounded-lg hover:shadow-[0_0_24px_rgba(20,184,166,0.25)] transition-all"
             >
               Open the demo
             </a>
@@ -405,7 +407,7 @@ export default function QaLab() {
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
           </p>
 
-          <div className="space-y-1 rounded-xl border border-white/5 bg-dark-800/10 py-2 overflow-hidden">
+          <div className="space-y-1 rounded-xl border border-hairline/5 bg-dark-800/10 py-2 overflow-hidden">
             {web3Features.map((raw, i) => (
               <FeatureCard
                 key={i}
@@ -462,7 +464,7 @@ export default function QaLab() {
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
               }, 100)
             }}
-            className="inline-block px-7 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
+            className="inline-block px-7 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
           >
             Get in touch
           </a>

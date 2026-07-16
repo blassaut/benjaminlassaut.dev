@@ -47,7 +47,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="text-center py-5 rounded-xl border border-white/5 bg-dark-800/30"
+              className="text-center py-5 rounded-xl border border-hairline/5 bg-dark-800/30 shadow-card"
             >
               <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
               <div className="text-xs text-muted font-mono mt-1">{stat.label}</div>

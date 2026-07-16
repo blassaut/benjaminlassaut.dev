@@ -1,13 +1,48 @@
 @import "tailwindcss";
 
-@theme {
-  --color-dark-900: #0a0a0f;
-  --color-dark-800: #12121a;
-  --color-dark-700: #1a1a25;
+/* ── Theme palettes ───────────────────────────────────────────────
+   Light is the default. Adding class="dark" on <html> flips every
+   token below. Utilities like bg-dark-900 / text-light / text-muted
+   resolve to these CSS variables at runtime (see @theme inline). */
+:root {
+  --surface-900: #faf9f6; /* base background — warm cream */
+  --surface-800: #ffffff; /* elevated cards / surfaces */
+  --surface-700: #f0efe9; /* subtle alternate surface */
+  --content: #15150f; /* primary text */
+  --content-muted: #57534e; /* secondary text */
+  --hairline: #15150f; /* solid; used with /opacity for borders & dividers */
+  --grain-opacity: 0; /* film grain hidden on light */
+  /* Soft elevation for cards — lifts white cards off the cream background */
+  --card-shadow: 0 1px 2px rgba(21, 21, 15, 0.04), 0 6px 20px rgba(21, 21, 15, 0.06);
+  --card-shadow-hover: 0 2px 4px rgba(21, 21, 15, 0.05), 0 12px 32px rgba(21, 21, 15, 0.09);
+}
+
+html.dark {
+  --surface-900: #0a0a0f;
+  --surface-800: #12121a;
+  --surface-700: #1a1a25;
+  --content: #f0f0f0;
+  --content-muted: #6b7280;
+  --hairline: #ffffff;
+  --grain-opacity: 0.03;
+  /* Shadows read as noise on the dark canvas — the border alone carries it */
+  --card-shadow: none;
+  --card-shadow-hover: none;
+}
+
+@theme inline {
+  --color-dark-900: var(--surface-900);
+  --color-dark-800: var(--surface-800);
+  --color-dark-700: var(--surface-700);
+  --color-light: var(--content);
+  --color-muted: var(--content-muted);
+  --color-hairline: var(--hairline);
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+  --color-ink: #0a0a0f; /* fixed dark — text on teal accent buttons */
+  --color-teal-300: #2dd4bf;
   --color-teal-400: #14b8a6;
   --color-teal-500: #0d9488;
-  --color-muted: #6b7280;
-  --color-light: #f0f0f0;
   --font-heading: 'Exo 2', sans-serif;
   --font-body: 'IBM Plex Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -15,6 +50,16 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--surface-900);
+}
+
+/* Smooth cross-fade when toggling themes */
+body,
+.theme-transition * {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
 }
 
 section[id] {
@@ -29,7 +74,7 @@ section[id] {
   content: '';
   position: fixed;
   inset: 0;
-  opacity: 0.03;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;

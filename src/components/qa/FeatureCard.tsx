@@ -31,12 +31,12 @@ export function FeatureCard({
       className="group relative"
     >
       <div
-        className={`absolute left-0 top-0 bottom-0 w-px transition-colors duration-300 ${open ? 'bg-teal-400' : 'bg-white/10 group-hover:bg-teal-400/40'}`}
+        className={`absolute left-0 top-0 bottom-0 w-px transition-colors duration-300 ${open ? 'bg-teal-400' : 'bg-hairline/10 group-hover:bg-teal-400/40'}`}
       />
 
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-4 pl-5 pr-4 py-4 text-left hover:bg-white/[0.02] transition-colors rounded-r-lg"
+        className="w-full flex items-center gap-4 pl-5 pr-4 py-4 text-left hover:bg-hairline/[0.02] transition-colors rounded-r-lg"
         aria-expanded={open}
       >
         <div className="flex-1 min-w-0">
@@ -75,7 +75,7 @@ export function FeatureCard({
             className="overflow-hidden"
           >
             <div className="pl-5 pr-4 pb-5">
-              <div className="rounded-lg bg-dark-900/80 border border-white/[0.04] p-4 overflow-x-auto">
+              <div className="rounded-lg bg-dark-900/80 border border-hairline/[0.04] p-4 overflow-x-auto">
                 <pre className="font-mono text-[13px] leading-[1.7]">
                   {raw.split('\n').map((line, i) => (
                     <GherkinLine key={i} line={line} />
