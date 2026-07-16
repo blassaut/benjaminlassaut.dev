@@ -7,19 +7,19 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: 'QA & Testing',
-    skills: ['Test Strategy', 'Test Automation', 'CI/CD', 'E2E Testing', 'API Testing', 'Performance Testing', 'BDD / Cucumber'],
-  },
-  {
-    name: 'Web3',
-    skills: ['Smart Contract Testing', 'EVM Networks', 'Solana', 'Polkadot', 'Cosmos', 'Viem', 'Fireblocks', 'MetaMask', 'Hardhat', 'Foundry / Anvil'],
+    name: 'Test & Automation',
+    skills: ['Test Strategy', 'Test Automation', 'E2E Testing', 'API Testing', 'Performance Testing', 'BDD / Cucumber'],
   },
   {
     name: 'Tools',
-    skills: ['TypeScript', 'Playwright', 'Dappwright', 'Cypress', 'Postman', 'GitHub Actions', 'Linear', 'Allure'],
+    skills: ['TypeScript', 'Playwright', 'Cypress', 'Postman', 'GitHub Actions', 'Jenkins', 'Allure', 'Linear'],
   },
   {
-    name: 'Infrastructure',
-    skills: ['AWS', 'Vercel', 'Docker', 'Terraform', 'Python', 'PostgreSQL', 'Redis', { name: 'Playwright', bug: true }],
+    name: 'CI/CD & Infra',
+    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'Ansible', 'Vercel', { name: 'Playwright', bug: true }],
+  },
+  {
+    name: 'Languages & Observability',
+    skills: ['Python', 'SQL', 'Datadog', 'PostgreSQL', 'Redis'],
   },
 ]

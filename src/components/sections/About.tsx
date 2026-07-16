@@ -3,7 +3,7 @@ import AnimatedSection from '../AnimatedSection'
 
 const stats = [
   { value: '10+', label: 'Years in QA' },
-  { value: '20+', label: 'Blockchain Networks' },
+  { value: '20+', label: 'Networks Tested' },
   { value: '5', label: 'Industries' },
 ]
 
@@ -20,20 +20,25 @@ export default function About() {
           <p>
             I design QA systems that run continuously, from{' '}
             <span className="text-light">CI</span> to{' '}
-            <span className="text-light">production</span>. Automated, cross-chain,
-            feeding directly into incident response. Not regression checklists.
+            <span className="text-light">production</span> - automated, wired directly
+            into incident response. Not regression checklists. I write my own tests and
+            tooling: <span className="text-light">TypeScript</span>,{' '}
+            <span className="text-light">Playwright</span>,{' '}
+            <span className="text-light">Cypress</span>,{' '}
+            <span className="text-light">GitHub Actions</span>, and BDD.
           </p>
           <p>
             At <span className="text-teal-400">Kiln</span>, I built the QA architecture from
-            zero and scaled it across teams. BDD frameworks, cross-chain transaction testing
-            spanning 20+ networks, production monitoring running every hour. When something
-            breaks, we know before clients do.
+            zero and scaled it across teams. BDD frameworks, end-to-end coverage of high-stakes
+            fintech and blockchain flows spanning 20+ networks, and production monitoring running
+            every hour. When something breaks, we know before clients do.
           </p>
           <p>
-            Before web3: electronic trading desks at{' '}
+            Before that: electronic trading desks at{' '}
             <span className="text-light">BNP Paribas</span> and{' '}
-            <span className="text-light">Societe Generale</span>, datacenter migrations to AWS,
-            and QA practices built from scratch at startups where I was the first quality hire.
+            <span className="text-light">Societe Generale</span>, a datacenter-to-AWS
+            migration at Mediametrie, and QA practices built from scratch at startups where
+            I was the first quality hire.
           </p>
         </div>
 

@@ -35,3 +35,4 @@ CLAUDE.md
 .features-gen/
 playwright-report/
 test-results/
+.gstack/

@@ -36,7 +36,7 @@ export default function Footer() {
               </svg>
             </Link>
             <p className="text-sm text-muted font-body max-w-xs">
-              Lead QA Engineer focused on testing real-world web3 systems end-to-end.
+              Lead QA Engineer / SDET building automated quality into software end-to-end.
             </p>
           </div>
 

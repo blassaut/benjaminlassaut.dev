@@ -3,10 +3,10 @@ Feature: Visitor finds the deliberate bug easter egg
   I want to discover the deliberate bug in the skills section
   So that I can learn about the "Who tests the tester?" page
 
-  Scenario: Bug-tagged Playwright skill appears in Infrastructure
+  Scenario: Bug-tagged Playwright skill appears in the skills section
     Given I am on the homepage
     When I scroll to the skills section
-    Then I should see a bug-tagged skill in the infrastructure category
+    Then I should see a bug-tagged skill in the skills section
 
   Scenario: Hovering the bug tag reveals the popover
     Given I am on the homepage
