@@ -3,14 +3,14 @@ import { expect } from '@playwright/test'
 
 const { When, Then } = createBdd()
 
-Then('I should see a bug-tagged skill in the infrastructure category', async ({ page }) => {
-  const infraCategory = page.getByTestId('skills-category-infrastructure')
-  // Scroll past the skills section to ensure all whileInView animations trigger
+Then('I should see a bug-tagged skill in the skills section', async ({ page }) => {
+  const skillsSection = page.getByTestId('skills-section')
+  // Scroll to the skills section to ensure all whileInView animations trigger
   await page.evaluate(() => {
-    const el = document.querySelector('[data-testid="skills-category-infrastructure"]')
+    const el = document.querySelector('[data-testid="skills-section"]')
     el?.scrollIntoView({ block: 'center' })
   })
-  const bugTag = infraCategory.getByTestId('bug-skill-tag')
+  const bugTag = skillsSection.getByTestId('bug-skill-tag')
   await expect(bugTag).toBeVisible()
   await expect(bugTag).toContainText('Playwright')
 })

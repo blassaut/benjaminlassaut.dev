@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf'
 import { experience } from '../data/experience'
 import { skillCategories, type SkillEntry } from '../data/skills'
+import { certifications } from '../data/certifications'
 
 const TEAL = [20, 184, 166] as const
 const DARK = [30, 30, 30] as const
@@ -19,10 +20,10 @@ const LINKEDIN_URL = 'https://linkedin.com/in/benjaminlassaut'
 const GITHUB_URL = 'https://github.com/blassaut'
 
 const ABOUT_SUMMARY =
-  'I build systems that continuously validate software quality, from CI to production. ' +
-  'At Kiln, I designed the QA architecture from zero and scaled it across teams - BDD frameworks, ' +
-  'cross-chain transaction flows spanning 20+ networks, and hourly production monitoring ' +
-  'that catches issues before clients ever notice.'
+  "I turn \"we're not sure it works\" into shippable confidence. First quality hire at several " +
+  'startups; most recently I owned the QA architecture for high-stakes fintech and blockchain ' +
+  'systems across 20+ networks. I write my own tests and tooling: TypeScript, Playwright, Cypress, ' +
+  'GitHub Actions, and BDD.'
 
 export function getSkillName(skill: SkillEntry): string | null {
   if (typeof skill === 'string') return skill
@@ -51,7 +52,7 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(9.5)
   doc.setTextColor(...MUTED)
-  doc.text('Lead QA Engineer  |  Opio, France', MARGIN_LEFT, y)
+  doc.text('Lead QA Engineer / SDET  |  Opio, France', MARGIN_LEFT, y)
   y += 4
 
   doc.setFontSize(8)
@@ -145,6 +146,29 @@ export function generateResume(): Blob {
     doc.text(skillLines, MARGIN_LEFT + labelWidth, y)
     y += skillLines.length * 3.2 + 2
   }
+
+  // --- Certifications ---
+  checkPageBreak(10 + certifications.length * 4)
+  doc.setFont('helvetica', 'bold')
+  doc.setFontSize(11)
+  doc.setTextColor(...TEAL)
+  doc.text('Certifications', MARGIN_LEFT, y)
+  y += 5
+
+  for (const cert of certifications) {
+    checkPageBreak(4)
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(8.5)
+    doc.setTextColor(...DARK)
+    doc.text(`- ${cert.name} (${cert.issuer})`, MARGIN_LEFT, y)
+
+    doc.setFontSize(7.5)
+    doc.setTextColor(...MUTED)
+    const certYearWidth = doc.getTextWidth(cert.year)
+    doc.text(cert.year, PAGE_WIDTH - MARGIN_RIGHT - certYearWidth, y)
+    y += 4
+  }
+  y += 2
 
   // --- Education ---
   checkPageBreak(12)

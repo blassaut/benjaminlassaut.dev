@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
 import type { SkillEntry } from '../../data/skills'
+import { certifications } from '../../data/certifications'
 
 function getSkillName(skill: SkillEntry): string {
   return typeof skill === 'string' ? skill : skill.name
@@ -134,6 +135,42 @@ export default function Skills() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Certifications */}
+        <div className="mt-10" data-testid="certifications">
+          <h3 className="text-sm font-mono tracking-wide text-teal-400 mb-4 uppercase">
+            Certifications
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {certifications.map((cert, i) => (
+              <motion.div
+                key={cert.name}
+                data-testid={`certification-${cert.issuer.toLowerCase().replace(/\s+/g, '-')}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-dark-800/30 hover:border-teal-400/20 transition-colors"
+              >
+                <div className="shrink-0 w-14 h-14 rounded-lg bg-white flex items-center justify-center p-2.5">
+                  <img
+                    src={cert.logo}
+                    alt={`${cert.issuer} logo`}
+                    width={56}
+                    height={56}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-body text-light/85 leading-snug">{cert.name}</p>
+                  <p className="text-xs font-mono text-muted mt-1">
+                    {cert.issuer} &middot; {cert.year}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </AnimatedSection>

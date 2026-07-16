@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Benjamin Lassaut - Lead QA Engineer | Web3 Quality Engineering</title>
+        <title>Benjamin Lassaut - Lead QA Engineer / SDET</title>
         <meta name="description" content="Benjamin Lassaut - Lead QA Engineer / SDET, ex-Kiln, with 10+ years building quality into software. From fintech to blockchain, across 20+ networks." />
         <link rel="canonical" href="https://benjaminlassaut.dev" />
         <script type="application/ld+json">{JSON.stringify({
@@ -18,9 +18,9 @@ export default function Home() {
           '@type': 'Person',
           name: 'Benjamin Lassaut',
           url: 'https://benjaminlassaut.dev',
-          jobTitle: 'Lead QA Engineer',
+          jobTitle: 'Lead QA Engineer / SDET',
           alumniOf: { '@type': 'Organization', name: 'Kiln' },
-          knowsAbout: ['QA', 'Test Automation', 'Smart Contract Testing', 'Web3', 'EVM'],
+          knowsAbout: ['QA', 'Test Automation', 'BDD', 'CI/CD', 'Playwright', 'Cypress'],
           sameAs: [
             'https://linkedin.com/in/benjaminlassaut',
             'https://github.com/blassaut',

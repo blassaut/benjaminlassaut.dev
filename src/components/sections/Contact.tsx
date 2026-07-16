@@ -42,7 +42,7 @@ export default function Contact() {
         </div>
 
         <p className="text-muted font-body mb-10 text-center">
-          Open to interesting opportunities and conversations about QA in web3.
+          Open to interesting opportunities and conversations about QA and test automation.
         </p>
 
         <motion.form
