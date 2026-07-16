@@ -16,9 +16,9 @@ export function PracticeCard({ practice: p, index }: { practice: Practice; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="relative p-5 rounded-xl border border-white/5 bg-dark-800/20 hover:border-teal-400/15 transition-colors group overflow-hidden"
+      className="relative p-5 rounded-xl border border-hairline/5 bg-dark-800/20 shadow-card hover:shadow-card-hover hover:border-teal-400/15 transition-all group overflow-hidden"
     >
-      <span className="absolute -right-2 -bottom-3 text-[64px] font-mono font-black text-white/[0.02] select-none leading-none group-hover:text-teal-400/[0.04] transition-colors">
+      <span className="absolute -right-2 -bottom-3 text-[64px] font-mono font-black text-hairline/[0.02] select-none leading-none group-hover:text-teal-400/[0.04] transition-colors">
         {p.icon}
       </span>
 

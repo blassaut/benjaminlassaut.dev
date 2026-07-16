@@ -66,7 +66,7 @@ function BugSkillTag({ name }: { name: string }) {
           className="absolute bottom-full left-1/2 -translate-x-1/2 pb-3 z-50"
         >
           <span
-            className="block w-64 p-3 rounded-lg bg-[#1a1a2e] border border-teal-500/30 text-left relative"
+            className="block w-64 p-3 rounded-lg bg-dark-800 border border-teal-500/30 text-left relative"
             data-testid="bug-popover"
             role="tooltip"
           >
@@ -111,7 +111,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.4, delay: catIndex * 0.1 }}
-              className="p-5 rounded-xl border border-white/5 bg-dark-800/30 hover:border-teal-400/20 transition-colors"
+              className="p-5 rounded-xl border border-hairline/5 bg-dark-800/30 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
             >
               <h3 className="text-sm font-mono tracking-wide text-teal-400 mb-4 uppercase">
                 {category.name}
@@ -125,7 +125,7 @@ export default function Skills() {
                   return (
                     <span
                       key={`${category.name}-${name}`}
-                      className="px-2.5 py-1 text-xs font-mono bg-white/[0.03] border border-white/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
+                      className="px-2.5 py-1 text-xs font-mono bg-hairline/[0.03] border border-hairline/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
                     >
                       {name}
                     </span>
