@@ -48,7 +48,7 @@ export default function Contact() {
         <motion.form
           data-testid="contact-form"
           onSubmit={handleSubmit}
-          className="space-y-4 p-6 rounded-xl border border-white/5 bg-dark-800/20"
+          className="space-y-4 p-6 rounded-xl border border-hairline/5 bg-dark-800/20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +61,7 @@ export default function Contact() {
               name="name"
               placeholder="Name"
               required
-              className="w-full px-4 py-3 bg-dark-900/50 border border-white/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
+              className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
             />
             <input
               data-testid="contact-input-email"
@@ -69,7 +69,7 @@ export default function Contact() {
               name="email"
               placeholder="Email"
               required
-              className="w-full px-4 py-3 bg-dark-900/50 border border-white/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
+              className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
             />
           </div>
           <textarea
@@ -78,13 +78,13 @@ export default function Contact() {
             placeholder="Message"
             rows={4}
             required
-            className="w-full px-4 py-3 bg-dark-900/50 border border-white/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors resize-none"
+            className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors resize-none"
           />
           <button
             data-testid="contact-submit"
             type="submit"
             disabled={status === 'sending'}
-            className="w-full px-6 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.2)] transition-all disabled:opacity-50"
+            className="w-full px-6 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.2)] transition-all disabled:opacity-50"
           >
             {status === 'sending' ? 'Sending...' : 'Send Message'}
           </button>
@@ -104,7 +104,7 @@ export default function Contact() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm font-mono text-muted border border-white/5 rounded-lg hover:text-teal-400 hover:border-teal-400/20 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-mono text-muted border border-hairline/5 rounded-lg hover:text-teal-400 hover:border-teal-400/20 transition-colors"
             >
               <span className="text-base">{link.icon}</span>
               <span>{link.label}</span>

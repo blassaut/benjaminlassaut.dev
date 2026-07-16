@@ -50,7 +50,7 @@ export function GherkinLine({ line }: { line: string }) {
   }
 
   if (!trimmed || trimmed.startsWith('#')) {
-    return <span className="block text-white/10">{line || ' '}</span>
+    return <span className="block text-hairline/10">{line || ' '}</span>
   }
 
   return (

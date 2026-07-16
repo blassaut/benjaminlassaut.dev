@@ -36,7 +36,7 @@ export default function Experience() {
 
         <div className="relative">
           {/* Continuous timeline line */}
-          <div className="absolute left-[7px] top-3 bottom-3 w-px bg-gradient-to-b from-teal-400/40 via-white/10 to-transparent" />
+          <div className="absolute left-[7px] top-3 bottom-3 w-px bg-gradient-to-b from-teal-400/40 via-hairline/10 to-transparent" />
 
           <div className="space-y-10">
             {groups.map((group, groupIndex) => (
@@ -53,15 +53,15 @@ export default function Experience() {
                 <div className={`absolute left-0 top-1 w-[15px] h-[15px] rounded-full border-2 ${
                   group.current
                     ? 'bg-teal-400 border-teal-400 shadow-[0_0_10px_rgba(20,184,166,0.6)]'
-                    : 'bg-dark-900 border-white/20'
+                    : 'bg-dark-900 border-hairline/20'
                 }`} />
 
                 {/* Connector arrow from node to card */}
-                <div className="absolute left-[15px] top-[6px] w-[17px] h-px bg-white/10" />
-                <div className="absolute left-[29px] top-[3px] w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[5px] border-l-white/10" />
+                <div className="absolute left-[15px] top-[6px] w-[17px] h-px bg-hairline/10" />
+                <div className="absolute left-[29px] top-[3px] w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[5px] border-l-hairline/10" />
 
                 {/* Card */}
-                <div className="rounded-xl border border-white/5 bg-dark-800/30 p-5 hover:border-teal-400/20 transition-colors">
+                <div className="rounded-xl border border-hairline/5 bg-dark-800/30 p-5 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all">
                   {/* Company header */}
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-sm font-mono text-teal-400 tracking-wide">{group.company}</span>
@@ -75,7 +75,7 @@ export default function Experience() {
                   {/* Roles */}
                   <div className="space-y-5">
                     {group.roles.map((entry, roleIndex) => (
-                      <div key={roleIndex} className={roleIndex > 0 ? 'pt-5 border-t border-white/5' : ''}>
+                      <div key={roleIndex} className={roleIndex > 0 ? 'pt-5 border-t border-hairline/5' : ''}>
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-2">
                           <h3 className="text-lg font-heading font-semibold text-light">
                             {entry.role}

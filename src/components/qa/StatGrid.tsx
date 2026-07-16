@@ -26,7 +26,7 @@ export function StatGrid({
             ? { animate: { opacity: 1, y: 0 } }
             : { whileInView: { opacity: 1, y: 0 }, viewport: { once: true } })}
           transition={{ duration: 0.3, delay: baseDelay + i * 0.06 }}
-          className="text-center py-4 rounded-xl border border-white/5 bg-dark-800/20"
+          className="text-center py-4 rounded-xl border border-hairline/5 bg-dark-800/20 shadow-card"
         >
           <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
           <div className="text-[10px] text-muted/50 font-mono mt-1 uppercase tracking-wider">

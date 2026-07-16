@@ -18,7 +18,7 @@ export default function Footer() {
   const navigateToHash = useHashNavigation()
 
   return (
-    <footer data-testid="footer" className="border-t border-white/5 py-12">
+    <footer data-testid="footer" className="border-t border-hairline/5 py-12">
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
           {/* Brand */}
@@ -91,7 +91,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-10 pt-6 border-t border-white/5 text-center text-xs text-muted/50 font-body">
+        <div className="mt-10 pt-6 border-t border-hairline/5 text-center text-xs text-muted/50 font-body">
           &copy; {new Date().getFullYear()} Benjamin Lassaut
         </div>
       </div>

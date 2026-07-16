@@ -4,6 +4,17 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#faf9f6" />
+        <script>
+            // Apply saved theme before paint to avoid a flash. Defaults to light.
+            (function () {
+                try {
+                    if (localStorage.getItem('theme') === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    }
+                } catch (e) {}
+            })();
+        </script>
         <title>Benjamin Lassaut - Lead QA Engineer / SDET</title>
         <meta
             name="description"

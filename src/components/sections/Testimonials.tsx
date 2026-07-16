@@ -43,7 +43,7 @@ function TestimonialCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="rounded-xl border border-white/5 bg-dark-800/30 p-6 hover:border-teal-400/20 transition-colors"
+      className="rounded-xl border border-hairline/5 bg-dark-800/30 p-6 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
     >
       {/* Decorative quote icon */}
       <svg
@@ -89,7 +89,7 @@ function TestimonialCard({
       </button>
 
       {/* Attribution row */}
-      <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-3">
+      <div className="mt-4 pt-4 border-t border-hairline/5 flex items-center gap-3">
         <div className="flex-1">
           <p className="text-light font-semibold text-sm">{testimonial.author}</p>
           <p className="text-muted text-xs">

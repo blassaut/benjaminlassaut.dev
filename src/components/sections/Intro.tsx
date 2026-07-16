@@ -1,23 +1,36 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useTheme } from '../../hooks/useTheme'
 
 function GridBackground() {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
+
+  // The teal glow is calibrated for a black canvas; on the light cream
+  // background it reads as a green cloud, so it's dialed way down.
+  const staticGlow = isDark ? 0.15 : 0.05
+  const breathe = isDark ? [0.08, 0.18, 0.08] : [0.03, 0.07, 0.03]
+  // A neutral ink grid stays a subtle blueprint on cream instead of turning green.
+  const gridColor = isDark ? '#14b8a6' : '#15150f'
+  const gridOpacity = isDark ? 0.04 : 0.025
+
   return (
     <div className="absolute inset-0 overflow-hidden">
       {/* Radial gradient glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-15"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full"
         style={{
           background: 'radial-gradient(ellipse, #14b8a6 0%, transparent 70%)',
+          opacity: staticGlow,
         }}
       />
       {/* Grid lines */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
         style={{
-          backgroundImage:
-            'linear-gradient(#14b8a6 1px, transparent 1px), linear-gradient(90deg, #14b8a6 1px, transparent 1px)',
+          backgroundImage: `linear-gradient(${gridColor} 1px, transparent 1px), linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
+          opacity: gridOpacity,
         }}
       />
       {/* Breathing glow */}
@@ -26,7 +39,7 @@ function GridBackground() {
         style={{
           background: 'radial-gradient(ellipse, #14b8a6 0%, transparent 70%)',
         }}
-        animate={{ opacity: [0.08, 0.18, 0.08], scale: [1, 1.05, 1] }}
+        animate={{ opacity: breathe, scale: [1, 1.05, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       />
     </div>
@@ -68,7 +81,7 @@ export default function Intro() {
             alt="Benjamin Lassaut - Lead QA Engineer / SDET specializing in test automation"
             width={128}
             height={128}
-            className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-[#0a0a0f]"
+            className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-dark-900"
           />
         </motion.div>
 
@@ -118,7 +131,7 @@ export default function Intro() {
           <a
             data-testid="hero-cta-work"
             href="#experience"
-            className="group relative px-7 py-3 bg-teal-400 text-dark-900 font-body font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]"
+            className="group relative px-7 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]"
           >
             <span className="relative z-10">See my work</span>
           </a>
@@ -141,7 +154,7 @@ export default function Intro() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-5 h-8 border-2 border-white/10 rounded-full flex justify-center pt-1.5"
+            className="w-5 h-8 border-2 border-hairline/10 rounded-full flex justify-center pt-1.5"
           >
             <div className="w-1 h-1.5 bg-teal-400/50 rounded-full" />
           </motion.div>
