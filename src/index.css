@@ -12,6 +12,10 @@
   --content-muted: #57534e; /* secondary text */
   --hairline: #15150f; /* solid; used with /opacity for borders & dividers */
   --grain-opacity: 0; /* film grain hidden on light */
+  /* Warning/bug accent — deeper amber so it reads on the cream canvas
+     instead of washing out. See @theme amber tokens below. */
+  --warn-400: #d97706; /* borders, fills, icons */
+  --warn-300: #b45309; /* text — darkest for contrast */
   /* Soft elevation for cards — lifts white cards off the cream background */
   --card-shadow: 0 1px 2px rgba(21, 21, 15, 0.04), 0 6px 20px rgba(21, 21, 15, 0.06);
   --card-shadow-hover: 0 2px 4px rgba(21, 21, 15, 0.05), 0 12px 32px rgba(21, 21, 15, 0.09);
@@ -25,6 +29,9 @@ html.dark {
   --content-muted: #6b7280;
   --hairline: #ffffff;
   --grain-opacity: 0.03;
+  /* On the dark canvas the bright amber glow reads well — keep Tailwind's defaults */
+  --warn-400: #fbbf24;
+  --warn-300: #fcd34d;
   /* Shadows read as noise on the dark canvas — the border alone carries it */
   --card-shadow: none;
   --card-shadow-hover: none;
@@ -43,6 +50,9 @@ html.dark {
   --color-teal-300: #2dd4bf;
   --color-teal-400: #14b8a6;
   --color-teal-500: #0d9488;
+  /* Amber = warning/bug accent; flips per theme via --warn-* */
+  --color-amber-300: var(--warn-300);
+  --color-amber-400: var(--warn-400);
   --font-heading: 'Exo 2', sans-serif;
   --font-body: 'IBM Plex Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
