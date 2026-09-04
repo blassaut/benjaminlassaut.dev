@@ -38,6 +38,7 @@ import contactsFeature from '../../e2e/features/visitor-contacts-benjamin.featur
 import qaFeature from '../../e2e/features/visitor-explores-qa.feature?raw'
 import bugEasterEggFeature from '../../e2e/features/visitor-finds-bug-easter-egg.feature?raw'
 import themeFeature from '../../e2e/features/visitor-toggles-theme.feature?raw'
+import legalFeature from '../../e2e/features/visitor-reads-legal-notice.feature?raw'
 
 const features = [
   qaFeature,
@@ -46,9 +47,10 @@ const features = [
   contactsFeature,
   themeFeature,
   bugEasterEggFeature,
+  legalFeature,
 ]
 
-const REPO = 'https://github.com/blassaut/benjaminlassaut.dev'
+import { REPO_URL as REPO } from '../data/links'
 
 const practices = [
   {

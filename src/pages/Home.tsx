@@ -5,6 +5,7 @@ import Experience from '../components/sections/Experience'
 import Skills from '../components/sections/Skills'
 import Testimonials from '../components/sections/Testimonials'
 import Contact from '../components/sections/Contact'
+import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
 
 export default function Home() {
   return (
@@ -21,10 +22,7 @@ export default function Home() {
           jobTitle: 'Lead QA Engineer / SDET',
           alumniOf: { '@type': 'Organization', name: 'Kiln' },
           knowsAbout: ['QA', 'Test Automation', 'BDD', 'CI/CD', 'Playwright', 'Cypress'],
-          sameAs: [
-            'https://linkedin.com/in/benjaminlassaut',
-            'https://github.com/blassaut',
-          ],
+          sameAs: [LINKEDIN_URL, GITHUB_URL],
         })}</script>
       </Helmet>
       <Intro />

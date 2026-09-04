@@ -15,9 +15,7 @@ const CONTENT_WIDTH = PAGE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
 const PAGE_HEIGHT = 297
 const PAGE_BOTTOM = PAGE_HEIGHT - 12
 
-// Sourced from Contact.tsx links array - keep in sync
-const LINKEDIN_URL = 'https://linkedin.com/in/benjaminlassaut'
-const GITHUB_URL = 'https://github.com/blassaut'
+import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
 
 const ABOUT_SUMMARY =
   "I turn \"we're not sure it works\" into shippable confidence. First quality hire at several " +

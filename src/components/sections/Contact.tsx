@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import { LINKEDIN_URL, GITHUB_URL } from '../../data/links'
 
 const links = [
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/benjaminlassaut', icon: 'in' },
-  { label: 'GitHub', href: 'https://github.com/blassaut', icon: 'gh' },
+  { label: 'LinkedIn', href: LINKEDIN_URL, icon: 'in' },
+  { label: 'GitHub', href: GITHUB_URL, icon: 'gh' },
 ]
 
 export default function Contact() {
