@@ -4,4 +4,5 @@
 export const staticRoutes = [
   { path: '/', priority: '1.0', changefreq: 'monthly' },
   { path: '/qa', priority: '0.8', changefreq: 'monthly' },
+  { path: '/legal', priority: '0.3', changefreq: 'yearly' },
 ]

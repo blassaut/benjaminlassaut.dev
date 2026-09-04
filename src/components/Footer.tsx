@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useHashNavigation } from '../hooks/useHashNavigation'
+import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
 
 const footerLinks = [
   { label: 'About', hash: '#about' },
@@ -10,8 +11,8 @@ const footerLinks = [
 ]
 
 const socials = [
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/benjaminlassaut' },
-  { label: 'GitHub', href: 'https://github.com/blassaut' },
+  { label: 'LinkedIn', href: LINKEDIN_URL },
+  { label: 'GitHub', href: GITHUB_URL },
 ]
 
 export default function Footer() {
@@ -91,8 +92,16 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-10 pt-6 border-t border-hairline/5 text-center text-xs text-muted/50 font-body">
-          &copy; {new Date().getFullYear()} Benjamin Lassaut
+        <div className="mt-10 pt-6 border-t border-hairline/5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-muted/50 font-body">
+          <span>&copy; {new Date().getFullYear()} Benjamin Lassaut</span>
+          <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
+          <Link
+            data-testid="footer-link-legal"
+            to="/legal"
+            className="hover:text-light transition-colors"
+          >
+            Legal Notice
+          </Link>
         </div>
       </div>
     </footer>
