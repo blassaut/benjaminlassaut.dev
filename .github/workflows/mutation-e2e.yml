@@ -1,0 +1,46 @@
+name: E2E mutation testing
+
+# Plants the bugs listed in e2e/mutation/mutants/*.yaml and checks that the
+# Playwright suite notices them. See e2e/mutation/README.md.
+#
+# - On pull requests touching e2e/: only the mutants whose scope includes a
+#   changed test file (or all of them when shared e2e code changed).
+# - Nightly and on demand: the whole catalog.
+
+on:
+  pull_request:
+    paths: ['e2e/**']
+  schedule:
+    - cron: '0 3 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  mutation-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Run mutants
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            node e2e/mutation/run.ts --changed-since origin/${{ github.base_ref }}
+          else
+            node e2e/mutation/run.ts
+          fi
+      - name: Publish report to the job summary
+        if: ${{ !cancelled() }}
+        run: cat reports/mutation-e2e/report.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: mutation-e2e-report
+          path: reports/mutation-e2e/
+          retention-days: 14

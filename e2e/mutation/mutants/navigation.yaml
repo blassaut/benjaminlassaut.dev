@@ -1,0 +1,20 @@
+# Bugs planted in site navigation. Scope: visitor-navigates-site.feature
+mutants:
+  - id: not-found-back-link-missing
+    ticket: PORT-130
+    concern: The 404 page has no way back to the homepage
+    expect: fail when the 404 page shows no "Back to home" link
+    scope:
+      files: [visitor-navigates-site]
+    dom:
+      - remove: '[data-testid="not-found-page"] a'
+
+  - id: mobile-menu-contact-link-missing
+    ticket: PORT-131
+    concern: The mobile menu no longer lists the Contact entry
+    expect: fail when a mobile menu entry is missing
+    scope:
+      files: [visitor-navigates-site]
+      tags: ['@mobile']
+    dom:
+      - remove: '[data-testid="nav-mobile-menu"] [data-testid="nav-link-contact"]'

@@ -1,0 +1,31 @@
+# Bugs planted on the contact section. Scope: visitor-contacts-benjamin.feature
+mutants:
+  - id: contact-submit-disabled
+    ticket: PORT-120
+    concern: The contact form submit button is disabled, nobody can send a message
+    expect: fail when the submit button is not enabled
+    scope:
+      files: [visitor-contacts-benjamin]
+    dom:
+      - disable: '[data-testid="contact-submit"]'
+
+  - id: contact-email-input-missing
+    ticket: PORT-121
+    concern: The email field is missing from the contact form
+    expect: fail when the email input is absent
+    scope:
+      files: [visitor-contacts-benjamin]
+    dom:
+      - remove: '[data-testid="contact-input-email"]'
+
+  - id: contact-linkedin-points-elsewhere
+    ticket: PORT-122
+    concern: The LinkedIn contact link points to the wrong profile
+    expect: fail when the LinkedIn link href is not the canonical profile URL
+    scope:
+      files: [visitor-contacts-benjamin]
+    dom:
+      - setAttribute:
+          selector: '[data-testid="contact-link-linkedin"]'
+          name: href
+          value: 'https://example.com/not-benjamin'

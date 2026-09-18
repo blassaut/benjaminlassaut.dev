@@ -19,7 +19,7 @@ Feature: Recruiter visits portfolio
   Scenario: Experience entries are displayed
     Given I am on the homepage
     When I scroll to the experience section
-    Then I should see at least one experience card
+    Then I should see one experience card per company
 
   Scenario: Skills categories are displayed
     Given I am on the homepage

@@ -1,0 +1,35 @@
+# Bugs planted around the legal notice. Scope: visitor-reads-legal-notice.feature
+# Format reference: e2e/mutation/README.md, "Catalog reference".
+mutants:
+  - id: legal-link-missing-from-footer
+    ticket: PORT-101
+    concern: The "Legal Notice" link disappears from the footer
+    expect: fail when the footer has no link to /legal
+    scope:
+      files: [visitor-reads-legal-notice]
+    dom:
+      - remove: '[data-testid="footer-link-legal"]'
+
+  - id: legal-personal-data-section-renamed
+    ticket: PORT-102
+    concern: The "Personal data" section is renamed and no longer matches what the law requires
+    expect: fail when a mandatory legal section heading is missing
+    scope:
+      files: [visitor-reads-legal-notice]
+    dom:
+      - replaceText:
+          selector: '[data-testid="legal-page"] h2'
+          from: 'Personal data'
+          to: 'Privacy'
+
+  - id: legal-contact-link-loses-anchor
+    ticket: PORT-103
+    concern: The "contact form" link lands on the homepage top because the contact anchor was renamed
+    expect: fail when the link does not land on /#contact with the section in view
+    scope:
+      files: [visitor-reads-legal-notice]
+    dom:
+      - setAttribute:
+          selector: '#contact'
+          name: id
+          value: 'contact-moved'

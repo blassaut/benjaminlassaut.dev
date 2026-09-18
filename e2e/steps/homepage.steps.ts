@@ -1,7 +1,9 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
+import { experience } from '../../src/data/experience'
 
-const { Given, When, Then } = createBdd()
+const { Given, When, Then } = createBdd(test)
 
 Given('I am on the homepage', async ({ page }) => {
   await page.goto('/')
@@ -48,10 +50,12 @@ When('I scroll to the contact section', async ({ page }) => {
   await page.getByTestId('contact-section').scrollIntoViewIfNeeded()
 })
 
-Then('I should see at least one experience card', async ({ page }) => {
+Then('I should see one experience card per company', async ({ page }) => {
   const cards = page.locator('[data-testid^="experience-card-"]')
   await expect(cards.first()).toBeVisible()
-  expect(await cards.count()).toBeGreaterThan(0)
+  // Consecutive roles at the same company share one card
+  const companies = experience.filter((e, i) => i === 0 || e.company !== experience[i - 1].company)
+  await expect(cards).toHaveCount(companies.length)
 })
 
 Then('I should see at least one skill category', async ({ page }) => {

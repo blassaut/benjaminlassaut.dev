@@ -35,9 +35,19 @@ describe('PracticeCard', () => {
     expect(link).toHaveAttribute('href', practice.source.href)
   })
 
-  it('renders caption when provided', () => {
+  it('renders caption in its own muted span when provided', () => {
     render(<PracticeCard practice={practice} index={0} />)
-    expect(screen.getByText('Dappwright + Playwright')).toBeInTheDocument()
+    const caption = screen.getByText('Dappwright + Playwright')
+    expect(caption.tagName).toBe('SPAN')
+    expect(caption).toHaveClass('text-muted/30')
+  })
+
+  it('renders the icon and opens the source in a new tab', () => {
+    render(<PracticeCard practice={practice} index={0} />)
+    expect(screen.getByText('Wx')).toBeInTheDocument()
+    const link = screen.getByRole('link', { name: /e2e\/steps\// })
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('does not render caption when not provided', () => {

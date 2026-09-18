@@ -1,0 +1,24 @@
+# Bugs planted in the color theme. Scope: visitor-toggles-theme.feature
+mutants:
+  - id: theme-not-persisted
+    ticket: PORT-140
+    concern: The chosen theme is forgotten on reload (localStorage write silently fails)
+    expect: fail when the theme does not survive a page reload
+    scope:
+      files: [visitor-toggles-theme]
+    dom:
+      - script: |
+          Storage.prototype.setItem = function () {}
+
+  - id: theme-bootstrap-script-missing
+    ticket: PORT-141
+    concern: The inline script that applies the saved theme before first paint is broken in the served HTML
+    expect: fail when a saved dark theme is not applied on load
+    scope:
+      files: [visitor-toggles-theme]
+    response:
+      url: '**/*'
+      resourceTypes: [document]
+      replaceText:
+        - from: "localStorage.getItem('theme') === 'dark'"
+          to: 'false'

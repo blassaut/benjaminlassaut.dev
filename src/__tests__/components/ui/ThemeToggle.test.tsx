@@ -12,7 +12,15 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />)
     const button = screen.getByTestId('theme-toggle')
     expect(button).toHaveAttribute('aria-label', 'Switch to dark mode')
+    expect(button).toHaveAttribute('title', 'Switch to dark mode')
     expect(button).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('appends a custom className to its own classes', () => {
+    render(<ThemeToggle className="ml-auto" />)
+    const button = screen.getByTestId('theme-toggle')
+    expect(button).toHaveClass('ml-auto')
+    expect(button).toHaveClass('inline-flex')
   })
 
   it('switches to dark on click and back to light', () => {
@@ -23,6 +31,7 @@ describe('ThemeToggle', () => {
     expect(document.documentElement.classList.contains('dark')).toBe(true)
     expect(button).toHaveAttribute('aria-pressed', 'true')
     expect(button).toHaveAttribute('aria-label', 'Switch to light mode')
+    expect(button).toHaveAttribute('title', 'Switch to light mode')
 
     fireEvent.click(button)
     expect(document.documentElement.classList.contains('dark')).toBe(false)
