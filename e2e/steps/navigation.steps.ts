@@ -1,7 +1,8 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 
-const { Given, When, Then } = createBdd()
+const { Given, When, Then } = createBdd(test)
 
 function slugify(text: string): string {
   return text
@@ -12,7 +13,8 @@ function slugify(text: string): string {
 
 Given('I am on the qa page', async ({ page }) => {
   await page.goto('/qa')
-  await page.waitForLoadState('networkidle')
+  // Not 'networkidle': the embedded live-demo iframe keeps the network busy
+  await expect(page.locator('[data-testid^="qa-feature-"]').first()).toBeVisible()
 })
 
 When('I click the {string} nav link', async ({ page }, section: string) => {

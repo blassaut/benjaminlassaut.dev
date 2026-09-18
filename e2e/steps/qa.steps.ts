@@ -1,7 +1,9 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
+import { readdirSync } from 'node:fs'
 
-const { Given, Then } = createBdd()
+const { Given, Then } = createBdd(test)
 
 /** Scroll to the bottom of the page to trigger all whileInView animations */
 async function scrollToBottom(page: import('@playwright/test').Page) {
@@ -22,12 +24,19 @@ async function scrollToBottom(page: import('@playwright/test').Page) {
 
 Given('I am on the "Who tests the tester?" page', async ({ page }) => {
   await page.goto('/qa')
-  await page.waitForLoadState('networkidle')
+  // Not 'networkidle': the embedded live-demo iframe keeps the network busy
+  await expect(page.locator('[data-testid^="qa-feature-"]').first()).toBeVisible()
 })
 
-Then('I should see at least one feature file section', async ({ page }) => {
-  const sections = page.locator('[data-testid^="qa-feature-"]')
-  expect(await sections.count()).toBeGreaterThan(0)
+const featureFileCount = readdirSync('e2e/features').filter((f) => f.endsWith('.feature')).length
+
+Then('I should see one section per feature file', async ({ page }) => {
+  await expect(page.locator('[data-testid^="qa-feature-"]')).toHaveCount(featureFileCount)
+})
+
+Then('the {string} statistic should equal the number of feature files', async ({ page }, label: string) => {
+  const stat = page.getByTestId('qa-stats').locator('> div').filter({ hasText: label })
+  await expect(stat.locator('div').first()).toHaveText(String(featureFileCount))
 })
 
 Then('each feature file section should contain Gherkin syntax', async ({ page }) => {

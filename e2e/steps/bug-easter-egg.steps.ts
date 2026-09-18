@@ -1,7 +1,8 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 
-const { When, Then } = createBdd()
+const { When, Then } = createBdd(test)
 
 Then('I should see a bug-tagged skill in the skills section', async ({ page }) => {
   const skillsSection = page.getByTestId('skills-section')

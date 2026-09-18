@@ -1,7 +1,8 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 
-const { Given, When, Then } = createBdd()
+const { Given, When, Then } = createBdd(test)
 
 Given('I am on the legal page', async ({ page }) => {
   await page.goto('/legal')

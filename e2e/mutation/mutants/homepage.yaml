@@ -1,0 +1,34 @@
+# Bugs planted on the homepage. Scope: recruiter-visits-portfolio.feature
+mutants:
+  - id: intro-name-misspelled
+    ticket: PORT-110
+    concern: The candidate's name is misspelled in the intro
+    expect: fail when the intro does not show "Benjamin Lassaut" exactly
+    scope:
+      files: [recruiter-visits-portfolio]
+    dom:
+      - replaceText:
+          selector: '[data-testid="intro-section"]'
+          from: 'Lassaut'
+          to: 'Lassault'
+
+  - id: experience-only-first-entry-shown
+    ticket: PORT-111
+    concern: All experience entries but the first silently disappear
+    expect: fail when fewer experience entries are shown than the data contains
+    scope:
+      files: [recruiter-visits-portfolio]
+    dom:
+      - keepOnlyFirst: '[data-testid^="experience-card-"]'
+
+  - id: testimonial-linkedin-opens-in-same-tab
+    ticket: PORT-112
+    concern: The testimonial LinkedIn link opens in the same tab, losing the visitor
+    expect: fail when the LinkedIn link does not open in a new tab
+    scope:
+      files: [recruiter-visits-portfolio]
+    dom:
+      - setAttribute:
+          selector: '[data-testid^="testimonial-card-"] a[href*="linkedin.com"]'
+          name: target
+          value: _self

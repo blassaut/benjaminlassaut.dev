@@ -1,0 +1,13 @@
+# Bugs planted on the deliberate-bug easter egg. Scope: visitor-finds-bug-easter-egg.feature
+mutants:
+  - id: bug-popover-link-points-to-home
+    ticket: PORT-160
+    concern: The popover link no longer leads to the "Who tests the tester?" page
+    expect: fail when the popover link does not point to /qa
+    scope:
+      files: [visitor-finds-bug-easter-egg]
+    dom:
+      - setAttribute:
+          selector: '[data-testid="bug-popover-link"]'
+          name: href
+          value: '/'

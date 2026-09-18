@@ -1,7 +1,9 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
+import { LINKEDIN_URL, GITHUB_URL } from '../../src/data/links'
 
-const { Then } = createBdd()
+const { Then } = createBdd(test)
 
 function slugify(text: string): string {
   return text
@@ -28,9 +30,14 @@ Then('I should see the message input', async ({ page }) => {
 
 Then('I should see the submit button', async ({ page }) => {
   await expect(page.getByTestId('contact-submit')).toBeVisible()
+  await expect(page.getByTestId('contact-submit')).toBeEnabled()
 })
+
+const CONTACT_LINKS: Record<string, string> = { linkedin: LINKEDIN_URL, github: GITHUB_URL }
 
 Then('I should see the {string} contact link', async ({ page }, label: string) => {
   const slug = slugify(label)
-  await expect(page.getByTestId(`contact-link-${slug}`)).toBeVisible()
+  const link = page.getByTestId(`contact-link-${slug}`)
+  await expect(link).toBeVisible()
+  await expect(link).toHaveAttribute('href', CONTACT_LINKS[slug])
 })

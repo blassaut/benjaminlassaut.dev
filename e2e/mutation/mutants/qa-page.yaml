@@ -1,0 +1,30 @@
+# Bugs planted on the "Who tests the tester?" page. Scope: visitor-explores-qa.feature
+mutants:
+  - id: qa-only-first-feature-file-shown
+    ticket: PORT-150
+    concern: All feature files but the first silently disappear from the QA page
+    expect: fail when fewer feature files are listed than the suite contains
+    scope:
+      files: [visitor-explores-qa]
+    dom:
+      - keepOnlyFirst: '[data-testid^="qa-feature-"]'
+
+  - id: qa-stats-show-zero
+    ticket: PORT-151
+    concern: The QA page statistics (journeys, scenarios, tests) all read 0
+    expect: fail when the statistics do not match the feature files on the page
+    scope:
+      files: [visitor-explores-qa]
+    dom:
+      - setText:
+          selector: '[data-testid="qa-stats"] > div > div:first-child'
+          text: '0'
+
+  - id: qa-status-badge-missing
+    ticket: PORT-152
+    concern: The CI status badge is missing from the QA page
+    expect: fail when the CI badge is absent
+    scope:
+      files: [visitor-explores-qa]
+    dom:
+      - remove: '[data-testid="qa-status-badge"]'

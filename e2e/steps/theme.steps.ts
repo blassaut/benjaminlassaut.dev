@@ -1,7 +1,8 @@
 import { createBdd } from 'playwright-bdd'
+import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 
-const { When, Then } = createBdd()
+const { When, Then } = createBdd(test)
 
 When('I toggle the theme', async ({ page }) => {
   await page.getByTestId('theme-toggle').click()

@@ -18,7 +18,11 @@ Feature: Visitor explores "Who tests the tester?"
 
   Scenario: "Who tests the tester?" displays feature files
     Given I am on the "Who tests the tester?" page
-    Then I should see at least one feature file section
+    Then I should see one section per feature file
+
+  Scenario: Statistics reflect the feature files
+    Given I am on the "Who tests the tester?" page
+    Then the "User journeys" statistic should equal the number of feature files
 
   Scenario: Feature files show Gherkin content
     Given I am on the "Who tests the tester?" page
