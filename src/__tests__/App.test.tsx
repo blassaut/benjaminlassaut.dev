@@ -9,7 +9,7 @@ beforeAll(() => {
   } as unknown as typeof IntersectionObserver
 })
 
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import App from '../App'
 
 const scrollTo = vi.fn()
@@ -66,6 +66,16 @@ describe('ScrollToTop', () => {
     expect(() => render(<App />)).not.toThrow()
     expect(scrollIntoView).not.toHaveBeenCalled()
     expect(scrollTo).not.toHaveBeenCalled()
+  })
+
+  it('scrolls to the top again on every route change', () => {
+    window.history.pushState({}, '', '/')
+    render(<App />)
+    expect(scrollTo).toHaveBeenCalledTimes(1)
+
+    fireEvent.click(screen.getByTestId('footer-link-legal'))
+    expect(screen.getByTestId('legal-page')).toBeInTheDocument()
+    expect(scrollTo).toHaveBeenCalledTimes(2)
   })
 
   it('does not crash when the hash is not a valid CSS selector', () => {

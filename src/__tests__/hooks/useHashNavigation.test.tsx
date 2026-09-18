@@ -1,45 +1,111 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { useHashNavigation } from '../../hooks/useHashNavigation'
 
-function wrapper({ children }: { children: ReactNode }) {
-  return <MemoryRouter>{children}</MemoryRouter>
+function makeWrapper(initialPath: string) {
+  return function Wrapper({ children }: { children: ReactNode }) {
+    return <MemoryRouter initialEntries={[initialPath]}>{children}</MemoryRouter>
+  }
 }
 
+function renderNavigation(initialPath: string) {
+  return renderHook(() => ({ navigateToHash: useHashNavigation(), location: useLocation() }), {
+    wrapper: makeWrapper(initialPath),
+  })
+}
+
+function clickEvent() {
+  const preventDefault = vi.fn()
+  return { event: { preventDefault } as unknown as React.MouseEvent, preventDefault }
+}
+
+const scrollIntoView = vi.fn()
+let target: HTMLElement
+
+beforeEach(() => {
+  target = document.createElement('section')
+  target.id = 'about'
+  target.scrollIntoView = scrollIntoView
+  document.body.appendChild(target)
+  vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+    cb(0)
+    return 0
+  })
+})
+
+afterEach(() => {
+  document.body.removeChild(target)
+  scrollIntoView.mockClear()
+  vi.unstubAllGlobals()
+})
+
 describe('useHashNavigation', () => {
-  it('returns a function', () => {
-    const { result } = renderHook(() => useHashNavigation(), { wrapper })
-    expect(typeof result.current).toBe('function')
+  it('prevents the default anchor behaviour', () => {
+    const { result } = renderNavigation('/')
+    const { event, preventDefault } = clickEvent()
+
+    act(() => result.current.navigateToHash(event, '#about'))
+
+    expect(preventDefault).toHaveBeenCalledOnce()
   })
 
-  it('scrolls to element when on home page', () => {
-    const scrollIntoView = vi.fn()
-    const el = document.createElement('div')
-    el.id = 'about'
-    el.scrollIntoView = scrollIntoView
-    document.body.appendChild(el)
+  it('scrolls smoothly to the section when already on the home page', () => {
+    const { result } = renderNavigation('/')
 
-    const { result } = renderHook(() => useHashNavigation(), { wrapper })
+    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
 
-    act(() => {
-      const event = { preventDefault: vi.fn() } as unknown as React.MouseEvent
-      result.current(event, '#about')
-    })
-
-    document.body.removeChild(el)
+    expect(scrollIntoView).toHaveBeenCalledOnce()
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
+    expect(scrollIntoView.mock.contexts[0]).toBe(target)
+    expect(result.current.location.pathname).toBe('/')
   })
 
-  it('prevents default event behavior', () => {
-    const preventDefault = vi.fn()
-    const { result } = renderHook(() => useHashNavigation(), { wrapper })
+  it('does nothing when the target section is missing on the home page', () => {
+    const { result } = renderNavigation('/')
 
-    act(() => {
-      const event = { preventDefault } as unknown as React.MouseEvent
-      result.current(event, '#contact')
-    })
+    expect(() =>
+      act(() => result.current.navigateToHash(clickEvent().event, '#missing')),
+    ).not.toThrow()
+    expect(scrollIntoView).not.toHaveBeenCalled()
+  })
 
-    expect(preventDefault).toHaveBeenCalled()
+  it('navigates home first, then scrolls to the section once the route has changed', () => {
+    const { result } = renderNavigation('/qa')
+
+    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
+
+    expect(result.current.location.pathname).toBe('/')
+    expect(scrollIntoView).toHaveBeenCalledOnce()
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
+    expect(scrollIntoView.mock.contexts[0]).toBe(target)
+  })
+
+  it('does not scroll on mount when there is no pending hash', () => {
+    renderNavigation('/')
+    expect(scrollIntoView).not.toHaveBeenCalled()
+  })
+
+  it('consumes the pending hash so later route changes do not re-scroll', () => {
+    const { result, rerender } = renderNavigation('/qa')
+
+    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
+    expect(scrollIntoView).toHaveBeenCalledOnce()
+
+    rerender()
+    expect(scrollIntoView).toHaveBeenCalledOnce()
+  })
+
+  it('scrolls directly on the second click, now that the route is home', () => {
+    const { result } = renderNavigation('/qa')
+
+    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
+    scrollIntoView.mockClear()
+
+    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
+
+    expect(scrollIntoView).toHaveBeenCalledOnce()
+    expect(result.current.location.pathname).toBe('/')
   })
 })
