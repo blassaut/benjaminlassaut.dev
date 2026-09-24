@@ -15,6 +15,9 @@ import type { DomOperation, Mutant, ResponseMutation } from './catalog.ts'
 
 export const APPLIED_CALLBACK = '__mutantApplied'
 
+/** Test annotation added by the fixture when a mutant changed nothing during a scenario; read by the runner. */
+export const NOT_APPLIED_ANNOTATION = 'mutant-not-applied'
+
 export async function applyMutant(page: Page, mutant: Mutant, onApplied: () => void): Promise<void> {
   await page.exposeFunction(APPLIED_CALLBACK, onApplied)
   if (mutant.dom) await page.addInitScript(buildDomScript(mutant.dom))
