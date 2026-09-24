@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Planning docs quote class names in code snippets: don't generate CSS for them. */
+@source not "../docs";
 
 /* ── Theme palettes ───────────────────────────────────────────────
    Light is the default. Adding class="dark" on <html> flips every
