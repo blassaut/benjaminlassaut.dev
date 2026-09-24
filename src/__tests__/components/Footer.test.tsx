@@ -5,7 +5,8 @@ import Footer from '../../components/Footer'
 import { LINKEDIN_URL, GITHUB_URL } from '../../data/links'
 
 function LocationProbe() {
-  return <span data-testid="location">{useLocation().pathname}</span>
+  const { pathname, hash } = useLocation()
+  return <span data-testid="location">{pathname + hash}</span>
 }
 
 function renderFooter(path = '/') {
@@ -40,7 +41,7 @@ describe('Footer - Legal Notice link', () => {
     renderFooter()
     expect(screen.getByTestId('footer-link-about')).toHaveAttribute('href', '#about')
     expect(screen.getByTestId('footer-link-contact')).toHaveAttribute('href', '#contact')
-    expect(screen.getByTestId('footer-link-who tests the tester?')).toHaveAttribute(
+    expect(screen.getByTestId('footer-link-who-tests-the-tester')).toHaveAttribute(
       'href',
       '/qa',
     )
@@ -52,7 +53,7 @@ describe('Footer - navigation', () => {
     ['footer-link-about', 'About', '#about'],
     ['footer-link-experience', 'Experience', '#experience'],
     ['footer-link-skills', 'Skills', '#skills'],
-    ['footer-link-who tests the tester?', 'Who tests the tester?', '/qa'],
+    ['footer-link-who-tests-the-tester', 'Who tests the tester?', '/qa'],
     ['footer-link-contact', 'Contact', '#contact'],
   ] as const
 
@@ -101,13 +102,9 @@ describe('Footer - navigation', () => {
     contact.remove()
   })
 
-  it('goes back home when clicking a hash link from another page', () => {
-    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
-      cb(0)
-      return 0
-    })
+  it('goes to the section on the home page when clicking a hash link from another page', () => {
     renderFooter('/legal')
     fireEvent.click(screen.getByTestId('footer-link-about'))
-    expect(screen.getByTestId('location').textContent).toBe('/')
+    expect(screen.getByTestId('location').textContent).toBe('/#about')
   })
 })

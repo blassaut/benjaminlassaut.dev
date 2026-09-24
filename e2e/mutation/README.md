@@ -74,7 +74,8 @@ tool:
 | Post-incident review | QA | Adds one mutant for the incident, runs it, opens a test task if it survives. |
 | Refinement of a feature ticket | QA | Lists the mutants that the feature's tests must kill. |
 | Pull request that adds or changes E2E tests | Author | Runs the mutants in scope. See [the merge rule](#5-the-merge-rule). |
-| Nightly | CI | Runs the whole catalog. A mutant that was killed and is now survived means an assertion was lost. |
+| Pull request that touches `e2e/` | CI | Runs the mutants in scope (the whole catalog when shared E2E code changed). A mutant that was killed and is now survived means an assertion was lost. |
+| After a UI refactor | Anyone | Runs the whole catalog on demand (Actions > Run workflow) to catch mutants that no longer apply. |
 
 **What it costs.** Writing a mutant takes minutes. Running one takes as long as
 the scenarios in its scope. Ten mutants on a flow of six scenarios is a few
@@ -149,7 +150,7 @@ Steps:
 6. **Run it:** `npm run test:mutation:e2e -- --only legal-link-missing-from-footer`.
 7. **Act on the status.** Killed: commit the mutant, close the loop on the
    ticket. Survived: open a task "add assertion: footer links to /legal",
-   commit the mutant anyway so the nightly keeps flagging it.
+   commit the mutant anyway so CI keeps flagging it on every pull request in its scope.
 
 ### Worked example: a feature ticket
 
@@ -224,10 +225,11 @@ In practice:
    A mutant is removed only when the behaviour it guards is removed from the
    product, with the ticket that removed it.
 
-Why the nightly matters: a mutant that was killed for months and suddenly
-survives means an assertion was deleted or weakened. That is the exact
-regression this method exists to catch, and it is invisible in a green
-pipeline.
+Why pull requests that touch `e2e/` run the catalog: a mutant that was killed
+for months and suddenly survives means an assertion was deleted or weakened.
+That is the exact regression this method exists to catch, and it is
+invisible in a green pipeline. Tests only change through `e2e/`, so there is
+no need for a scheduled run on unchanged code.
 
 ---
 
@@ -346,8 +348,9 @@ Checklist:
 4. Delete the sample catalog files and write your first mutant from your
    latest production incident.
 5. Add `npm run test:mutation:e2e` to your scripts, and the workflow in
-   `.github/workflows/mutation-e2e.yml` (or its equivalent) to run the
-   catalog nightly and `--changed-since` on pull requests.
+   `.github/workflows/mutation-e2e.yml` (or its equivalent) to run
+   `--changed-since` on pull requests that touch E2E code, and the whole
+   catalog on demand.
 6. Write the merge rule from section 5 where your team reads its rules:
    contributing guide, PR template, `AGENTS.md` for AI assistants.
 

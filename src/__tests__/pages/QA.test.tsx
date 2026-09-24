@@ -37,30 +37,12 @@ describe('QA page - Get in touch CTA', () => {
     expect(link).toHaveAttribute('href', '#contact')
   })
 
-  it('navigates to home on click', () => {
+  // Landing scrolled on the contact section is covered end to end in App.test.tsx
+  it('navigates to the contact section of the home page on click', () => {
     renderQA()
     const link = screen.getByRole('link', { name: 'Get in touch' })
     fireEvent.click(link)
-    expect(mockNavigate).toHaveBeenCalledWith('/')
-  })
-
-  it('scrolls to #contact after navigation', async () => {
-    vi.useFakeTimers()
-    const scrollIntoView = vi.fn()
-    const el = document.createElement('div')
-    el.id = 'contact'
-    el.scrollIntoView = scrollIntoView
-    document.body.appendChild(el)
-
-    renderQA()
-    const link = screen.getByRole('link', { name: 'Get in touch' })
-    fireEvent.click(link)
-
-    vi.advanceTimersByTime(100)
-    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
-
-    document.body.removeChild(el)
-    vi.useRealTimers()
+    expect(mockNavigate).toHaveBeenCalledExactlyOnceWith({ pathname: '/', hash: '#contact' })
   })
 })
 

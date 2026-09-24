@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { staticRoutes } from './routes.js'
+import { staticRoutes } from '../src/data/routes.ts'
 
 const SITE_URL = 'https://benjaminlassaut.dev'
 const OUTPUT = path.resolve('dist/sitemap.xml')

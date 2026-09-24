@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import { slugify } from '../../lib/slugify'
 
 const stats = [
   { value: '10+', label: 'Years in QA' },
@@ -47,7 +48,7 @@ export default function About() {
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              data-testid={`about-stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
+              data-testid={`about-stat-${slugify(stat.label)}`}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

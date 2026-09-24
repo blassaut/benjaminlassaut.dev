@@ -29,16 +29,11 @@ beforeEach(() => {
   target.id = 'about'
   target.scrollIntoView = scrollIntoView
   document.body.appendChild(target)
-  vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
-    cb(0)
-    return 0
-  })
 })
 
 afterEach(() => {
   document.body.removeChild(target)
   scrollIntoView.mockClear()
-  vi.unstubAllGlobals()
 })
 
 describe('useHashNavigation', () => {
@@ -60,6 +55,7 @@ describe('useHashNavigation', () => {
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
     expect(scrollIntoView.mock.contexts[0]).toBe(target)
     expect(result.current.location.pathname).toBe('/')
+    expect(result.current.location.hash).toBe('')
   })
 
   it('does nothing when the target section is missing on the home page', () => {
@@ -71,41 +67,33 @@ describe('useHashNavigation', () => {
     expect(scrollIntoView).not.toHaveBeenCalled()
   })
 
-  it('navigates home first, then scrolls to the section once the route has changed', () => {
+  it('does not crash when the hash is not a valid CSS selector', () => {
+    const { result } = renderNavigation('/')
+
+    expect(() => act(() => result.current.navigateToHash(clickEvent().event, '#123'))).not.toThrow()
+  })
+
+  // Scrolling on arrival is ScrollToTop's job (App.test.tsx): it also works when
+  // the clicked component unmounts on navigation, like the QA page CTA.
+  it('navigates to the home page with the section hash from another page', () => {
     const { result } = renderNavigation('/qa')
 
     act(() => result.current.navigateToHash(clickEvent().event, '#about'))
 
     expect(result.current.location.pathname).toBe('/')
-    expect(scrollIntoView).toHaveBeenCalledOnce()
-    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
-    expect(scrollIntoView.mock.contexts[0]).toBe(target)
-  })
-
-  it('does not scroll on mount when there is no pending hash', () => {
-    renderNavigation('/')
+    expect(result.current.location.hash).toBe('#about')
     expect(scrollIntoView).not.toHaveBeenCalled()
-  })
-
-  it('consumes the pending hash so later route changes do not re-scroll', () => {
-    const { result, rerender } = renderNavigation('/qa')
-
-    act(() => result.current.navigateToHash(clickEvent().event, '#about'))
-    expect(scrollIntoView).toHaveBeenCalledOnce()
-
-    rerender()
-    expect(scrollIntoView).toHaveBeenCalledOnce()
   })
 
   it('scrolls directly on the second click, now that the route is home', () => {
     const { result } = renderNavigation('/qa')
 
     act(() => result.current.navigateToHash(clickEvent().event, '#about'))
-    scrollIntoView.mockClear()
+    expect(result.current.location.pathname).toBe('/')
 
     act(() => result.current.navigateToHash(clickEvent().event, '#about'))
 
     expect(scrollIntoView).toHaveBeenCalledOnce()
-    expect(result.current.location.pathname).toBe('/')
+    expect(scrollIntoView.mock.contexts[0]).toBe(target)
   })
 })

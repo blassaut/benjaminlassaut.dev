@@ -2,10 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { testimonials } from '../../data/testimonials'
-
-function slugify(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-}
+import { slugify } from '../../lib/slugify'
 
 export default function Testimonials() {
   return (

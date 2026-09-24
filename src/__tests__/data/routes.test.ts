@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { staticRoutes } from '../../../scripts/routes.js'
+import { staticRoutes } from '../../data/routes'
 
 describe('sitemap static routes', () => {
   it('contains the /legal route with sitemap metadata', () => {

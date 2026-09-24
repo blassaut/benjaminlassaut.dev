@@ -78,6 +78,30 @@ describe('ScrollToTop', () => {
     expect(scrollTo).toHaveBeenCalledTimes(2)
   })
 
+  it('lands on the home section when a nav link is clicked from another page', () => {
+    window.history.pushState({}, '', '/legal')
+    render(<App />)
+
+    fireEvent.click(screen.getByTestId('nav-link-about'))
+
+    expect(window.location.pathname + window.location.hash).toBe('/#about')
+    expect(scrollIntoView).toHaveBeenCalledExactlyOnceWith({ behavior: 'smooth' })
+    expect(scrollIntoView.mock.contexts[0]).toBe(document.getElementById('about'))
+  })
+
+  it('lands on the contact section from the QA page "Get in touch" button', () => {
+    // The CI badges fetch GitHub; keep the test offline
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new Error('offline'))))
+    window.history.pushState({}, '', '/qa')
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('link', { name: 'Get in touch' }))
+
+    expect(window.location.pathname + window.location.hash).toBe('/#contact')
+    expect(scrollIntoView).toHaveBeenCalledExactlyOnceWith({ behavior: 'smooth' })
+    expect(scrollIntoView.mock.contexts[0]).toBe(document.getElementById('contact'))
+  })
+
   it('does not crash when the hash is not a valid CSS selector', () => {
     window.history.pushState({}, '', '/#123')
     expect(() => render(<App />)).not.toThrow()

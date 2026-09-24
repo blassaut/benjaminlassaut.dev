@@ -4,7 +4,8 @@ import { MemoryRouter, useLocation } from 'react-router-dom'
 import Navbar from '../../components/Navbar'
 
 function LocationProbe() {
-  return <span data-testid="location">{useLocation().pathname}</span>
+  const { pathname, hash } = useLocation()
+  return <span data-testid="location">{pathname + hash}</span>
 }
 
 function renderNavbar(path = '/') {
@@ -80,13 +81,12 @@ describe('Navbar', () => {
       expect(screen.getByTestId('location').textContent).toBe('/')
     })
 
-    it('goes back home then scrolls to the section from another page', () => {
+    it('goes to the section on the home page from another page', () => {
       renderNavbar('/qa')
       fireEvent.click(screen.getByTestId('nav-link-about'))
 
-      expect(screen.getByTestId('location').textContent).toBe('/')
-      expect(scrollIntoView).toHaveBeenCalledOnce()
-      expect(scrollIntoView.mock.contexts[0]).toBe(about)
+      // ScrollToTop (App) scrolls on arrival; see App.test.tsx
+      expect(screen.getByTestId('location').textContent).toBe('/#about')
     })
 
     it('navigates to the QA page through a router link', () => {
@@ -159,9 +159,7 @@ describe('Navbar', () => {
       expect(scrollIntoView).not.toHaveBeenCalled()
 
       act(() => vi.advanceTimersByTime(300))
-      expect(screen.getByTestId('location').textContent).toBe('/')
-      expect(scrollIntoView).toHaveBeenCalledOnce()
-      expect(scrollIntoView.mock.contexts[0]).toBe(about)
+      expect(screen.getByTestId('location').textContent).toBe('/#about')
     })
 
     it('closes the menu when a router link is used', () => {

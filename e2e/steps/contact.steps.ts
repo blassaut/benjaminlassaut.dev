@@ -2,15 +2,9 @@ import { createBdd } from 'playwright-bdd'
 import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 import { LINKEDIN_URL, GITHUB_URL } from '../../src/data/links'
+import { slugify } from '../../src/lib/slugify'
 
 const { Then } = createBdd(test)
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-}
 
 Then('I should see the contact form', async ({ page }) => {
   await expect(page.getByTestId('contact-form')).toBeVisible()

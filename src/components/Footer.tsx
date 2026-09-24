@@ -1,14 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useHashNavigation } from '../hooks/useHashNavigation'
 import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
-
-const footerLinks = [
-  { label: 'About', hash: '#about' },
-  { label: 'Experience', hash: '#experience' },
-  { label: 'Skills', hash: '#skills' },
-  { label: 'Who tests the tester?', href: '/qa' },
-  { label: 'Contact', hash: '#contact' },
-]
+import { navLinks } from '../data/navigation'
+import { slugify } from '../lib/slugify'
 
 const socials = [
   { label: 'LinkedIn', href: LINKEDIN_URL },
@@ -46,11 +40,11 @@ export default function Footer() {
             <div>
               <h4 className="text-xs font-mono uppercase tracking-widest text-muted/60 mb-3">Navigate</h4>
               <div className="flex flex-col gap-2">
-                {footerLinks.map((item) =>
-                  item.hash ? (
+                {navLinks.map((item) =>
+                  'hash' in item ? (
                     <a
                       key={item.label}
-                      data-testid={`footer-link-${item.label.toLowerCase()}`}
+                      data-testid={`footer-link-${slugify(item.label)}`}
                       href={item.hash}
                       onClick={(e) => navigateToHash(e, item.hash)}
                       className="text-sm text-muted hover:text-light transition-colors font-body"
@@ -60,8 +54,8 @@ export default function Footer() {
                   ) : (
                     <Link
                       key={item.label}
-                      data-testid={`footer-link-${item.label.toLowerCase()}`}
-                      to={item.href!}
+                      data-testid={`footer-link-${slugify(item.label)}`}
+                      to={item.href}
                       className="text-sm text-muted hover:text-light transition-colors font-body"
                     >
                       {item.label}
@@ -77,7 +71,7 @@ export default function Footer() {
                 {socials.map((link) => (
                   <a
                     key={link.label}
-                    data-testid={`footer-link-${link.label.toLowerCase()}`}
+                    data-testid={`footer-link-${slugify(link.label)}`}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
