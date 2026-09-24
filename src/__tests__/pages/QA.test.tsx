@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { describe, it, expect, vi, beforeAll, afterEach } from 'vitest'
 
 beforeAll(() => {
   global.IntersectionObserver = class {
@@ -8,7 +8,7 @@ beforeAll(() => {
     constructor() {}
   } as unknown as typeof IntersectionObserver
 })
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import QaLab from '../../pages/QA'
 import { HelmetProvider } from 'react-helmet-async'
@@ -108,4 +108,70 @@ describe('QA page - Web3 demo section', () => {
     expect(dappLink).toBeTruthy()
   })
 
+})
+
+describe('QA page - CI status badges', () => {
+  const badgeIds = ['qa-status-badge', 'dapp-status-badge']
+
+  function stubBadgeResponse(body: string, ok = true, status = 200) {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ ok, status, text: () => Promise.resolve(body) }),
+    )
+  }
+
+  async function expectBadges(text: string) {
+    for (const id of badgeIds) {
+      await waitFor(() => expect(screen.getByTestId(id).textContent).toBe(text))
+    }
+  }
+
+  function expectNeutral(id: string) {
+    const badge = screen.getByTestId(id)
+    expect(badge).toHaveClass('text-muted/40')
+    expect(badge).not.toHaveClass('text-emerald-400')
+    const dot = badge.querySelector('span')
+    expect(dot).toHaveClass('bg-muted/40')
+    expect(dot).not.toHaveClass('bg-emerald-400')
+    expect(dot).not.toHaveClass('animate-pulse')
+  }
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('shows passing when the badge SVG says passing', async () => {
+    stubBadgeResponse('<svg><text>passing</text></svg>')
+    renderQA()
+    await expectBadges('passing')
+    for (const id of badgeIds) expect(screen.getByTestId(id)).toHaveClass('text-emerald-400')
+  })
+
+  it('shows failing when the badge SVG says failing', async () => {
+    stubBadgeResponse('<svg><text>failing</text></svg>')
+    renderQA()
+    await expectBadges('failing')
+    for (const id of badgeIds) expect(screen.getByTestId(id)).toHaveClass('text-red-400')
+  })
+
+  it('shows a neutral unknown badge when the fetch rejects', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
+    renderQA()
+    await expectBadges('unknown')
+    badgeIds.forEach(expectNeutral)
+  })
+
+  it('shows a neutral unknown badge when the SVG says neither passing nor failing', async () => {
+    stubBadgeResponse('<svg><text>no status</text></svg>')
+    renderQA()
+    await expectBadges('unknown')
+    badgeIds.forEach(expectNeutral)
+  })
+
+  it('shows a neutral unknown badge when the badge request is not ok', async () => {
+    stubBadgeResponse('<svg><text>passing</text></svg>', false, 503)
+    renderQA()
+    await expectBadges('unknown')
+    badgeIds.forEach(expectNeutral)
+  })
 })

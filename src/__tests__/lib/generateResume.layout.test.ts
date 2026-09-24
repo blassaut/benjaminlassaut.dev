@@ -49,7 +49,10 @@ const { RecorderPDF } = vi.hoisted(() => {
     private drawColor: number[] = []
     private lineWidth = 0
 
-    constructor(public readonly options: unknown) {
+    readonly options: unknown
+
+    constructor(options: unknown) {
+      this.options = options
       RecorderPDF.last = this
     }
     setFont(name: string, style: string) {
