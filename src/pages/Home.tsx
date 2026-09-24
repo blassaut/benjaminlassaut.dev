@@ -5,6 +5,7 @@ import Skills from '../components/sections/Skills'
 import Testimonials from '../components/sections/Testimonials'
 import Contact from '../components/sections/Contact'
 import { LINKEDIN_URL, GITHUB_URL, SITE_URL } from '../data/links'
+import { profile } from '../data/profile'
 
 export default function Home() {
   return (
@@ -12,9 +13,9 @@ export default function Home() {
       <script type="application/ld+json">{JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: 'Benjamin Lassaut',
+        name: profile.name,
         url: SITE_URL,
-        jobTitle: 'Lead QA Engineer / SDET',
+        jobTitle: profile.role,
         alumniOf: { '@type': 'Organization', name: 'Kiln' },
         knowsAbout: ['QA', 'Test Automation', 'BDD', 'CI/CD', 'Playwright', 'Cypress'],
         sameAs: [LINKEDIN_URL, GITHUB_URL],

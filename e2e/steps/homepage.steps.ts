@@ -5,6 +5,7 @@ import { experience } from '../../src/data/experience'
 import { skillCategories } from '../../src/data/skills'
 import { testimonials } from '../../src/data/testimonials'
 import { SITE_URL, OG_IMAGE_URL } from '../../src/data/links'
+import { staticRoutes } from '../../src/data/routes'
 
 const { Given, When, Then } = createBdd(test)
 
@@ -124,10 +125,18 @@ Then('the first testimonial should have a LinkedIn link', async ({ page }) => {
   await expect(link).toHaveAttribute('target', '_blank')
 })
 
-// index.html fills these from %SITE_URL% at build time (vite.config.ts)
-Then('the link preview should point to the live site', async ({ page }) => {
-  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', SITE_URL)
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', OG_IMAGE_URL)
-  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', OG_IMAGE_URL)
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', SITE_URL)
+// Link-preview crawlers (LinkedIn, Slack, X) read the raw HTML without running JS, so this
+// checks the served HTML, written per page by scripts/generate-seo-files.ts at build time.
+// vite preview serves dist/qa/index.html at /qa/ (Vercel also at /qa), hence the trailing slash.
+Then('each page should carry its own link preview', async ({ page }) => {
+  for (const route of staticRoutes) {
+    const html = await (await page.request.get(route.path === '/' ? '/' : `${route.path}/`)).text()
+    const url = route.path === '/' ? SITE_URL : `${SITE_URL}${route.path}`
+    const tags = (pattern: RegExp) => [...html.matchAll(pattern)].map((m) => m[1])
+    expect(tags(/<title>([^<]*)<\/title>/g), route.path).toEqual([route.title])
+    expect(tags(/<meta property="og:title" content="([^"]*)"/g), route.path).toEqual([route.title])
+    expect(tags(/<meta property="og:url" content="([^"]*)"/g), route.path).toEqual([url])
+    expect(tags(/<link rel="canonical" href="([^"]*)"/g), route.path).toEqual([url])
+    expect(tags(/<meta property="og:image" content="([^"]*)"/g), route.path).toEqual([OG_IMAGE_URL])
+  }
 })
