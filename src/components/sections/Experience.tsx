@@ -1,27 +1,9 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import DownloadResumeButton from '../ui/DownloadResumeButton'
-import { experience, type ExperienceEntry } from '../../data/experience'
+import { experience } from '../../data/experience'
 import { slugify } from '../../lib/slugify'
-
-interface CompanyGroup {
-  company: string
-  current: boolean
-  roles: ExperienceEntry[]
-}
-
-function groupByCompany(entries: ExperienceEntry[]): CompanyGroup[] {
-  const groups: CompanyGroup[] = []
-  for (const entry of entries) {
-    const last = groups[groups.length - 1]
-    if (last && last.company === entry.company) {
-      last.roles.push(entry)
-    } else {
-      groups.push({ company: entry.company, current: !!entry.current, roles: [entry] })
-    }
-  }
-  return groups
-}
+import { groupByCompany } from '../../lib/experience'
 
 export default function Experience() {
   const groups = groupByCompany(experience)

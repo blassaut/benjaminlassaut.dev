@@ -1,7 +1,9 @@
 import jsPDF from 'jspdf'
 import { experience } from '../data/experience'
-import { skillCategories, type SkillEntry } from '../data/skills'
+import { skillCategories } from '../data/skills'
 import { certifications } from '../data/certifications'
+import { profile } from '../data/profile'
+import { getSkillName, isBugSkill } from './skills'
 
 const TEAL = [20, 184, 166] as const
 const DARK = [30, 30, 30] as const
@@ -16,18 +18,6 @@ const PAGE_HEIGHT = 297
 const PAGE_BOTTOM = PAGE_HEIGHT - 12
 
 import { LINKEDIN_URL, GITHUB_URL, SITE_HOST } from '../data/links'
-
-const ABOUT_SUMMARY =
-  "I turn \"we're not sure it works\" into shippable confidence. First quality hire at several " +
-  'startups; most recently I owned the QA architecture for high-stakes fintech and blockchain ' +
-  'systems across 20+ networks. I write my own tests and tooling: TypeScript, Playwright, Cypress, ' +
-  'GitHub Actions, and BDD.'
-
-export function getSkillName(skill: SkillEntry): string | null {
-  if (typeof skill === 'string') return skill
-  if (skill.bug) return null
-  return skill.name
-}
 
 export function generateResume(): Blob {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
@@ -44,13 +34,13 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(18)
   doc.setTextColor(...BLACK)
-  doc.text('Benjamin Lassaut', MARGIN_LEFT, y)
+  doc.text(profile.name, MARGIN_LEFT, y)
   y += 5.5
 
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(9.5)
   doc.setTextColor(...MUTED)
-  doc.text('Lead QA Engineer / SDET  |  Opio, France', MARGIN_LEFT, y)
+  doc.text(`${profile.role}  |  ${profile.location}`, MARGIN_LEFT, y)
   y += 4
 
   doc.setFontSize(8)
@@ -73,7 +63,7 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(8.5)
   doc.setTextColor(...DARK)
-  const aboutLines = doc.splitTextToSize(ABOUT_SUMMARY, CONTENT_WIDTH)
+  const aboutLines = doc.splitTextToSize(profile.summary, CONTENT_WIDTH)
   doc.text(aboutLines, MARGIN_LEFT, y)
   y += aboutLines.length * 3.5 + 4
 
@@ -127,8 +117,8 @@ export function generateResume(): Blob {
 
   for (const category of skillCategories) {
     const skillNames = category.skills
+      .filter((skill) => !isBugSkill(skill))
       .map(getSkillName)
-      .filter((name): name is string => name !== null)
     const skillLine = skillNames.join(', ')
 
     checkPageBreak(8)
@@ -179,12 +169,12 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(9)
   doc.setTextColor(...BLACK)
-  doc.text("Institut Superieur d'Electronique de Paris", MARGIN_LEFT, y)
+  doc.text(profile.education.school, MARGIN_LEFT, y)
 
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(7.5)
   doc.setTextColor(...MUTED)
-  const eduPeriod = '2009 - 2012'
+  const eduPeriod = profile.education.period
   const eduPeriodWidth = doc.getTextWidth(eduPeriod)
   doc.text(eduPeriod, PAGE_WIDTH - MARGIN_RIGHT - eduPeriodWidth, y)
   y += 3.5
@@ -192,7 +182,7 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(8)
   doc.setTextColor(...DARK)
-  doc.text("Master's Degree in Engineering - Electronics & Computer Science", MARGIN_LEFT, y)
+  doc.text(profile.education.degree, MARGIN_LEFT, y)
   y += 5
 
   // --- Languages ---
@@ -206,7 +196,7 @@ export function generateResume(): Blob {
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(8.5)
   doc.setTextColor(...DARK)
-  doc.text('French (Native)  |  English (Professional)', MARGIN_LEFT, y)
+  doc.text(profile.languages.join('  |  '), MARGIN_LEFT, y)
 
   return doc.output('blob')
 }
