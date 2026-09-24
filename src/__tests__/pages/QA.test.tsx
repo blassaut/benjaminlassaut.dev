@@ -83,6 +83,17 @@ describe('QA page - Web3 demo section', () => {
     expect(document.querySelector('[data-testid="web3-feature-visitor-withdraws-successfully"]')).toBeInTheDocument()
   })
 
+  it('shows the note of each web3 feature next to its scenario count', () => {
+    renderQA()
+    expect(screen.getByTestId('web3-feature-visitor-rejects-transaction')).toHaveTextContent(
+      '2 scenarios · recovery without reload',
+    )
+    expect(screen.getByTestId('web3-feature-visitor-withdraws-successfully')).toHaveTextContent(
+      '3 scenarios · full round-trip flow',
+    )
+    expect(screen.getByTestId('web3-feature-visitor-connects-wallet')).not.toHaveTextContent('·')
+  })
+
   it('renders demo and repo CTAs', () => {
     renderQA()
     const repoLinks = screen.getAllByRole('link', { name: /Explore the test suite/ })

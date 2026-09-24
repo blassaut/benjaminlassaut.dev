@@ -1,56 +1,16 @@
-import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { motion, AnimatePresence } from 'framer-motion'
-
-function Tooltip({ children, label }: { children: React.ReactNode; label: string }) {
-  const [show, setShow] = useState(false)
-  return (
-    <span className="relative inline-flex" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
-      {children}
-      <AnimatePresence>
-        {show && (
-          <motion.span
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.15 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2.5 py-1 rounded-md bg-dark-800 border border-hairline/10 text-[10px] font-mono text-light/70 whitespace-nowrap pointer-events-none z-10"
-          >
-            {label}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </span>
-  )
-}
-
-import { countScenarios, countTestRuns } from '../lib/gherkin'
+import { motion } from 'framer-motion'
+import { countScenarios, countTestRuns, extractFeatureName } from '../lib/gherkin'
 import { useHashNavigation } from '../hooks/useHashNavigation'
 import { SectionHeading } from '../components/qa/SectionHeading'
 import { FeatureCard } from '../components/qa/FeatureCard'
 import { PracticeCard } from '../components/qa/PracticeCard'
 import { StatGrid } from '../components/qa/StatGrid'
-import { web3Features, web3Practices, web3Stats } from '../data/web3-features'
-
-import recruiterFeature from '../../e2e/features/recruiter-visits-portfolio.feature?raw'
-import navigatesFeature from '../../e2e/features/visitor-navigates-site.feature?raw'
-import contactsFeature from '../../e2e/features/visitor-contacts-benjamin.feature?raw'
-import qaFeature from '../../e2e/features/visitor-explores-qa.feature?raw'
-import bugEasterEggFeature from '../../e2e/features/visitor-finds-bug-easter-egg.feature?raw'
-import themeFeature from '../../e2e/features/visitor-toggles-theme.feature?raw'
-import legalFeature from '../../e2e/features/visitor-reads-legal-notice.feature?raw'
-
-const features = [
-  qaFeature,
-  recruiterFeature,
-  navigatesFeature,
-  contactsFeature,
-  themeFeature,
-  bugEasterEggFeature,
-  legalFeature,
-]
-
-import { REPO_URL as REPO } from '../data/links'
+import { CIStatusBadge } from '../components/qa/CIStatusBadge'
+import GitHubIcon from '../components/ui/GitHubIcon'
+import { siteFeatures as features } from '../data/qa-features'
+import { web3Features, web3FeatureHooks, web3Practices, web3Stats } from '../data/web3-features'
+import { REPO_URL as REPO, LOCKBOX_REPO_URL, LOCKBOX_DEMO_URL } from '../data/links'
 
 const practices = [
   {
@@ -100,29 +60,7 @@ const stats = [
   { value: '3', label: 'Browsers' },
 ]
 
-function useCIStatus(badgeUrl: string) {
-  const [status, setStatus] = useState<'passing' | 'failing' | 'unknown' | 'loading'>('loading')
-
-  useEffect(() => {
-    fetch(badgeUrl)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Badge request failed: ${res.status}`)
-        return res.text()
-      })
-      .then((svg) => {
-        if (svg.includes('passing')) setStatus('passing')
-        else if (svg.includes('failing')) setStatus('failing')
-        else setStatus('unknown')
-      })
-      .catch(() => setStatus('unknown'))
-  }, [badgeUrl])
-
-  return status
-}
-
 export default function QaLab() {
-  const ciStatus = useCIStatus('https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg')
-  const dappCIStatus = useCIStatus('https://github.com/blassaut/lockbox/actions/workflows/ci.yml/badge.svg')
   const navigateToHash = useHashNavigation()
 
   return (
@@ -172,32 +110,7 @@ export default function QaLab() {
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
             BDD scenarios, Playwright, CI on every push.{' '}
-            <Tooltip label="CI: GitHub Actions">
-              <a
-                data-testid="qa-status-badge"
-                href="https://github.com/blassaut/benjaminlassaut.dev/actions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
-                  ciStatus === 'passing'
-                    ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
-                    : ciStatus === 'failing'
-                      ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                      : 'text-muted/40 border-hairline/10 bg-hairline/5'
-                }`}
-              >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    ciStatus === 'passing'
-                      ? 'bg-emerald-400 animate-pulse'
-                      : ciStatus === 'failing'
-                        ? 'bg-red-400'
-                        : 'bg-muted/40'
-                  }`}
-                />
-                {ciStatus === 'loading' ? '...' : ciStatus}
-              </a>
-            </Tooltip>
+            <CIStatusBadge repoUrl={REPO} testId="qa-status-badge" />
           </p>
         </motion.div>
 
@@ -253,14 +166,12 @@ export default function QaLab() {
           className="text-center pb-4 mb-0"
         >
           <a
-            href="https://github.com/blassaut/benjaminlassaut.dev"
+            href={REPO}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-mono text-light/40 hover:text-teal-400 hover:underline transition-colors"
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
+            <GitHubIcon />
             Explore the test suite
           </a>
         </motion.div>
@@ -292,32 +203,7 @@ export default function QaLab() {
           <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-6">
             A demo dApp built to showcase production-grade testing.{' '}
-            <Tooltip label="CI: GitHub Actions">
-              <a
-                data-testid="dapp-status-badge"
-                href="https://github.com/blassaut/lockbox/actions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[10px] font-mono uppercase tracking-widest hover:opacity-80 transition-opacity align-baseline ${
-                  dappCIStatus === 'passing'
-                    ? 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10'
-                    : dappCIStatus === 'failing'
-                      ? 'text-red-400 border-red-400/20 bg-red-400/10'
-                      : 'text-muted/40 border-hairline/10 bg-hairline/5'
-                }`}
-              >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    dappCIStatus === 'passing'
-                      ? 'bg-emerald-400 animate-pulse'
-                      : dappCIStatus === 'failing'
-                        ? 'bg-red-400'
-                        : 'bg-muted/40'
-                  }`}
-                />
-                {dappCIStatus === 'loading' ? '...' : dappCIStatus}
-              </a>
-            </Tooltip>
+            <CIStatusBadge repoUrl={LOCKBOX_REPO_URL} testId="dapp-status-badge" />
           </p>
         </motion.div>
 
@@ -331,7 +217,7 @@ export default function QaLab() {
           {/* Desktop: embedded iframe */}
           <div className="hidden sm:block rounded-xl border border-hairline/10 overflow-hidden">
             <iframe
-              src="https://lockbox.benjaminlassaut.dev"
+              src={LOCKBOX_DEMO_URL}
               title="LockBox demo"
               className="w-full h-[750px] bg-dark-900"
               style={{ overflow: 'hidden' }}
@@ -349,7 +235,7 @@ export default function QaLab() {
               Connect MetaMask to deposit &amp; withdraw ETH
             </p>
             <a
-              href="https://lockbox.benjaminlassaut.dev"
+              href={LOCKBOX_DEMO_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-5 py-2.5 bg-teal-400 text-ink font-body font-semibold text-sm rounded-lg hover:shadow-[0_0_24px_rgba(20,184,166,0.25)] transition-all"
@@ -419,12 +305,7 @@ export default function QaLab() {
                 raw={raw}
                 index={i}
                 testIdPrefix="web3"
-                hook={
-                  {
-                    2: 'recovery without reload',
-                    3: 'full round-trip flow',
-                  }[i]
-                }
+                hook={web3FeatureHooks[extractFeatureName(raw)]}
               />
             ))}
           </div>
@@ -438,14 +319,12 @@ export default function QaLab() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
-            href="https://github.com/blassaut/lockbox"
+            href={LOCKBOX_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-mono text-light/60 hover:text-teal-400 hover:underline transition-colors"
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
+            <GitHubIcon />
             Explore the test suite
           </a>
         </motion.div>

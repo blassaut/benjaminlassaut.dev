@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { web3Features, web3Practices, web3Stats } from '../../data/web3-features'
+import { web3Features, web3FeatureHooks, web3Practices, web3Stats } from '../../data/web3-features'
+import { extractFeatureName } from '../../lib/gherkin'
 
 describe('web3-features data', () => {
   describe('web3Features', () => {
@@ -32,6 +33,14 @@ describe('web3-features data', () => {
         return sum + (raw.match(/^\s*Scenario(?: Outline)?:/gm) || []).length
       }, 0)
       expect(total).toBe(13)
+    })
+  })
+
+  describe('web3FeatureHooks', () => {
+    // A renamed feature would silently lose its note on /qa
+    it('only names features that exist', () => {
+      const names = web3Features.map(extractFeatureName)
+      expect(Object.keys(web3FeatureHooks).filter((name) => !names.includes(name))).toEqual([])
     })
   })
 
