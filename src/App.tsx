@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, type ComponentType } from 'react'
-import { HelmetProvider } from 'react-helmet-async'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import QA from './pages/QA'
@@ -31,19 +30,18 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Layout>
-          <Routes>
-            {staticRoutes.map(({ path }) => {
-              const Page = pages[path]
-              return <Route key={path} path={path} element={<Page />} />
-            })}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </HelmetProvider>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Layout>
+        <Routes>
+          {staticRoutes.map(({ path, title }) => {
+            const Page = pages[path]
+            // React hoists <title> into <head>, so client-side navigation updates the tab title
+            return <Route key={path} path={path} element={<><title>{title}</title><Page /></>} />
+          })}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   )
 }

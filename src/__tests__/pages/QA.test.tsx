@@ -11,7 +11,6 @@ beforeAll(() => {
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import QaLab from '../../pages/QA'
-import { HelmetProvider } from 'react-helmet-async'
 
 const mockNavigate = vi.fn()
 vi.mock('react-router-dom', async () => {
@@ -21,11 +20,9 @@ vi.mock('react-router-dom', async () => {
 
 function renderQA() {
   return render(
-    <HelmetProvider>
-      <MemoryRouter initialEntries={['/qa']}>
-        <QaLab />
-      </MemoryRouter>
-    </HelmetProvider>,
+    <MemoryRouter initialEntries={['/qa']}>
+      <QaLab />
+    </MemoryRouter>,
   )
 }
 

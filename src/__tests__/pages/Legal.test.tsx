@@ -1,16 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
 import Legal from '../../pages/Legal'
 
 function renderLegal() {
   return render(
-    <HelmetProvider>
-      <MemoryRouter initialEntries={['/legal']}>
-        <Legal />
-      </MemoryRouter>
-    </HelmetProvider>,
+    <MemoryRouter initialEntries={['/legal']}>
+      <Legal />
+    </MemoryRouter>,
   )
 }
 
