@@ -2,12 +2,11 @@
 
 /* ── Theme palettes ───────────────────────────────────────────────
    Light is the default. Adding class="dark" on <html> flips every
-   token below. Utilities like bg-dark-900 / text-light / text-muted
+   token below. Utilities like bg-surface / text-content / text-muted
    resolve to these CSS variables at runtime (see @theme inline). */
 :root {
-  --surface-900: #faf9f6; /* base background — warm cream */
-  --surface-800: #ffffff; /* elevated cards / surfaces */
-  --surface-700: #f0efe9; /* subtle alternate surface */
+  --surface: #faf9f6; /* page background — warm cream */
+  --surface-raised: #ffffff; /* cards, tooltips, menus */
   --content: #15150f; /* primary text */
   --content-muted: #57534e; /* secondary text */
   --hairline: #15150f; /* solid; used with /opacity for borders & dividers */
@@ -22,9 +21,8 @@
 }
 
 html.dark {
-  --surface-900: #0a0a0f;
-  --surface-800: #12121a;
-  --surface-700: #1a1a25;
+  --surface: #0a0a0f;
+  --surface-raised: #12121a;
   --content: #f0f0f0;
   --content-muted: #6b7280;
   --hairline: #ffffff;
@@ -38,10 +36,9 @@ html.dark {
 }
 
 @theme inline {
-  --color-dark-900: var(--surface-900);
-  --color-dark-800: var(--surface-800);
-  --color-dark-700: var(--surface-700);
-  --color-light: var(--content);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-content: var(--content);
   --color-muted: var(--content-muted);
   --color-hairline: var(--hairline);
   --shadow-card: var(--card-shadow);
@@ -60,7 +57,7 @@ html.dark {
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--surface-900);
+  background-color: var(--surface);
 }
 
 /* Smooth cross-fade when toggling themes */

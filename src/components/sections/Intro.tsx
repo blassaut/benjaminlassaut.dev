@@ -49,7 +49,7 @@ function GridBackground() {
 function FloatingTag({ text, x, y, delay }: { text: string; x: string; y: string; delay: number }) {
   return (
     <motion.span
-      className="absolute hidden md:block px-3 py-1 text-xs font-mono text-teal-400/40 border border-teal-400/10 rounded bg-dark-900/50 backdrop-blur-sm select-none"
+      className="absolute hidden md:block px-3 py-1 text-xs font-mono text-teal-400/40 border border-teal-400/10 rounded bg-surface/50 backdrop-blur-sm select-none"
       style={{ left: x, top: y }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, y: [0, -6, 0] }}
@@ -81,7 +81,7 @@ export default function Intro() {
             alt="Benjamin Lassaut - Lead QA Engineer / SDET specializing in test automation"
             width={128}
             height={128}
-            className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-dark-900"
+            className="w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto object-cover ring-2 ring-teal-400/30 ring-offset-2 ring-offset-surface"
           />
         </motion.div>
 

@@ -42,7 +42,7 @@ export function FeatureCard({
       >
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-0.5">
-            <span className="font-heading font-semibold text-light group-hover:text-teal-400 transition-colors truncate">
+            <span className="font-heading font-semibold text-content group-hover:text-teal-400 transition-colors truncate">
               {name}
             </span>
           </div>
@@ -76,7 +76,7 @@ export function FeatureCard({
             className="overflow-hidden"
           >
             <div className="pl-5 pr-4 pb-5">
-              <div className="rounded-lg bg-dark-900/80 border border-hairline/[0.04] p-4 overflow-x-auto">
+              <div className="rounded-lg bg-surface/80 border border-hairline/[0.04] p-4 overflow-x-auto">
                 <pre className="font-mono text-[13px] leading-[1.7]">
                   {raw.split('\n').map((line, i) => (
                     <GherkinLine key={i} line={line} />

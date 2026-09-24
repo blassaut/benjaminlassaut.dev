@@ -23,12 +23,18 @@ export function countScenarios(raw: string): number {
   return (raw.match(/^\s*Scenario(?: Outline)?:/gm) || []).length
 }
 
-export function countTestRuns(raw: string): number {
+/**
+ * Playwright test runs for a feature file: each scenario (or Scenario Outline
+ * data row) runs once per browser project that does not skip its tag.
+ */
+export function countTestRuns(raw: string, projects: { desktop: number; mobile: number }): number {
+  const runsFor = (tag: string | null) =>
+    tag === 'desktop' ? projects.desktop : tag === 'mobile' ? projects.mobile : projects.desktop + projects.mobile
   const lines = raw.split('\n')
   let runs = 0
   let currentTag: string | null = null
   let inOutline = false
-  let outlineMultiplier = 3
+  let outlineMultiplier = 0
   let seenExamplesHeader = false
 
   for (const line of lines) {
@@ -39,12 +45,12 @@ export function countTestRuns(raw: string): number {
     else if (/^Scenario Outline:/.test(trimmed)) {
       inOutline = true
       seenExamplesHeader = false
-      outlineMultiplier = currentTag === 'desktop' ? 1 : currentTag === 'mobile' ? 2 : 3
+      outlineMultiplier = runsFor(currentTag)
       currentTag = null
     } else if (/^Scenario:/.test(trimmed)) {
       inOutline = false
       seenExamplesHeader = false
-      runs += currentTag === 'desktop' ? 1 : currentTag === 'mobile' ? 2 : 3
+      runs += runsFor(currentTag)
       currentTag = null
     } else if (inOutline && trimmed.startsWith('Examples:')) {
       seenExamplesHeader = false // next pipe row is the header

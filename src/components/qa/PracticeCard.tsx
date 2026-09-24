@@ -16,7 +16,7 @@ export function PracticeCard({ practice: p, index }: { practice: Practice; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="relative p-5 rounded-xl border border-hairline/5 bg-dark-800/20 shadow-card hover:shadow-card-hover hover:border-teal-400/15 transition-all group overflow-hidden"
+      className="relative p-5 rounded-xl border border-hairline/5 bg-surface-raised/20 shadow-card hover:shadow-card-hover hover:border-teal-400/15 transition-all group overflow-hidden"
     >
       <span className="absolute -right-2 -bottom-3 text-[64px] font-mono font-black text-hairline/[0.02] select-none leading-none group-hover:text-teal-400/[0.04] transition-colors">
         {p.icon}
@@ -26,7 +26,7 @@ export function PracticeCard({ practice: p, index }: { practice: Practice; index
         <span className="inline-block px-2 py-0.5 text-[10px] font-mono tracking-wider uppercase text-teal-400 border border-teal-400/20 rounded bg-teal-400/5 mb-3">
           {p.label}
         </span>
-        <p className="text-sm text-light/80 font-body leading-relaxed mb-2">{p.description}</p>
+        <p className="text-sm text-content/80 font-body leading-relaxed mb-2">{p.description}</p>
         <p className="text-xs font-mono text-muted/50 leading-relaxed mb-3">{p.detail}</p>
         <div className="flex items-center justify-between">
           <a

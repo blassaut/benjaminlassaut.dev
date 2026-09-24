@@ -60,9 +60,17 @@ e2e/
 
 ## Design System
 
-- **Background:** `#0a0a0f` (deep dark) with grain texture
-- **Accent:** `#14b8a6` (electric teal)
-- **Text:** `#f0f0f0` / `#6b7280`
+Colours are theme tokens in `src/index.css`: light by default, `class="dark"` on `<html>` flips them. Use the token utilities, never raw hex.
+
+| Token | Utilities | Light | Dark |
+|---|---|---|---|
+| `surface` | `bg-surface` (page background) | `#faf9f6` cream | `#0a0a0f` deep dark, with grain |
+| `surface-raised` | `bg-surface-raised` (cards, tooltips, menus) | `#ffffff` | `#12121a` |
+| `content` | `text-content` (primary text) | `#15150f` | `#f0f0f0` |
+| `muted` | `text-muted` (secondary text) | `#57534e` | `#6b7280` |
+| `hairline` | `border-hairline/5` (borders, dividers) | `#15150f` | `#ffffff` |
+| `teal-400` | accent, both themes | `#14b8a6` | `#14b8a6` |
+
 - **Headings:** Exo 2
 - **Body:** IBM Plex Sans
 - **Monospace:** JetBrains Mono
