@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
-import { LINKEDIN_URL, GITHUB_URL } from '../../data/links'
+import { LINKEDIN_URL, GITHUB_URL, CONTACT_FORM_URL } from '../../data/links'
 
 const links = [
   { label: 'LinkedIn', href: LINKEDIN_URL, icon: 'in' },
@@ -17,7 +17,7 @@ export default function Contact() {
     const form = e.currentTarget
     const data = new FormData(form)
     try {
-      const res = await fetch('https://formspree.io/f/xkoqpbkr', {
+      const res = await fetch(CONTACT_FORM_URL, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' },

@@ -67,7 +67,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: npx playwright install --with-deps chromium webkit
+      # Engines of the devices in e2e/browsers.ts. Assigned first so a script error
+      # fails the step instead of `playwright install` fetching every browser.
+      - run: |
+          browsers=$(node scripts/playwright-browsers.ts)
+          npx playwright install --with-deps $browsers
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
