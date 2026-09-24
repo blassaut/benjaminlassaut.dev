@@ -108,7 +108,11 @@ jobs:
       # test would actually notice if that line were wrong.
       # Pull requests only re-test mutants in changed code or tests; pushes to
       # main run everything (--force) so main's cache is always a full run.
-      - run: npx stryker run --reporters clear-text,html,json ${{ github.event_name == 'push' && '--force' || '' }}
+      # GITHUB_STEP_SUMMARY is emptied for Stryker only: in Actions, Vitest's default
+      # github-actions reporter appends a "Vitest Test Report" per test run, i.e. one
+      # per mutant, each showing the killing test as a failure. The gate below still
+      # writes the summary.
+      - run: GITHUB_STEP_SUMMARY= npx stryker run --reporters clear-text,html,json ${{ github.event_name == 'push' && '--force' || '' }}
       # The break threshold guards the overall score; this guards the new code.
       # Fails when a mutant on a line this PR adds or changes is not killed
       # (unless skipped on purpose with `// Stryker disable next-line`).
