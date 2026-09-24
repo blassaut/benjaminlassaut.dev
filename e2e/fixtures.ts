@@ -9,9 +9,7 @@
  */
 import { test as base } from 'playwright-bdd'
 import { findMutant, loadCatalog } from './mutation/catalog.ts'
-import { applyMutant } from './mutation/inject.ts'
-
-export const NOT_APPLIED_ANNOTATION = 'mutant-not-applied'
+import { applyMutant, NOT_APPLIED_ANNOTATION } from './mutation/inject.ts'
 
 const catalog = process.env.MUTANT ? loadCatalog() : []
 

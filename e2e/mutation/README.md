@@ -51,7 +51,7 @@ a browser or an HTTP client can reach.
    write one mutant in the catalog          ← 5 minutes, YAML, no code
         │
         ▼
-   node e2e/mutation/run.ts --only <id>     ← baseline, then mutant
+   node e2e/mutation/run.ts --only <id>     ← baseline, then mutant (stops at the first failing test)
         │
         ├── killed      → done. The mutant stays in the catalog as a permanent guard.
         ├── survived    → add the missing assertion to the test, re-run.
@@ -98,7 +98,8 @@ Useful options:
 |---|---|
 | `--only a,b` | Run only these mutant ids. |
 | `--project desktop-chrome` | One browser only. Faster on a laptop. |
-| `--changed-since origin/main` | Only mutants whose scope includes a test file changed since that ref. What CI does on pull requests. |
+| `--changed-since origin/main` | Only mutants the E2E changes since that ref can affect: a changed test file selects the mutants scoped to it, a changed catalog file selects the mutants it defines, `.md` files are ignored, and any other E2E change (steps, fixtures, runner) selects every mutant. What CI does on pull requests. |
+| `--workers 4` | Playwright workers per run (default `50%` of the CPUs, from `config.ts`). Lower it on a laptop. |
 | `--stability 3` | Run the baseline three times. Use when you suspect flakiness. |
 | `--no-fail` | Exit 0 whatever the result. For informational runs. |
 
@@ -304,14 +305,19 @@ Example for an API-backed product:
 
 ## 7. How the tool works
 
-Four files, no framework:
+A handful of files, no framework:
 
 | File | Role |
 |---|---|
-| `config.ts` | The only project-specific settings: where test files live, the command to run before Playwright, the report directory. |
+| `config.ts` | The only project-specific settings: where test files live, the command to run before Playwright, how Playwright is launched, workers per run, the report directory. |
 | `catalog.ts` | Loads and validates the YAML files. Every rule in section 6 lives here. |
 | `inject.ts` | Applies one mutant to a Playwright page: an init script for `dom`, a `page.route` for `response`. Counts effective changes. |
-| `run.ts` | The command line: selects mutants, runs Playwright once per scope for the baseline and once per mutant, classifies, writes the report. |
+| `run.ts` | The command line and main loop: runs the baseline once per scope and each mutant once. |
+| `select.ts` | Which mutants a run covers (`--only`, `--changed-since`). |
+| `playwright.ts` | Builds the Playwright arguments, runs it, parses its JSON report and classifies the result. |
+| `report.ts` | Console output and `report.{json,md}`. |
+
+`select.ts`, `playwright.ts` and `report.ts` are unit-tested (`*.test.ts` next to them, run by `npm test`).
 
 Plus `e2e/fixtures.ts`, the shared Playwright `test` object. It carries one
 automatic fixture: when `MUTANT` is set, it plants the mutant on the page
@@ -340,7 +346,8 @@ Checklist:
 2. Edit `config.ts`: point `testFilesDir` and `testFileExtension` to your
    test files (`tests`, `.spec.ts` for plain Playwright), set
    `prepareCommand` to whatever must run before Playwright (empty if
-   nothing), keep `playwrightCommand` unless you wrap it.
+   nothing), keep `playwrightCommand` (program + arguments, run without a
+   shell) unless you wrap it.
 3. Create a shared `test` object, or extend the one you already have, with
    the automatic fixture from `e2e/fixtures.ts`. Make every spec or step
    file use it. For playwright-bdd, also list the fixtures file in the

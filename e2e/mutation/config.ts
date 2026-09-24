@@ -25,8 +25,15 @@ export const config = {
   /** Command run once before any Playwright invocation (empty to skip). */
   prepareCommand: 'npx bddgen',
 
-  /** How Playwright is launched. Extra CLI args are appended by the runner. */
-  playwrightCommand: 'npx playwright test',
+  /** How Playwright is launched, as program + arguments (no shell). The runner appends its own args. */
+  playwrightCommand: ['npx', 'playwright', 'test'],
+
+  /**
+   * Playwright workers per run (`--workers`). The project config may pin 1 in
+   * CI for the regular suite; mutant runs are independent and much faster in
+   * parallel. Override with `--workers` on the command line.
+   */
+  workers: '50%',
 
   /** Where reports are written, relative to the repo root. */
   reportDir: 'reports/mutation-e2e',
