@@ -1,6 +1,5 @@
-import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { LINKEDIN_URL, REPO_URL, SITE_URL, SITE_HOST, OG_IMAGE_URL } from '../data/links'
+import { LINKEDIN_URL, REPO_URL } from '../data/links'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -14,23 +13,6 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function Legal() {
   return (
     <div data-testid="legal-page" className="max-w-3xl mx-auto px-6 py-24">
-      <Helmet>
-        <title>Legal Notice - Benjamin Lassaut</title>
-        <meta
-          name="description"
-          content={`Legal notice for ${SITE_HOST} - publisher, hosting and personal data information.`}
-        />
-        <link rel="canonical" href={`${SITE_URL}/legal`} />
-        <meta property="og:title" content="Legal Notice - Benjamin Lassaut" />
-        <meta
-          property="og:description"
-          content={`Legal notice for ${SITE_HOST} - publisher, hosting and personal data information.`}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/legal`} />
-        <meta property="og:image" content={OG_IMAGE_URL} />
-      </Helmet>
-
       <h1 className="text-4xl font-heading font-bold text-content mb-12">Legal Notice</h1>
 
       <Section title="Website publisher">

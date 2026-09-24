@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { countScenarios, countTestRuns, extractFeatureName } from '../lib/gherkin'
 import { useHashNavigation } from '../hooks/useHashNavigation'
@@ -11,7 +10,7 @@ import GitHubIcon from '../components/ui/GitHubIcon'
 import { siteFeatures as features } from '../data/qa-features'
 import { browserProjects, projectsPerForm } from '../../e2e/browsers'
 import { web3Features, web3FeatureHooks, web3Practices, web3Stats } from '../data/web3-features'
-import { REPO_URL as REPO, LOCKBOX_REPO_URL, LOCKBOX_DEMO_URL, SITE_URL, OG_IMAGE_URL } from '../data/links'
+import { REPO_URL as REPO, LOCKBOX_REPO_URL, LOCKBOX_DEMO_URL } from '../data/links'
 
 const practices = [
   {
@@ -66,23 +65,6 @@ export default function QaLab() {
 
   return (
     <div data-testid="qa" className="pt-24 pb-20 px-6">
-      <Helmet>
-        <title>Who tests the tester? - Benjamin Lassaut</title>
-        <meta
-          name="description"
-          content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI."
-        />
-        <link rel="canonical" href={`${SITE_URL}/qa`} />
-        <meta property="og:title" content="Who tests the tester? - Benjamin Lassaut" />
-        <meta
-          property="og:description"
-          content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/qa`} />
-        <meta property="og:image" content={OG_IMAGE_URL} />
-      </Helmet>
-
       <div className="max-w-4xl mx-auto">
         {/* Hero header */}
         <motion.div

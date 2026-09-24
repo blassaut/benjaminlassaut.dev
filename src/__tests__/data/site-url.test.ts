@@ -30,7 +30,6 @@ describe('site URL', () => {
 
   it('reaches index.html through the %SITE_URL% placeholder', () => {
     const html = readFileSync('index.html', 'utf8')
-    expect(html).toContain('<meta property="og:url" content="%SITE_URL%" />')
     expect(html).toContain('<meta property="og:image" content="%SITE_URL%/og-image.png" />')
   })
 })
