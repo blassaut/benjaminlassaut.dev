@@ -28,6 +28,16 @@ export interface ReportMutant {
 
 export interface MutationReport {
   files: Record<string, { source?: string; mutants: ReportMutant[] }>
+  thresholds?: { break?: number | null }
+}
+
+/** Overall result for the job summary. */
+export interface ScoreSummary {
+  /** Stryker's mutation score in %, or null when no mutant counts. */
+  score: number | null
+  /** `thresholds.break` from the report, if set. */
+  breakAt: number | null
+  counts: Record<string, number>
 }
 
 export interface Uncaught {
@@ -42,6 +52,8 @@ export interface Uncaught {
 
 /** Statuses that mean no test noticed the mutant. */
 const UNCAUGHT = new Set(['Survived', 'NoCoverage'])
+/** Statuses that mean a test noticed the mutant. */
+const DETECTED = new Set(['Killed', 'Timeout'])
 
 /** Lines added or changed per file, from `git diff --unified=0` output. */
 export function parseChangedLines(diff: string): Map<string, Set<number>> {
@@ -71,15 +83,11 @@ export function findUncaughtOnChangedLines(report: MutationReport, changed: Map<
     const lines = changed.get(file)
     if (!lines) continue
     for (const m of mutants) {
-      if (!UNCAUGHT.has(m.status)) continue
-      const { start, end } = m.location
-      let touched = false
-      for (let n = start.line; n <= end.line && !touched; n++) touched = lines.has(n)
-      if (!touched) continue
+      if (!UNCAUGHT.has(m.status) || !touches(m, lines)) continue
       uncaught.push({
         file,
-        line: start.line,
-        column: start.column,
+        line: m.location.start.line,
+        column: m.location.start.column,
         mutator: m.mutatorName,
         status: m.status,
         original: source ? excerpt(source, m.location) : '',
@@ -88,6 +96,35 @@ export function findUncaughtOnChangedLines(report: MutationReport, changed: Map<
     }
   }
   return uncaught.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column)
+}
+
+/** Mutants on at least one changed line that a test was run against (killed, timed out, survived, uncovered). */
+export function countOnChangedLines(report: MutationReport, changed: Map<string, Set<number>>): number {
+  let count = 0
+  for (const [file, { mutants }] of Object.entries(report.files)) {
+    const lines = changed.get(file)
+    if (!lines) continue
+    for (const m of mutants) if ((DETECTED.has(m.status) || UNCAUGHT.has(m.status)) && touches(m, lines)) count++
+  }
+  return count
+}
+
+/**
+ * The overall score as Stryker computes it: detected / (detected + undetected).
+ * Ignored mutants and compile or runtime errors don't count.
+ */
+export function summarizeScore(report: MutationReport): ScoreSummary {
+  const counts: Record<string, number> = {}
+  for (const { mutants } of Object.values(report.files)) for (const m of mutants) counts[m.status] = (counts[m.status] ?? 0) + 1
+  const sum = (statuses: Set<string>) => [...statuses].reduce((n, s) => n + (counts[s] ?? 0), 0)
+  const detected = sum(DETECTED)
+  const total = detected + sum(UNCAUGHT)
+  return { score: total === 0 ? null : (100 * detected) / total, breakAt: report.thresholds?.break ?? null, counts }
+}
+
+function touches(m: ReportMutant, lines: Set<number>): boolean {
+  for (let n = m.location.start.line; n <= m.location.end.line; n++) if (lines.has(n)) return true
+  return false
 }
 
 /** Source text of a mutant's location (1-based lines and columns), single-lined and shortened. */
@@ -111,10 +148,25 @@ export function formatAnnotation(u: Uncaught): string {
   return `::error file=${property(u.file)},line=${u.line},col=${u.column}::${data(message)}`
 }
 
-export function formatMarkdown(uncaught: Uncaught[]): string {
-  if (uncaught.length === 0) return '### Mutation gate: every mutant on a changed line was killed ✅\n'
+export function formatMarkdown(uncaught: Uncaught[], summary: ScoreSummary, checked: number): string {
+  return [formatScore(summary), '', formatGate(uncaught, checked)].join('\n')
+}
+
+function formatScore({ score, breakAt, counts }: ScoreSummary): string {
+  const threshold = breakAt === null ? '' : ` (break threshold ${breakAt}%)`
+  const n = (status: string) => counts[status] ?? 0
   return [
-    `### Mutation gate: ${uncaught.length} mutant(s) on changed lines not killed ❌`,
+    `### Mutation score: ${score === null ? 'n/a' : `${score.toFixed(2)}%`}${threshold}`,
+    '',
+    `${n('Killed')} killed · ${n('Timeout')} timed out · ${n('Survived')} survived · ${n('NoCoverage')} no coverage · ${n('Ignored')} ignored`,
+  ].join('\n')
+}
+
+function formatGate(uncaught: Uncaught[], checked: number): string {
+  if (checked === 0) return '### Mutation gate: no mutant on a changed line ✅\n'
+  if (uncaught.length === 0) return `### Mutation gate: all ${checked} mutant(s) on changed lines were killed ✅\n`
+  return [
+    `### Mutation gate: ${uncaught.length} of ${checked} mutant(s) on changed lines not killed ❌`,
     '',
     'Add a test that fails because of the change, or skip it on purpose with',
     '`// Stryker disable next-line <Mutator>: <reason>` above the line.',
@@ -143,9 +195,10 @@ function main() {
   const diff = execFileSync('git', ['diff', '--unified=0', '--no-color', `${values.base}...HEAD`, '--', ...Object.keys(report.files)], {
     encoding: 'utf8',
   })
-  const uncaught = findUncaughtOnChangedLines(report, parseChangedLines(diff))
+  const changed = parseChangedLines(diff)
+  const uncaught = findUncaughtOnChangedLines(report, changed)
 
-  const markdown = formatMarkdown(uncaught)
+  const markdown = formatMarkdown(uncaught, summarizeScore(report), countOnChangedLines(report, changed))
   console.log(markdown)
   if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown)
   if (process.env.GITHUB_ACTIONS) {

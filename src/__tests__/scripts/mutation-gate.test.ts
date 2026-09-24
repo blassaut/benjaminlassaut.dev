@@ -1,12 +1,15 @@
 // @vitest-environment node
 import { describe, it, expect } from 'vitest'
 import {
+  countOnChangedLines,
   findUncaughtOnChangedLines,
   formatAnnotation,
   formatMarkdown,
   parseChangedLines,
+  summarizeScore,
   type MutationReport,
   type ReportMutant,
+  type ScoreSummary,
 } from '../../../scripts/mutation-gate.ts'
 
 const diff = `diff --git a/src/a.ts b/src/a.ts
@@ -84,16 +87,73 @@ describe('findUncaughtOnChangedLines', () => {
   })
 })
 
+describe('summarizeScore', () => {
+  it('computes the score as Stryker does: detected over detected plus undetected', () => {
+    const report: MutationReport = {
+      thresholds: { break: 80 },
+      files: {
+        'src/a.ts': { mutants: [mutant(1, 'Killed'), mutant(2, 'Killed'), mutant(3, 'Timeout'), mutant(4, 'Survived')] },
+        // Ignored and error statuses stay out of the score
+        'src/b.ts': { mutants: [mutant(1, 'NoCoverage'), mutant(2, 'Ignored'), mutant(3, 'CompileError')] },
+      },
+    }
+    expect(summarizeScore(report)).toEqual({
+      score: 60,
+      breakAt: 80,
+      counts: { Killed: 2, Timeout: 1, Survived: 1, NoCoverage: 1, Ignored: 1, CompileError: 1 },
+    })
+  })
+
+  it('has no score when no mutant counts, instead of dividing by zero', () => {
+    const report: MutationReport = { files: { 'src/a.ts': { mutants: [mutant(1, 'Ignored')] } } }
+    expect(summarizeScore(report)).toEqual({ score: null, breakAt: null, counts: { Ignored: 1 } })
+  })
+})
+
+describe('countOnChangedLines', () => {
+  it('counts the tested mutants on changed lines, so "all killed" is told apart from "nothing to check"', () => {
+    const report: MutationReport = {
+      files: {
+        'src/a.ts': { mutants: [mutant(3, 'Killed'), mutant(5, 'Survived'), mutant(1, 'Timeout', 3), mutant(3, 'Ignored'), mutant(4, 'Killed')] },
+        'src/b.ts': { mutants: [mutant(3, 'Killed')] },
+      },
+    }
+    // line 3, line 5, and the multi-line 1..3; not Ignored, not untouched line 4, not the untouched file
+    expect(countOnChangedLines(report, new Map([['src/a.ts', new Set([3, 5])]]))).toBe(3)
+  })
+})
+
 describe('formatMarkdown', () => {
-  it('confirms a clean run', () => {
-    expect(formatMarkdown([])).toBe('### Mutation gate: every mutant on a changed line was killed ✅\n')
+  const summary: ScoreSummary = { score: 89.0334, breakAt: 80, counts: { Killed: 617, Survived: 75, NoCoverage: 1, Ignored: 1 } }
+
+  it('shows the overall score next to the break threshold, and every status count', () => {
+    const md = formatMarkdown([], summary, 12)
+    expect(md.split('\n').slice(0, 3)).toEqual([
+      '### Mutation score: 89.03% (break threshold 80%)',
+      '',
+      '617 killed · 0 timed out · 75 survived · 1 no coverage · 1 ignored',
+    ])
+  })
+
+  it('says how many changed-line mutants were checked when all were killed', () => {
+    expect(formatMarkdown([], summary, 12)).toContain('### Mutation gate: all 12 mutant(s) on changed lines were killed ✅')
+  })
+
+  it('says so when the PR changes no mutated line, rather than claiming kills', () => {
+    expect(formatMarkdown([], summary, 0)).toContain('### Mutation gate: no mutant on a changed line ✅')
+  })
+
+  it('shows n/a without a score and leaves out a missing threshold', () => {
+    expect(formatMarkdown([], { score: null, breakAt: null, counts: {} }, 0).split('\n')[0]).toBe('### Mutation score: n/a')
   })
 
   it('lists each uncaught mutant and how to resolve it, keeping the table intact', () => {
-    const md = formatMarkdown([
-      { file: 'src/a.ts', line: 3, column: 7, mutator: 'LogicalOperator', status: 'Survived', original: 'a || b', replacement: 'a && b' },
-    ])
-    expect(md).toContain('### Mutation gate: 1 mutant(s) on changed lines not killed ❌')
+    const md = formatMarkdown(
+      [{ file: 'src/a.ts', line: 3, column: 7, mutator: 'LogicalOperator', status: 'Survived', original: 'a || b', replacement: 'a && b' }],
+      summary,
+      4,
+    )
+    expect(md).toContain('### Mutation gate: 1 of 4 mutant(s) on changed lines not killed ❌')
     expect(md).toContain('`// Stryker disable next-line <Mutator>: <reason>`')
     expect(md).toContain('| `src/a.ts:3` | LogicalOperator | Survived | `a \\|\\| b` | `a && b` |')
   })
