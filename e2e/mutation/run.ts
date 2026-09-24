@@ -196,7 +196,7 @@ function runPlaywright(mutant: Mutant, mutantId: string | null): { tests: TestOu
   const args = [...scopeArgs(mutant), '--retries=0', '--reporter=json']
   const command = `${config.playwrightCommand} ${args.map(quote).join(' ')}`
 
-  const env = { ...process.env, PLAYWRIGHT_JSON_OUTPUT_FILE: jsonFile, CI: process.env.CI ?? '' }
+  const env: NodeJS.ProcessEnv = { ...process.env, PLAYWRIGHT_JSON_OUTPUT_FILE: jsonFile, CI: process.env.CI ?? '' }
   if (mutantId) env.MUTANT = mutantId
   else delete env.MUTANT
 

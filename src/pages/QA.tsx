@@ -101,17 +101,20 @@ const stats = [
 ]
 
 function useCIStatus(badgeUrl: string) {
-  const [status, setStatus] = useState<'passing' | 'failing' | 'loading'>('loading')
+  const [status, setStatus] = useState<'passing' | 'failing' | 'unknown' | 'loading'>('loading')
 
   useEffect(() => {
     fetch(badgeUrl)
-      .then((res) => res.text())
+      .then((res) => {
+        if (!res.ok) throw new Error(`Badge request failed: ${res.status}`)
+        return res.text()
+      })
       .then((svg) => {
         if (svg.includes('passing')) setStatus('passing')
         else if (svg.includes('failing')) setStatus('failing')
-        else setStatus('passing')
+        else setStatus('unknown')
       })
-      .catch(() => setStatus('passing'))
+      .catch(() => setStatus('unknown'))
   }, [badgeUrl])
 
   return status

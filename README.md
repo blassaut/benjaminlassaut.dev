@@ -12,6 +12,8 @@ Personal portfolio site for **Benjamin Lassaut** - Lead QA Engineer / SDET, ex-[
 
 ## Getting Started
 
+Requires Node >= 22.18 (see `.nvmrc`): the E2E mutation runner is TypeScript executed directly by Node.
+
 ```bash
 npm install
 npm run dev          # http://localhost:5173

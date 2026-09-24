@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    /* Vitest runs in Node: tests use Node globals such as `global` */
+    "types": ["vite/client", "vitest/globals", "node"]
+  },
+  "include": ["src/__tests__", "src/vite-env.d.ts"],
+  "exclude": []
+}
