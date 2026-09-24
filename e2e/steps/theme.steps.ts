@@ -14,7 +14,8 @@ When('I toggle the theme on mobile', async ({ page }) => {
 
 When('I reload the page', async ({ page }) => {
   await page.reload()
-  await page.waitForLoadState('networkidle')
+  // Readiness: the reloaded app has rendered before the theme is read
+  await expect(page.getByTestId('nav')).toBeVisible()
 })
 
 Then('the theme should be dark', async ({ page }) => {

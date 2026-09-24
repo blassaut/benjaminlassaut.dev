@@ -64,7 +64,8 @@ When('I tap the {string} link in the mobile menu', async ({ page }, section: str
 
 Given('I am on a page that does not exist', async ({ page }) => {
   await page.goto('/this-page-does-not-exist')
-  await page.waitForLoadState('networkidle')
+  // Readiness: the app shell has rendered, so the 404 checks judge the routed content
+  await expect(page.getByTestId('nav')).toBeVisible()
 })
 
 Then('I should see the 404 page', async ({ page }) => {

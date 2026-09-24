@@ -24,7 +24,7 @@ Feature: Recruiter visits portfolio
   Scenario: Skills categories are displayed
     Given I am on the homepage
     When I scroll to the skills section
-    Then I should see at least one skill category
+    Then I should see every skill category
 
   Scenario: Navbar stays visible while scrolling
     Given I am on the homepage
@@ -40,7 +40,7 @@ Feature: Recruiter visits portfolio
     Given I am on the homepage
     When I scroll to the testimonials section
     Then I should see the testimonials section
-    And I should see at least one testimonial card
+    And I should see one card per testimonial
 
   Scenario: Testimonial card can be expanded
     Given I am on the homepage
