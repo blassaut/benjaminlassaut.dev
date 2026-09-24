@@ -24,7 +24,7 @@ export default {
     'src/lib/**/*.ts',
     'src/hooks/**/*.ts',
     'src/components/qa/**/*.tsx',
-    'src/components/ui/**/*.tsx',
+    'src/components/ui/**/*.{ts,tsx}',
     'src/components/Footer.tsx',
     'src/components/Navbar.tsx',
     '!src/**/*.test.{ts,tsx}',

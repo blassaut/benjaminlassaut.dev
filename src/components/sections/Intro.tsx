@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTheme } from '../../hooks/useTheme'
 import { profile } from '../../data/profile'
+import { primaryButton } from '../ui/primaryButton'
 
 function GridBackground() {
   const { theme } = useTheme()
@@ -132,7 +133,7 @@ export default function Intro() {
           <a
             data-testid="hero-cta-work"
             href="#experience"
-            className="group relative px-7 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]"
+            className={`group relative overflow-hidden ${primaryButton()}`}
           >
             <span className="relative z-10">See my work</span>
           </a>
