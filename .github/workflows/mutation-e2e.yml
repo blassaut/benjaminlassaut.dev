@@ -5,13 +5,15 @@ name: E2E mutation testing
 #
 # - On pull requests touching e2e/: only the mutants whose scope includes a
 #   changed test file (or all of them when shared e2e code changed).
-# - Nightly and on demand: the whole catalog.
+# - On demand (Actions > Run workflow): the whole catalog. Worth it after a
+#   UI refactor, to catch catalog entries that no longer apply.
+#
+# No schedule: the suite only gets weaker when e2e/ changes, which the PR
+# trigger covers; a nightly run re-tested unchanged code for ~17 min.
 
 on:
   pull_request:
     paths: ['e2e/**']
-  schedule:
-    - cron: '0 3 * * 1-5'
   workflow_dispatch:
 
 jobs:
