@@ -20,13 +20,13 @@ export default function About() {
         <div className="space-y-6 text-muted font-body text-base leading-relaxed">
           <p>
             I design QA systems that run continuously, from{' '}
-            <span className="text-light">CI</span> to{' '}
-            <span className="text-light">production</span> - automated, wired directly
+            <span className="text-content">CI</span> to{' '}
+            <span className="text-content">production</span> - automated, wired directly
             into incident response. Not regression checklists. I write my own tests and
-            tooling: <span className="text-light">TypeScript</span>,{' '}
-            <span className="text-light">Playwright</span>,{' '}
-            <span className="text-light">Cypress</span>,{' '}
-            <span className="text-light">GitHub Actions</span>, and BDD.
+            tooling: <span className="text-content">TypeScript</span>,{' '}
+            <span className="text-content">Playwright</span>,{' '}
+            <span className="text-content">Cypress</span>,{' '}
+            <span className="text-content">GitHub Actions</span>, and BDD.
           </p>
           <p>
             At <span className="text-teal-400">Kiln</span>, I built the QA architecture from
@@ -36,8 +36,8 @@ export default function About() {
           </p>
           <p>
             Before that: electronic trading desks at{' '}
-            <span className="text-light">BNP Paribas</span> and{' '}
-            <span className="text-light">Societe Generale</span>, a datacenter-to-AWS
+            <span className="text-content">BNP Paribas</span> and{' '}
+            <span className="text-content">Societe Generale</span>, a datacenter-to-AWS
             migration at Mediametrie, and QA practices built from scratch at startups where
             I was the first quality hire.
           </p>
@@ -53,7 +53,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="text-center py-5 rounded-xl border border-hairline/5 bg-dark-800/30 shadow-card"
+              className="text-center py-5 rounded-xl border border-hairline/5 bg-surface-raised/30 shadow-card"
             >
               <div className="text-2xl font-heading font-bold text-teal-400">{stat.value}</div>
               <div className="text-xs text-muted font-mono mt-1">{stat.label}</div>

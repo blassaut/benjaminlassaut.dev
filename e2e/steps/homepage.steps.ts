@@ -2,6 +2,7 @@ import { createBdd } from 'playwright-bdd'
 import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 import { experience } from '../../src/data/experience'
+import { SITE_URL, OG_IMAGE_URL } from '../../src/data/links'
 
 const { Given, When, Then } = createBdd(test)
 
@@ -117,4 +118,12 @@ Then('the first testimonial should have a LinkedIn link', async ({ page }) => {
   await expect(link).toBeVisible()
   await expect(link).toHaveAttribute('href', /linkedin\.com/)
   await expect(link).toHaveAttribute('target', '_blank')
+})
+
+// index.html fills these from %SITE_URL% at build time (vite.config.ts)
+Then('the link preview should point to the live site', async ({ page }) => {
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', SITE_URL)
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', OG_IMAGE_URL)
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', OG_IMAGE_URL)
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', SITE_URL)
 })

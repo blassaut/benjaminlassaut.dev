@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { LINKEDIN_URL, REPO_URL } from '../data/links'
+import { LINKEDIN_URL, REPO_URL, SITE_URL, SITE_HOST, OG_IMAGE_URL } from '../data/links'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -18,20 +18,20 @@ export default function Legal() {
         <title>Legal Notice - Benjamin Lassaut</title>
         <meta
           name="description"
-          content="Legal notice for benjaminlassaut.dev - publisher, hosting and personal data information."
+          content={`Legal notice for ${SITE_HOST} - publisher, hosting and personal data information.`}
         />
-        <link rel="canonical" href="https://benjaminlassaut.dev/legal" />
+        <link rel="canonical" href={`${SITE_URL}/legal`} />
         <meta property="og:title" content="Legal Notice - Benjamin Lassaut" />
         <meta
           property="og:description"
-          content="Legal notice for benjaminlassaut.dev - publisher, hosting and personal data information."
+          content={`Legal notice for ${SITE_HOST} - publisher, hosting and personal data information.`}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://benjaminlassaut.dev/legal" />
-        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
+        <meta property="og:url" content={`${SITE_URL}/legal`} />
+        <meta property="og:image" content={OG_IMAGE_URL} />
       </Helmet>
 
-      <h1 className="text-4xl font-heading font-bold text-light mb-12">Legal Notice</h1>
+      <h1 className="text-4xl font-heading font-bold text-content mb-12">Legal Notice</h1>
 
       <Section title="Website publisher">
         <p>
@@ -64,7 +64,7 @@ export default function Legal() {
           which provides the legal and administrative framework for this activity.
         </p>
         <p>
-          <span className="text-light font-semibold">COSENS</span>
+          <span className="text-content font-semibold">COSENS</span>
           <br />
           Registered office: 2A rue de Rome, 13001 Marseille, France
           <br />

@@ -1,5 +1,5 @@
 // Single source of truth for the site's pages: App.tsx renders one <Route> per
-// entry and scripts/generate-sitemap.js lists them in sitemap.xml.
+// entry and scripts/generate-seo-files.js lists them in sitemap.xml.
 // Node runs this file directly (type stripping), so keep it free of imports.
 export const staticRoutes = [
   { path: '/', priority: '1.0', changefreq: 'monthly' },

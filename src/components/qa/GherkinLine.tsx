@@ -10,7 +10,7 @@ export function GherkinLine({ line }: { line: string }) {
         <span className="block">
           {indent > 0 && <span>{' '.repeat(indent)}</span>}
           <span className="text-amber-400/80 font-semibold">{tag}</span>
-          <span className="text-light/60">{trimmed.slice(tag.length)}</span>
+          <span className="text-content/60">{trimmed.slice(tag.length)}</span>
         </span>
       )
     }
@@ -23,7 +23,7 @@ export function GherkinLine({ line }: { line: string }) {
         <span className="block">
           {indent > 0 && <span>{' '.repeat(indent)}</span>}
           <span className="text-teal-400 font-semibold">{kw}</span>
-          <span className="text-light/90">{rest}</span>
+          <span className="text-content/90">{rest}</span>
         </span>
       )
     }
@@ -44,7 +44,7 @@ export function GherkinLine({ line }: { line: string }) {
     return (
       <span className="block">
         {indent > 0 && <span>{' '.repeat(indent)}</span>}
-        <span className="text-light/40">{trimmed}</span>
+        <span className="text-content/40">{trimmed}</span>
       </span>
     )
   }

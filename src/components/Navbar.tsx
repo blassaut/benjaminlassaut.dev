@@ -27,8 +27,8 @@ export default function Navbar() {
 
   function renderNavItem(item: NavLink, mobile = false) {
     const className = mobile
-      ? 'block py-3 text-sm text-muted hover:text-light transition-colors font-body'
-      : 'text-sm text-muted hover:text-light transition-colors font-body'
+      ? 'block py-3 text-sm text-muted hover:text-content transition-colors font-body'
+      : 'text-sm text-muted hover:text-content transition-colors font-body'
 
     const testid = `nav-link-${slugify(item.label)}`
 
@@ -59,7 +59,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav data-testid="nav" className="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-hairline/5">
+    <nav data-testid="nav" className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-hairline/5">
       <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" data-testid="nav-logo" className="block" aria-label="Home">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="w-8 h-8" role="img" aria-hidden="true">
@@ -92,17 +92,17 @@ export default function Navbar() {
             aria-controls="mobile-menu"
           >
           <motion.span
-            className="block w-5 h-px bg-light"
+            className="block w-5 h-px bg-content"
             animate={mobileOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.2 }}
           />
           <motion.span
-            className="block w-5 h-px bg-light"
+            className="block w-5 h-px bg-content"
             animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
             transition={{ duration: 0.2 }}
           />
           <motion.span
-            className="block w-5 h-px bg-light"
+            className="block w-5 h-px bg-content"
             animate={mobileOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.2 }}
           />
@@ -120,7 +120,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden overflow-hidden border-t border-hairline/5 bg-dark-900/95 backdrop-blur-md"
+            className="md:hidden overflow-hidden border-t border-hairline/5 bg-surface/95 backdrop-blur-md"
           >
             <div className="px-6 py-4 space-y-1">
               {navLinks.map((item) => renderNavItem(item, true))}

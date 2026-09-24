@@ -54,3 +54,8 @@ Feature: Recruiter visits portfolio
     Given I am on the homepage
     When I scroll to the testimonials section
     Then the first testimonial should have a LinkedIn link
+
+  @desktop
+  Scenario: Shared links preview the live site
+    Given I am on the homepage
+    Then the link preview should point to the live site

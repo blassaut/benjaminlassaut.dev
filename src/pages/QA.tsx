@@ -9,8 +9,9 @@ import { StatGrid } from '../components/qa/StatGrid'
 import { CIStatusBadge } from '../components/qa/CIStatusBadge'
 import GitHubIcon from '../components/ui/GitHubIcon'
 import { siteFeatures as features } from '../data/qa-features'
+import { browserProjects, projectsPerForm } from '../../e2e/browsers'
 import { web3Features, web3FeatureHooks, web3Practices, web3Stats } from '../data/web3-features'
-import { REPO_URL as REPO, LOCKBOX_REPO_URL, LOCKBOX_DEMO_URL } from '../data/links'
+import { REPO_URL as REPO, LOCKBOX_REPO_URL, LOCKBOX_DEMO_URL, SITE_URL, OG_IMAGE_URL } from '../data/links'
 
 const practices = [
   {
@@ -32,8 +33,8 @@ const practices = [
   {
     label: 'Playwright',
     description:
-      'Cross-browser e2e tests run on Chrome, Mobile Safari, and Mobile Chrome on every push.',
-    detail: `${features.reduce((sum, f) => sum + countScenarios(f), 0)} scenarios across 3 browser projects`,
+      `Cross-browser e2e tests run on ${new Intl.ListFormat('en').format(browserProjects.map((p) => p.label))} on every push.`,
+    detail: `${features.reduce((sum, f) => sum + countScenarios(f), 0)} scenarios across ${browserProjects.length} browser projects`,
     icon: 'Pw',
     source: { label: 'playwright.config.ts', href: `${REPO}/blob/main/playwright.config.ts` },
   },
@@ -54,10 +55,10 @@ const stats = [
     label: 'Scenarios',
   },
   {
-    value: features.reduce((sum, f) => sum + countTestRuns(f), 0).toString(),
+    value: features.reduce((sum, f) => sum + countTestRuns(f, projectsPerForm), 0).toString(),
     label: 'Tests',
   },
-  { value: '3', label: 'Browsers' },
+  { value: browserProjects.length.toString(), label: 'Browsers' },
 ]
 
 export default function QaLab() {
@@ -71,15 +72,15 @@ export default function QaLab() {
           name="description"
           content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI."
         />
-        <link rel="canonical" href="https://benjaminlassaut.dev/qa" />
+        <link rel="canonical" href={`${SITE_URL}/qa`} />
         <meta property="og:title" content="Who tests the tester? - Benjamin Lassaut" />
         <meta
           property="og:description"
           content="This portfolio tests itself. BDD scenarios written in Gherkin describe expected behavior and run on every push via Playwright and GitHub Actions CI."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://benjaminlassaut.dev/qa" />
-        <meta property="og:image" content="https://benjaminlassaut.dev/og-image.png" />
+        <meta property="og:url" content={`${SITE_URL}/qa`} />
+        <meta property="og:image" content={OG_IMAGE_URL} />
       </Helmet>
 
       <div className="max-w-4xl mx-auto">
@@ -151,7 +152,7 @@ export default function QaLab() {
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
           </p>
 
-          <div className="space-y-1 rounded-xl border border-hairline/5 bg-dark-800/10 py-2 overflow-hidden">
+          <div className="space-y-1 rounded-xl border border-hairline/5 bg-surface-raised/10 py-2 overflow-hidden">
             {features.map((raw, i) => (
               <FeatureCard key={i} raw={raw} index={i} />
             ))}
@@ -169,7 +170,7 @@ export default function QaLab() {
             href={REPO}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-mono text-light/40 hover:text-teal-400 hover:underline transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-mono text-content/40 hover:text-teal-400 hover:underline transition-colors"
           >
             <GitHubIcon />
             Explore the test suite
@@ -219,7 +220,7 @@ export default function QaLab() {
             <iframe
               src={LOCKBOX_DEMO_URL}
               title="LockBox demo"
-              className="w-full h-[750px] bg-dark-900"
+              className="w-full h-[750px] bg-surface"
               style={{ overflow: 'hidden' }}
               sandbox="allow-scripts allow-same-origin allow-popups"
               allow="clipboard-write"
@@ -229,8 +230,8 @@ export default function QaLab() {
             Live demo on Hoodi testnet. Connect MetaMask to interact.
           </p>
           {/* Mobile: link to demo */}
-          <div className="sm:hidden rounded-xl border border-hairline/10 bg-dark-800/20 py-8 px-6 text-center">
-            <p className="text-light/60 font-heading font-semibold text-sm mb-2">Live on Hoodi testnet</p>
+          <div className="sm:hidden rounded-xl border border-hairline/10 bg-surface-raised/20 py-8 px-6 text-center">
+            <p className="text-content/60 font-heading font-semibold text-sm mb-2">Live on Hoodi testnet</p>
             <p className="text-muted/40 font-mono text-xs mb-5">
               Connect MetaMask to deposit &amp; withdraw ETH
             </p>
@@ -298,7 +299,7 @@ export default function QaLab() {
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
           </p>
 
-          <div className="space-y-1 rounded-xl border border-hairline/5 bg-dark-800/10 py-2 overflow-hidden">
+          <div className="space-y-1 rounded-xl border border-hairline/5 bg-surface-raised/10 py-2 overflow-hidden">
             {web3Features.map((raw, i) => (
               <FeatureCard
                 key={i}
@@ -322,7 +323,7 @@ export default function QaLab() {
             href={LOCKBOX_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-mono text-light/60 hover:text-teal-400 hover:underline transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-mono text-content/60 hover:text-teal-400 hover:underline transition-colors"
           >
             <GitHubIcon />
             Explore the test suite

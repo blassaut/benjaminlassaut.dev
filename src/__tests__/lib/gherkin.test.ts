@@ -56,11 +56,31 @@ describe('gherkin utilities', () => {
   })
 
   describe('countTestRuns', () => {
+    // Today's playwright.config.ts: 1 desktop project, 2 mobile ones
+    const CURRENT = { desktop: 1, mobile: 2 }
+
+    it('follows the number of projects per form, so the /qa stats track playwright.config.ts', () => {
+      const raw = [
+        'Feature: X',
+        '  Scenario: untagged',
+        '  @desktop',
+        '  Scenario: desktop only',
+        '  @mobile',
+        '  Scenario Outline: mobile rows',
+        '    Examples:',
+        '      | n |',
+        '      | 1 |',
+        '      | 2 |',
+      ].join('\n')
+      // untagged: 2 + 3, @desktop: 2, two @mobile rows: 2 x 3
+      expect(countTestRuns(raw, { desktop: 2, mobile: 3 })).toBe(5 + 2 + 6)
+    })
+
     it('counts 3 runs per untagged scenario (desktop + 2 mobile)', () => {
       const raw = `Feature: Test
   Scenario: One
     Given something`
-      expect(countTestRuns(raw)).toBe(3)
+      expect(countTestRuns(raw, CURRENT)).toBe(3)
     })
 
     it('counts 1 run for @desktop scenario', () => {
@@ -68,7 +88,7 @@ describe('gherkin utilities', () => {
   @desktop
   Scenario: One
     Given something`
-      expect(countTestRuns(raw)).toBe(1)
+      expect(countTestRuns(raw, CURRENT)).toBe(1)
     })
 
     it('counts 2 runs for @mobile scenario', () => {
@@ -76,7 +96,7 @@ describe('gherkin utilities', () => {
   @mobile
   Scenario: One
     Given something`
-      expect(countTestRuns(raw)).toBe(2)
+      expect(countTestRuns(raw, CURRENT)).toBe(2)
     })
 
     it('recognises a tag followed by other tags on the same line', () => {
@@ -88,8 +108,8 @@ describe('gherkin utilities', () => {
   @mobile @slow
   Scenario: One
     Given something`
-      expect(countTestRuns(desktop)).toBe(1)
-      expect(countTestRuns(mobile)).toBe(2)
+      expect(countTestRuns(desktop, CURRENT)).toBe(1)
+      expect(countTestRuns(mobile, CURRENT)).toBe(2)
     })
 
     it('resets the tag after each scenario', () => {
@@ -99,7 +119,7 @@ describe('gherkin utilities', () => {
     Given something
   Scenario: Two
     Given something else`
-      expect(countTestRuns(raw)).toBe(1 + 3)
+      expect(countTestRuns(raw, CURRENT)).toBe(1 + 3)
     })
 
     it('does not count "Scenario:" or "Scenario Outline:" inside a step', () => {
@@ -110,7 +130,7 @@ describe('gherkin utilities', () => {
       | with  |
       | a     |
       | table |`
-      expect(countTestRuns(raw)).toBe(3)
+      expect(countTestRuns(raw, CURRENT)).toBe(3)
     })
 
     it('multiplies Scenario Outline data rows by browser count', () => {
@@ -121,7 +141,7 @@ describe('gherkin utilities', () => {
       | page  |
       | home  |
       | about |`
-      expect(countTestRuns(raw)).toBe(6)
+      expect(countTestRuns(raw, CURRENT)).toBe(6)
     })
 
     it('applies @desktop and @mobile tags to Scenario Outline rows', () => {
@@ -133,8 +153,8 @@ describe('gherkin utilities', () => {
       | page  |
       | home  |
       | about |`
-      expect(countTestRuns(outline('@desktop'))).toBe(2)
-      expect(countTestRuns(outline('@mobile'))).toBe(4)
+      expect(countTestRuns(outline('@desktop'), CURRENT)).toBe(2)
+      expect(countTestRuns(outline('@mobile'), CURRENT)).toBe(4)
     })
 
     it('skips the header row of every Examples block', () => {
@@ -147,7 +167,7 @@ describe('gherkin utilities', () => {
     Examples: second set
       | page  |
       | about |`
-      expect(countTestRuns(raw)).toBe(6)
+      expect(countTestRuns(raw, CURRENT)).toBe(6)
     })
 
     it('ignores blank lines inside an Examples block', () => {
@@ -160,7 +180,7 @@ describe('gherkin utilities', () => {
 
       | about |
 `
-      expect(countTestRuns(raw)).toBe(6)
+      expect(countTestRuns(raw, CURRENT)).toBe(6)
     })
 
     it('ignores tables that do not belong to a Scenario Outline', () => {
@@ -180,7 +200,7 @@ describe('gherkin utilities', () => {
       | a |
       | b |
       | c |`
-      expect(countTestRuns(raw)).toBe(3 + 3)
+      expect(countTestRuns(raw, CURRENT)).toBe(3 + 3)
     })
   })
 })

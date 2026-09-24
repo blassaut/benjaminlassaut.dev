@@ -68,14 +68,14 @@ function BugSkillTag({ name }: { name: string }) {
           className="absolute bottom-full left-1/2 -translate-x-1/2 pb-3 z-50"
         >
           <span
-            className="block w-64 p-3 rounded-lg bg-dark-800 border border-teal-500/30 text-left relative"
+            className="block w-64 p-3 rounded-lg bg-surface-raised border border-teal-500/30 text-left relative"
             data-testid="bug-popover"
             role="tooltip"
           >
             <span className="block font-heading text-sm text-amber-400 mb-1">
               This shouldn't be here.
             </span>
-            <span className="block text-xs text-light/60 font-sans">
+            <span className="block text-xs text-content/60 font-sans">
               Playwright is already listed under Tools. Duplicate detected.{' '}
               <Link
                 to="/qa"
@@ -113,7 +113,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.4, delay: catIndex * 0.1 }}
-              className="p-5 rounded-xl border border-hairline/5 bg-dark-800/30 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
+              className="p-5 rounded-xl border border-hairline/5 bg-surface-raised/30 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
             >
               <h3 className="text-sm font-mono tracking-wide text-teal-400 mb-4 uppercase">
                 {category.name}
@@ -127,7 +127,7 @@ export default function Skills() {
                   return (
                     <span
                       key={`${category.name}-${name}`}
-                      className="px-2.5 py-1 text-xs font-mono bg-hairline/[0.03] border border-hairline/5 rounded text-light/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
+                      className="px-2.5 py-1 text-xs font-mono bg-hairline/[0.03] border border-hairline/5 rounded text-content/60 hover:text-teal-400 hover:border-teal-400/20 transition-colors cursor-default"
                     >
                       {name}
                     </span>
@@ -152,7 +152,7 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-dark-800/30 hover:border-teal-400/20 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-surface-raised/30 hover:border-teal-400/20 transition-colors"
               >
                 <div className="shrink-0 w-14 h-14 rounded-lg bg-white flex items-center justify-center p-2.5">
                   <img
@@ -164,7 +164,7 @@ export default function Skills() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-body text-light/85 leading-snug">{cert.name}</p>
+                  <p className="text-sm font-body text-content/85 leading-snug">{cert.name}</p>
                   <p className="text-xs font-mono text-muted mt-1">
                     {cert.issuer} &middot; {cert.year}
                   </p>

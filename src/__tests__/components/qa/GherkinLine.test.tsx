@@ -75,13 +75,13 @@ describe('GherkinLine', () => {
       expect(block.textContent).toBe('      | page | home |')
       expect(spans).toHaveLength(2)
       expect(spans[0].textContent).toBe('      ')
-      expect(spans[1]).toHaveClass('text-light/40')
+      expect(spans[1]).toHaveClass('text-content/40')
     })
 
     it('omits the indent span for an unindented table row', () => {
       const { spans } = renderLine('| a |')
       expect(spans).toHaveLength(1)
-      expect(spans[0]).toHaveClass('text-light/40')
+      expect(spans[0]).toHaveClass('text-content/40')
     })
 
     it('renders comments as hairline text', () => {

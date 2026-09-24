@@ -49,7 +49,7 @@ export default function Contact() {
         <motion.form
           data-testid="contact-form"
           onSubmit={handleSubmit}
-          className="space-y-4 p-6 rounded-xl border border-hairline/5 bg-dark-800/20"
+          className="space-y-4 p-6 rounded-xl border border-hairline/5 bg-surface-raised/20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -62,7 +62,7 @@ export default function Contact() {
               name="name"
               placeholder="Name"
               required
-              className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
+              className="w-full px-4 py-3 bg-surface/50 border border-hairline/5 rounded-lg text-content font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
             />
             <input
               data-testid="contact-input-email"
@@ -70,7 +70,7 @@ export default function Contact() {
               name="email"
               placeholder="Email"
               required
-              className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
+              className="w-full px-4 py-3 bg-surface/50 border border-hairline/5 rounded-lg text-content font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors"
             />
           </div>
           <textarea
@@ -79,7 +79,7 @@ export default function Contact() {
             placeholder="Message"
             rows={4}
             required
-            className="w-full px-4 py-3 bg-dark-900/50 border border-hairline/5 rounded-lg text-light font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors resize-none"
+            className="w-full px-4 py-3 bg-surface/50 border border-hairline/5 rounded-lg text-content font-body text-sm placeholder:text-muted/50 focus:outline-none focus:border-teal-400/50 transition-colors resize-none"
           />
           <button
             data-testid="contact-submit"

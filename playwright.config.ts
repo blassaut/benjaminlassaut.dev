@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import { defineBddConfig } from 'playwright-bdd'
+import { browserProjects } from './e2e/browsers'
 
 const testDir = defineBddConfig({
   features: 'e2e/features/**/*.feature',
@@ -19,23 +20,11 @@ export default defineConfig({
     baseURL: 'http://localhost:4173',
     trace: 'on-first-retry',
   },
-  projects: [
-    {
-      name: 'desktop-chrome',
-      use: { ...devices['Desktop Chrome'] },
-      grepInvert: /@mobile/,
-    },
-    {
-      name: 'mobile-safari',
-      use: { ...devices['iPhone 14'] },
-      grepInvert: /@desktop/,
-    },
-    {
-      name: 'mobile-android',
-      use: { ...devices['Pixel 7'] },
-      grepInvert: /@desktop/,
-    },
-  ],
+  projects: browserProjects.map((p) => ({
+    name: p.name,
+    use: { ...devices[p.device] },
+    grepInvert: p.form === 'desktop' ? /@mobile/ : /@desktop/,
+  })),
   webServer: {
     command: 'npm run preview',
     port: 4173,

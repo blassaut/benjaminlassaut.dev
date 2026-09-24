@@ -40,7 +40,7 @@ function TestimonialCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="rounded-xl border border-hairline/5 bg-dark-800/30 p-6 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
+      className="rounded-xl border border-hairline/5 bg-surface-raised/30 p-6 shadow-card hover:shadow-card-hover hover:border-teal-400/20 transition-all"
     >
       {/* Decorative quote icon */}
       <svg
@@ -55,7 +55,7 @@ function TestimonialCard({
       </svg>
 
       {/* Quote text */}
-      <motion.blockquote layout className="text-light/90 font-body leading-relaxed">
+      <motion.blockquote layout className="text-content/90 font-body leading-relaxed">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={expanded ? 'full' : 'excerpt'}
@@ -88,7 +88,7 @@ function TestimonialCard({
       {/* Attribution row */}
       <div className="mt-4 pt-4 border-t border-hairline/5 flex items-center gap-3">
         <div className="flex-1">
-          <p className="text-light font-semibold text-sm">{testimonial.author}</p>
+          <p className="text-content font-semibold text-sm">{testimonial.author}</p>
           <p className="text-muted text-xs">
             {testimonial.role} @ {testimonial.company} · {testimonial.date}
           </p>

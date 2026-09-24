@@ -47,7 +47,7 @@ export default function Footer() {
                       data-testid={`footer-link-${slugify(item.label)}`}
                       href={item.hash}
                       onClick={(e) => navigateToHash(e, item.hash)}
-                      className="text-sm text-muted hover:text-light transition-colors font-body"
+                      className="text-sm text-muted hover:text-content transition-colors font-body"
                     >
                       {item.label}
                     </a>
@@ -56,7 +56,7 @@ export default function Footer() {
                       key={item.label}
                       data-testid={`footer-link-${slugify(item.label)}`}
                       to={item.href}
-                      className="text-sm text-muted hover:text-light transition-colors font-body"
+                      className="text-sm text-muted hover:text-content transition-colors font-body"
                     >
                       {item.label}
                     </Link>
@@ -75,7 +75,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted hover:text-light transition-colors font-body"
+                    className="text-sm text-muted hover:text-content transition-colors font-body"
                   >
                     {link.label}
                   </a>
@@ -92,7 +92,7 @@ export default function Footer() {
           <Link
             data-testid="footer-link-legal"
             to="/legal"
-            className="hover:text-light transition-colors"
+            className="hover:text-content transition-colors"
           >
             Legal Notice
           </Link>

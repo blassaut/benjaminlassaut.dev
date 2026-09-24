@@ -15,7 +15,7 @@ const CONTENT_WIDTH = PAGE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
 const PAGE_HEIGHT = 297
 const PAGE_BOTTOM = PAGE_HEIGHT - 12
 
-import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
+import { LINKEDIN_URL, GITHUB_URL, SITE_HOST } from '../data/links'
 
 const ABOUT_SUMMARY =
   "I turn \"we're not sure it works\" into shippable confidence. First quality hire at several " +
@@ -54,7 +54,7 @@ export function generateResume(): Blob {
   y += 4
 
   doc.setFontSize(8)
-  doc.text(`LinkedIn: ${LINKEDIN_URL}  |  GitHub: ${GITHUB_URL}  |  benjaminlassaut.dev`, MARGIN_LEFT, y)
+  doc.text(`LinkedIn: ${LINKEDIN_URL}  |  GitHub: ${GITHUB_URL}  |  ${SITE_HOST}`, MARGIN_LEFT, y)
   y += 2.5
 
   // Teal accent bar
