@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
-import type { SkillEntry } from '../../data/skills'
 import { certifications } from '../../data/certifications'
 import { slugify } from '../../lib/slugify'
-
-function getSkillName(skill: SkillEntry): string {
-  return typeof skill === 'string' ? skill : skill.name
-}
-
-function isBugSkill(skill: SkillEntry): skill is { name: string; bug: true } {
-  return typeof skill !== 'string' && skill.bug === true
-}
+import { getSkillName, isBugSkill } from '../../lib/skills'
 
 function BugSkillTag({ name }: { name: string }) {
   const [open, setOpen] = useState(false)

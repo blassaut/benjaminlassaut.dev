@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTheme } from '../../hooks/useTheme'
+import { profile } from '../../data/profile'
 
 function GridBackground() {
   const { theme } = useTheme()
@@ -93,7 +94,7 @@ export default function Intro() {
           className="mb-6"
         >
           <span className="inline-block px-4 py-1.5 text-xs font-mono tracking-widest uppercase text-teal-400 border border-teal-400/20 rounded-full bg-teal-400/5">
-            Lead QA Engineer / SDET
+            {profile.role}
           </span>
         </motion.div>
 

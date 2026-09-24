@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useHashNavigation } from '../hooks/useHashNavigation'
 import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
 import { navLinks } from '../data/navigation'
+import { profile } from '../data/profile'
 import { slugify } from '../lib/slugify'
 
 const socials = [
@@ -87,7 +88,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-10 pt-6 border-t border-hairline/5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-muted/50 font-body">
-          <span>&copy; {new Date().getFullYear()} Benjamin Lassaut</span>
+          <span>&copy; {new Date().getFullYear()} {profile.name}</span>
           <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
           <Link
             data-testid="footer-link-legal"
