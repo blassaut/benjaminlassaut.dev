@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import SectionHeading from '../ui/SectionHeading'
 import { testimonials } from '../../data/testimonials'
 import { slugify } from '../../lib/slugify'
 
@@ -9,10 +10,7 @@ export default function Testimonials() {
     <AnimatedSection id="testimonials" className="py-28 px-6" data-testid="testimonials-section">
       <div className="max-w-3xl mx-auto">
         {/* Section header - matches Skills/Experience pattern */}
-        <div className="flex items-center gap-4 mb-14">
-          <h2 className="text-3xl font-heading font-bold">Testimonials</h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
-        </div>
+        <SectionHeading size="lg">Testimonials</SectionHeading>
 
         <div className="space-y-6">
           {testimonials.map((testimonial, index) => (

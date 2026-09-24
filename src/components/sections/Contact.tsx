@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
-import { LINKEDIN_URL, GITHUB_URL } from '../../data/links'
+import SectionHeading from '../ui/SectionHeading'
+import { primaryButton } from '../ui/primaryButton'
+import { LINKEDIN_URL, GITHUB_URL, CONTACT_FORM_URL } from '../../data/links'
 
 const links = [
   { label: 'LinkedIn', href: LINKEDIN_URL, icon: 'in' },
@@ -17,7 +19,7 @@ export default function Contact() {
     const form = e.currentTarget
     const data = new FormData(form)
     try {
-      const res = await fetch('https://formspree.io/f/xkoqpbkr', {
+      const res = await fetch(CONTACT_FORM_URL, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' },
@@ -36,11 +38,7 @@ export default function Contact() {
   return (
     <AnimatedSection id="contact" className="py-28 px-6" data-testid="contact-section">
       <div className="max-w-xl mx-auto">
-        <div className="flex items-center justify-center gap-4 mb-14">
-          <div className="flex-1 h-px bg-gradient-to-l from-teal-400/30 to-transparent" />
-          <h2 className="text-3xl font-heading font-bold">Get in Touch</h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
-        </div>
+        <SectionHeading size="lg" centered>Get in Touch</SectionHeading>
 
         <p className="text-muted font-body mb-10 text-center">
           Open to interesting opportunities and conversations about QA and test automation.
@@ -85,7 +83,7 @@ export default function Contact() {
             data-testid="contact-submit"
             type="submit"
             disabled={status === 'sending'}
-            className="w-full px-6 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.2)] transition-all disabled:opacity-50"
+            className={`w-full ${primaryButton()} disabled:opacity-50`}
           >
             {status === 'sending' ? 'Sending...' : 'Send Message'}
           </button>

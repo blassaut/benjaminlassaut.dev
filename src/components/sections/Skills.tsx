@@ -2,18 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import SectionHeading from '../ui/SectionHeading'
 import { skillCategories } from '../../data/skills'
-import type { SkillEntry } from '../../data/skills'
 import { certifications } from '../../data/certifications'
 import { slugify } from '../../lib/slugify'
-
-function getSkillName(skill: SkillEntry): string {
-  return typeof skill === 'string' ? skill : skill.name
-}
-
-function isBugSkill(skill: SkillEntry): skill is { name: string; bug: true } {
-  return typeof skill !== 'string' && skill.bug === true
-}
+import { getSkillName, isBugSkill } from '../../lib/skills'
 
 function BugSkillTag({ name }: { name: string }) {
   const [open, setOpen] = useState(false)
@@ -99,10 +92,7 @@ export default function Skills() {
   return (
     <AnimatedSection id="skills" className="py-28 px-6" data-testid="skills-section">
       <div className="max-w-3xl mx-auto">
-        <div className="flex items-center gap-4 mb-14">
-          <h2 className="text-3xl font-heading font-bold">Skills</h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
-        </div>
+        <SectionHeading size="lg">Skills</SectionHeading>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {skillCategories.map((category, catIndex) => (

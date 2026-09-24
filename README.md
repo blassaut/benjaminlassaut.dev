@@ -41,22 +41,29 @@ src/
     sections/       Home page sections (Intro, About, Experience, Skills, etc.)
     qa/             QA portfolio showcase components
     ui/             Reusable UI components
-  pages/            Route pages (Home, QA)
-  data/             Static data (experience, skills, testimonials)
+  pages/            Route pages (Home, QA, Legal, NotFound)
+  data/             Static data (experience, skills, testimonials, routes, links)
   lib/              Utilities (resume generator, Gherkin parser)
   hooks/            Custom React hooks
   __tests__/        Unit & component tests
 e2e/
   features/         Gherkin feature files
   steps/            Playwright step definitions
+  browsers.ts       Browser projects, shared by playwright.config.ts and the /qa stats
   fixtures.ts       Shared Playwright test object (plants a mutant when MUTANT is set)
   mutation/         E2E mutation testing: catalog of planted bugs, runner, method
+scripts/
+  generate-seo-files.ts   Post-build: sitemap.xml, robots.txt, per-page HTML with link-preview tags
+  mutation-gate.ts        CI gate: fails when a mutant on a line the PR changes survives
+  playwright-browsers.ts  Browser engines the e2e projects need, for CI to install
 ```
 
 ## Site Structure
 
 - **`/`** - Single-page scroll: Intro, About, Experience, Skills, Testimonials, Contact
 - **`/qa`** - Interactive QA portfolio ("Who Tests the Tester?")
+- **`/legal`** - Legal notice
+- Any other path - 404 page
 
 ## Design System
 

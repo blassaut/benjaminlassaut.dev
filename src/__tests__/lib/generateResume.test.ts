@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { generateResume, getSkillName } from '../../lib/generateResume'
+import { generateResume } from '../../lib/generateResume'
 
 describe('generateResume', () => {
   it('returns a Blob of type application/pdf', () => {
@@ -25,15 +25,5 @@ describe('generateResume', () => {
     expect(text).not.toContain('+33')
     expect(text).not.toContain('phone')
     expect(text).not.toContain('email')
-  })
-})
-
-describe('getSkillName', () => {
-  it('returns the string for plain skill entries', () => {
-    expect(getSkillName('Docker')).toBe('Docker')
-  })
-
-  it('returns null for bug-tagged entries', () => {
-    expect(getSkillName({ name: 'Playwright', bug: true })).toBeNull()
   })
 })

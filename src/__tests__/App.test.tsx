@@ -45,6 +45,34 @@ describe('App routing', () => {
   })
 })
 
+describe('Page title', () => {
+  // The browser tab and bookmarks name the page; before JS the built HTML carries it (generate-seo-files.ts)
+  it("shows the page's title in the tab when a page is opened directly", () => {
+    window.history.pushState({}, '', '/legal')
+    render(<App />)
+    expect(document.title).toBe('Legal Notice - Benjamin Lassaut')
+  })
+
+  // Without it the tab keeps the first page's title after following an in-app link
+  it('updates the tab title on client-side navigation', () => {
+    window.history.pushState({}, '', '/')
+    render(<App />)
+    expect(document.title).toBe('Benjamin Lassaut - Lead QA Engineer / SDET')
+
+    fireEvent.click(screen.getByTestId('footer-link-legal'))
+    expect(screen.getByTestId('legal-page')).toBeInTheDocument()
+    expect(document.title).toBe('Legal Notice - Benjamin Lassaut')
+    expect(document.head.querySelectorAll('title')).toHaveLength(1)
+  })
+
+  it('names the 404 page in the tab', () => {
+    window.history.pushState({}, '', '/does-not-exist')
+    render(<App />)
+    expect(screen.getByTestId('not-found-page')).toBeInTheDocument()
+    expect(document.title).toBe('404 - Page Not Found - Benjamin Lassaut')
+  })
+})
+
 describe('ScrollToTop', () => {
   it('scrolls to the top when there is no hash', () => {
     window.history.pushState({}, '', '/legal')

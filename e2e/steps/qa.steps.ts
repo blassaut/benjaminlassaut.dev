@@ -2,6 +2,7 @@ import { createBdd } from 'playwright-bdd'
 import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 import { readdirSync } from 'node:fs'
+import { web3Features } from '../../src/data/web3-features'
 
 const { Given, Then } = createBdd(test)
 
@@ -41,8 +42,7 @@ Then('the {string} statistic should equal the number of feature files', async ({
 
 Then('each feature file section should contain Gherkin syntax', async ({ page }) => {
   const sections = page.locator('[data-testid^="qa-feature-"]')
-  const count = await sections.count()
-  expect(count).toBeGreaterThan(0)
+  await expect(sections).toHaveCount(featureFileCount)
   const first = sections.first()
   await first.locator('button').click()
   const codeBlock = first.locator('pre')
@@ -54,9 +54,8 @@ Then('I should see the CI status badge', async ({ page }) => {
   await expect(page.getByTestId('qa-status-badge')).toBeVisible()
 })
 
-Then('I should see at least one web3 feature file section', async ({ page }) => {
+Then('I should see one section per web3 feature file', async ({ page }) => {
   await scrollToBottom(page)
-  const sections = page.locator('[data-testid^="web3-feature-"]')
-  expect(await sections.count()).toBeGreaterThan(0)
+  await expect(page.locator('[data-testid^="web3-feature-"]')).toHaveCount(web3Features.length)
 })
 

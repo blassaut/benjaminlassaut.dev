@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom'
 import { useHashNavigation } from '../hooks/useHashNavigation'
 import { LINKEDIN_URL, GITHUB_URL } from '../data/links'
 import { navLinks } from '../data/navigation'
+import { profile } from '../data/profile'
 import { slugify } from '../lib/slugify'
+import Logo from './ui/Logo'
 
 const socials = [
   { label: 'LinkedIn', href: LINKEDIN_URL },
@@ -19,16 +21,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <Link to="/" className="shrink-0" aria-label="Home">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="w-8 h-8" role="img" aria-hidden="true">
-                <defs>
-                  <linearGradient id="footer-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor:'#14b8a6'}} />
-                    <stop offset="100%" style={{stopColor:'#0d9488'}} />
-                  </linearGradient>
-                </defs>
-                <polygon points="100,14 180,54 180,146 100,186 20,146 20,54" fill="transparent" stroke="url(#footer-logo-grad)" strokeWidth="2.5"/>
-                <text x="100" y="126" textAnchor="middle" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="80" letterSpacing="-4" fill="url(#footer-logo-grad)">BL</text>
-              </svg>
+              <Logo />
             </Link>
             <p className="text-sm text-muted font-body max-w-xs">
               Lead QA Engineer / SDET building automated quality into software end-to-end.
@@ -87,7 +80,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-10 pt-6 border-t border-hairline/5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-muted/50 font-body">
-          <span>&copy; {new Date().getFullYear()} Benjamin Lassaut</span>
+          <span>&copy; {new Date().getFullYear()} {profile.name}</span>
           <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
           <Link
             data-testid="footer-link-legal"
