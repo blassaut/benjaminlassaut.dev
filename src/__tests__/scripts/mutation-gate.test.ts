@@ -2,6 +2,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   findUncaughtOnChangedLines,
+  formatAnnotation,
   formatMarkdown,
   parseChangedLines,
   type MutationReport,
@@ -95,5 +96,20 @@ describe('formatMarkdown', () => {
     expect(md).toContain('### Mutation gate: 1 mutant(s) on changed lines not killed ❌')
     expect(md).toContain('`// Stryker disable next-line <Mutator>: <reason>`')
     expect(md).toContain('| `src/a.ts:3` | LogicalOperator | Survived | `a \\|\\| b` | `a && b` |')
+  })
+})
+
+describe('formatAnnotation', () => {
+  it('points GitHub at the exact line of the diff', () => {
+    expect(
+      formatAnnotation({ file: 'src/a.ts', line: 3, column: 11, mutator: 'StringLiteral', status: 'Survived', original: '"abc"', replacement: '""' }),
+    ).toBe('::error file=src/a.ts,line=3,col=11::StringLiteral mutant survived: "abc" → ""')
+  })
+
+  // Unescaped, GitHub decodes "%0A" in the code into a line break and garbles the annotation
+  it('escapes the characters GitHub would otherwise decode', () => {
+    expect(
+      formatAnnotation({ file: 'src/a,b:c.ts', line: 1, column: 1, mutator: 'StringLiteral', status: 'NoCoverage', original: '"50%0A"', replacement: '"a\nb"' }),
+    ).toBe('::error file=src/a%2Cb%3Ac.ts,line=1,col=1::StringLiteral mutant nocoverage: "50%250A" → "a%0Ab"')
   })
 })

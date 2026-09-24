@@ -9,8 +9,8 @@
  * is reported as Ignored and does not fail the gate.
  */
 import { execFileSync } from 'node:child_process'
-import { appendFileSync, readFileSync } from 'node:fs'
-import { pathToFileURL } from 'node:url'
+import { appendFileSync, readFileSync, realpathSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 
 interface Position {
@@ -100,6 +100,17 @@ function excerpt(source: string, { start, end }: { start: Position; end: Positio
   return text.length > 80 ? `${text.slice(0, 77)}...` : text
 }
 
+/**
+ * GitHub workflow command that annotates the PR diff. Escaped as GitHub
+ * requires: `%`, CR and LF everywhere, plus `:` and `,` in property values.
+ */
+export function formatAnnotation(u: Uncaught): string {
+  const data = (s: string) => s.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')
+  const property = (s: string) => data(s).replace(/:/g, '%3A').replace(/,/g, '%2C')
+  const message = `${u.mutator} mutant ${u.status.toLowerCase()}: ${u.original} → ${u.replacement}`
+  return `::error file=${property(u.file)},line=${u.line},col=${u.column}::${data(message)}`
+}
+
 export function formatMarkdown(uncaught: Uncaught[]): string {
   if (uncaught.length === 0) return '### Mutation gate: every mutant on a changed line was killed ✅\n'
   return [
@@ -138,11 +149,11 @@ function main() {
   console.log(markdown)
   if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown)
   if (process.env.GITHUB_ACTIONS) {
-    for (const u of uncaught) {
-      console.log(`::error file=${u.file},line=${u.line},col=${u.column}::${u.mutator} mutant ${u.status.toLowerCase()}: ${u.original} → ${u.replacement}`)
-    }
+    for (const u of uncaught) console.log(formatAnnotation(u))
   }
   if (uncaught.length > 0) process.exit(1)
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) main()
+// Run only when executed, not when imported by the tests. Real paths, so a symlinked path still runs it.
+const invoked = process.argv[1] ? realpathSync(process.argv[1]) : ''
+if (invoked === realpathSync(fileURLToPath(import.meta.url))) main()
