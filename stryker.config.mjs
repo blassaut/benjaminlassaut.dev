@@ -31,6 +31,14 @@ export default {
     '!src/__tests__/**',
   ],
 
+  // Static mutants live in module-level constants (Gherkin keyword lists, nav
+  // link arrays, resume layout constants). Stryker cannot map them to tests,
+  // so each one reloads the module and reruns the whole suite: ~20% of the
+  // mutants for ~75% of the run time. Same reasoning as the static data
+  // excluded above; the tests still catch those regressions, Stryker just
+  // doesn't score them.
+  ignoreStatic: true,
+
   reporters: ['clear-text', 'progress', 'html', 'json'],
   htmlReporter: { fileName: 'reports/mutation/index.html' },
   jsonReporter: { fileName: 'reports/mutation/mutation.json' },

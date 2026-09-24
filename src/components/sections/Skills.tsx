@@ -5,6 +5,7 @@ import AnimatedSection from '../AnimatedSection'
 import { skillCategories } from '../../data/skills'
 import type { SkillEntry } from '../../data/skills'
 import { certifications } from '../../data/certifications'
+import { slugify } from '../../lib/slugify'
 
 function getSkillName(skill: SkillEntry): string {
   return typeof skill === 'string' ? skill : skill.name
@@ -107,7 +108,7 @@ export default function Skills() {
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.name}
-              data-testid={`skills-category-${category.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+              data-testid={`skills-category-${slugify(category.name)}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
@@ -146,7 +147,7 @@ export default function Skills() {
             {certifications.map((cert, i) => (
               <motion.div
                 key={cert.name}
-                data-testid={`certification-${cert.issuer.toLowerCase().replace(/\s+/g, '-')}`}
+                data-testid={`certification-${slugify(cert.issuer)}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}

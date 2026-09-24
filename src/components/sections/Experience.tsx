@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
 import DownloadResumeButton from '../ui/DownloadResumeButton'
 import { experience, type ExperienceEntry } from '../../data/experience'
+import { slugify } from '../../lib/slugify'
 
 interface CompanyGroup {
   company: string
@@ -42,7 +43,7 @@ export default function Experience() {
             {groups.map((group, groupIndex) => (
               <motion.div
                 key={groupIndex}
-                data-testid={`experience-card-${group.company.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+                data-testid={`experience-card-${slugify(group.company)}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}

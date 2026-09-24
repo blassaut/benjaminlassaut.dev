@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
 
 function Tooltip({ children, label }: { children: React.ReactNode; label: string }) {
   const [show, setShow] = useState(false)
@@ -26,6 +25,7 @@ function Tooltip({ children, label }: { children: React.ReactNode; label: string
 }
 
 import { countScenarios, countTestRuns } from '../lib/gherkin'
+import { useHashNavigation } from '../hooks/useHashNavigation'
 import { SectionHeading } from '../components/qa/SectionHeading'
 import { FeatureCard } from '../components/qa/FeatureCard'
 import { PracticeCard } from '../components/qa/PracticeCard'
@@ -123,7 +123,7 @@ function useCIStatus(badgeUrl: string) {
 export default function QaLab() {
   const ciStatus = useCIStatus('https://github.com/blassaut/benjaminlassaut.dev/actions/workflows/ci.yml/badge.svg')
   const dappCIStatus = useCIStatus('https://github.com/blassaut/lockbox/actions/workflows/ci.yml/badge.svg')
-  const navigate = useNavigate()
+  const navigateToHash = useHashNavigation()
 
   return (
     <div data-testid="qa" className="pt-24 pb-20 px-6">
@@ -462,13 +462,7 @@ export default function QaLab() {
           </p>
           <a
             href="#contact"
-            onClick={(e) => {
-              e.preventDefault()
-              navigate('/')
-              setTimeout(() => {
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-              }, 100)
-            }}
+            onClick={(e) => navigateToHash(e, '#contact')}
             className="inline-block px-7 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
           >
             Get in touch

@@ -1,19 +1,12 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useHashNavigation } from '../hooks/useHashNavigation'
+import { navLinks, type NavLink } from '../data/navigation'
+import { slugify } from '../lib/slugify'
 import ThemeToggle from './ui/ThemeToggle'
 
-const navItems = [
-  { label: 'About', hash: '#about' },
-  { label: 'Experience', hash: '#experience' },
-  { label: 'Skills', hash: '#skills' },
-  { label: 'Who tests the tester?', href: '/qa' },
-  { label: 'Contact', hash: '#contact' },
-]
-
 export default function Navbar() {
-  const location = useLocation()
   const navigateToHash = useHashNavigation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -22,13 +15,7 @@ export default function Navbar() {
       e.preventDefault()
       setMobileOpen(false)
       // Wait for menu close animation (250ms) before scrolling
-      setTimeout(() => {
-        if (location.pathname === '/') {
-          document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
-        } else {
-          navigateToHash(e, hash)
-        }
-      }, 300)
+      setTimeout(() => navigateToHash(e, hash), 300)
     } else {
       navigateToHash(e, hash)
     }
@@ -38,14 +25,14 @@ export default function Navbar() {
     setMobileOpen(false)
   }
 
-  function renderNavItem(item: (typeof navItems)[number], mobile = false) {
+  function renderNavItem(item: NavLink, mobile = false) {
     const className = mobile
       ? 'block py-3 text-sm text-muted hover:text-light transition-colors font-body'
       : 'text-sm text-muted hover:text-light transition-colors font-body'
 
-    const testid = `nav-link-${'testid' in item && item.testid ? item.testid : item.label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`
+    const testid = `nav-link-${slugify(item.label)}`
 
-    if (item.hash) {
+    if ('hash' in item) {
       return (
         <a
           key={item.label}
@@ -62,7 +49,7 @@ export default function Navbar() {
       <Link
         key={item.label}
         data-testid={testid}
-        to={item.href!}
+        to={item.href}
         onClick={handleLinkClick}
         className={className}
       >
@@ -89,7 +76,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => renderNavItem(item))}
+          {navLinks.map((item) => renderNavItem(item))}
           <ThemeToggle />
         </div>
 
@@ -136,7 +123,7 @@ export default function Navbar() {
             className="md:hidden overflow-hidden border-t border-hairline/5 bg-dark-900/95 backdrop-blur-md"
           >
             <div className="px-6 py-4 space-y-1">
-              {navItems.map((item) => renderNavItem(item, true))}
+              {navLinks.map((item) => renderNavItem(item, true))}
             </div>
           </motion.div>
         )}

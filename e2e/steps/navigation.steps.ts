@@ -1,15 +1,9 @@
 import { createBdd } from 'playwright-bdd'
 import { test } from '../fixtures'
 import { expect } from '@playwright/test'
+import { slugify } from '../../src/lib/slugify'
 
 const { Given, When, Then } = createBdd(test)
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-}
 
 Given('I am on the qa page', async ({ page }) => {
   await page.goto('/qa')

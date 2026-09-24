@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { slugify, extractFeatureName, countScenarios } from '../../lib/gherkin'
+import { extractFeatureName, countScenarios } from '../../lib/gherkin'
+import { slugify } from '../../lib/slugify'
 import { GherkinLine } from './GherkinLine'
 
 export function FeatureCard({

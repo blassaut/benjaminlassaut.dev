@@ -1,35 +1,31 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+/** Smoothly scrolls to the element a URL hash ("#contact") points at, if it exists. */
+export function scrollToHash(hash: string) {
+  // getElementById: a URL hash is user-controlled and may not be a valid CSS selector
+  document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' })
+}
+
+/**
+ * Click handler for links to a home page section. On the home page it scrolls
+ * straight to the section; anywhere else it navigates to "/#section" and
+ * ScrollToTop (App.tsx) scrolls once the home page has rendered, which also
+ * works when the clicked component unmounts on navigation.
+ */
 export function useHashNavigation() {
-  const location = useLocation()
+  const { pathname } = useLocation()
   const navigate = useNavigate()
-  const pendingHash = useRef<string | null>(null)
 
-  // Scroll to hash after navigation completes
-  useEffect(() => {
-    if (location.pathname === '/' && pendingHash.current) {
-      const hash = pendingHash.current
-      pendingHash.current = null
-      // Wait for DOM to render the target section
-      requestAnimationFrame(() => {
-        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
-      })
-    }
-  }, [location.pathname])
-
-  const navigateToHash = useCallback(
+  return useCallback(
     (e: React.MouseEvent, hash: string) => {
       e.preventDefault()
-      if (location.pathname === '/') {
-        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
+      if (pathname === '/') {
+        scrollToHash(hash)
       } else {
-        pendingHash.current = hash
-        navigate('/')
+        navigate({ pathname: '/', hash })
       }
     },
-    [location.pathname, navigate],
+    [pathname, navigate],
   )
-
-  return navigateToHash
 }

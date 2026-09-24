@@ -14,10 +14,6 @@ export const GHERKIN_KEYWORDS = [
 export const GHERKIN_META = ['As a', 'I want', 'So that']
 export const GHERKIN_TAGS = ['@desktop', '@mobile']
 
-export function slugify(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-}
-
 export function extractFeatureName(raw: string): string {
   const firstLine = raw.split('\n')[0]
   return firstLine.replace(/^Feature:\s*/, '').trim()
