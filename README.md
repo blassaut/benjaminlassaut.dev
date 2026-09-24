@@ -74,11 +74,12 @@ Coverage only proves a line was *executed*; it says nothing about whether a test
 [StrykerJS](https://stryker-mutator.io) plants small bugs (mutants) in the source (`<` becomes `<=`, a condition becomes `true`, a block becomes empty...) and reruns the unit tests. A mutant that survives means the line is covered but not actually checked.
 
 ```bash
-npm run test:mutation          # ~2 min, report in reports/mutation/index.html
+npm run test:mutation          # incremental: only mutants in changed code or tests
+npm run test:mutation -- --force   # full run (~2 min locally), report in reports/mutation/index.html
 ```
 
 - Scope, thresholds and excluded files live in `stryker.config.mjs`. Static data and purely presentational sections are excluded on purpose (they are covered by the E2E suite); widen the `mutate` list when a file gains logic.
-- CI runs it on every PR and fails when the global score drops under `thresholds.break`. That value is a ratchet: raise it as the tests improve, never lower it.
+- CI runs it on PRs that change `src/` (or its config), incrementally from the last results cached for the branch or `main`; every push to `main` runs it in full to refresh that cache. It fails when the global score drops under `thresholds.break`. That value is a ratchet: raise it as the tests improve, never lower it.
 - Rule for new tests: a test that kills none of the mutants in the code it claims to cover is not a test. Open the HTML report, find the survivors on the lines you touched, and add the missing assertion.
 
 ### End-to-end tests

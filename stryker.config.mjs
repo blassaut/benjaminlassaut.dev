@@ -31,13 +31,13 @@ export default {
     '!src/__tests__/**',
   ],
 
-  // Static mutants live in module-level constants (Gherkin keyword lists, nav
-  // link arrays, resume layout constants). Stryker cannot map them to tests,
-  // so each one reloads the module and reruns the whole suite: ~20% of the
-  // mutants for ~75% of the run time. Same reasoning as the static data
-  // excluded above; the tests still catch those regressions, Stryker just
-  // doesn't score them.
-  ignoreStatic: true,
+  // Incremental mode: results are kept in `incrementalFile` and the next run
+  // only re-tests mutants whose code or covering tests changed. CI caches the
+  // file; every push to main runs with --force to rebuild it from scratch,
+  // because a change outside the mutated and test files (e.g. src/data) is
+  // not detected. Locally: `npm run test:mutation -- --force` for a full run.
+  incremental: true,
+  incrementalFile: 'reports/stryker-incremental.json',
 
   reporters: ['clear-text', 'progress', 'html', 'json'],
   htmlReporter: { fileName: 'reports/mutation/index.html' },
