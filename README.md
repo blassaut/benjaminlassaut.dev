@@ -88,6 +88,7 @@ npm run test:mutation -- --force   # full run (~2 min locally), report in report
 
 - Scope, thresholds and excluded files live in `stryker.config.mjs`. Static data and purely presentational sections are excluded on purpose (they are covered by the E2E suite); widen the `mutate` list when a file gains logic.
 - CI runs it on PRs that change `src/` (or its config), incrementally from the last results cached for the branch or `main`; every push to `main` runs it in full to refresh that cache. It fails when the global score drops under `thresholds.break`. That value is a ratchet: raise it as the tests improve, never lower it.
+- On pull requests, a second gate checks the new code rather than the overall score: every mutant on a line the PR adds or changes must be killed (`scripts/mutation-gate.ts`). Failures show up as annotations on the PR diff. A mutant not worth killing is skipped on purpose with `// Stryker disable next-line <Mutator>: <reason>` above the line.
 - Rule for new tests: a test that kills none of the mutants in the code it claims to cover is not a test. Open the HTML report, find the survivors on the lines you touched, and add the missing assertion.
 
 ### End-to-end tests
