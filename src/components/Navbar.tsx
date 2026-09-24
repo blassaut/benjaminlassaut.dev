@@ -5,6 +5,7 @@ import { useHashNavigation } from '../hooks/useHashNavigation'
 import { navLinks, type NavLink } from '../data/navigation'
 import { slugify } from '../lib/slugify'
 import ThemeToggle from './ui/ThemeToggle'
+import Logo from './ui/Logo'
 
 export default function Navbar() {
   const navigateToHash = useHashNavigation()
@@ -62,16 +63,7 @@ export default function Navbar() {
     <nav data-testid="nav" className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-hairline/5">
       <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" data-testid="nav-logo" className="block" aria-label="Home">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="w-8 h-8" role="img" aria-hidden="true">
-            <defs>
-              <linearGradient id="nav-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{stopColor:'#14b8a6'}} />
-                <stop offset="100%" style={{stopColor:'#0d9488'}} />
-              </linearGradient>
-            </defs>
-            <polygon points="100,14 180,54 180,146 100,186 20,146 20,54" fill="transparent" stroke="url(#nav-logo-grad)" strokeWidth="2.5"/>
-            <text x="100" y="126" textAnchor="middle" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="80" letterSpacing="-4" fill="url(#nav-logo-grad)">BL</text>
-          </svg>
+          <Logo />
         </Link>
 
         {/* Desktop nav */}

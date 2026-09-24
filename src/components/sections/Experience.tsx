@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import SectionHeading from '../ui/SectionHeading'
 import DownloadResumeButton from '../ui/DownloadResumeButton'
 import { experience } from '../../data/experience'
 import { slugify } from '../../lib/slugify'
@@ -11,11 +12,7 @@ export default function Experience() {
   return (
     <AnimatedSection id="experience" className="py-28 px-6" data-testid="experience-section">
       <div className="max-w-3xl mx-auto">
-        <div className="flex items-center gap-4 mb-14">
-          <h2 className="text-3xl font-heading font-bold">Experience</h2>
-          <DownloadResumeButton />
-          <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
-        </div>
+        <SectionHeading size="lg" action={<DownloadResumeButton />}>Experience</SectionHeading>
 
         <div className="relative">
           {/* Continuous timeline line */}
@@ -35,7 +32,7 @@ export default function Experience() {
                 {/* Timeline node */}
                 <div className={`absolute left-0 top-1 w-[15px] h-[15px] rounded-full border-2 ${
                   group.current
-                    ? 'bg-teal-400 border-teal-400 shadow-[0_0_10px_rgba(20,184,166,0.6)]'
+                    ? 'bg-teal-400 border-teal-400 shadow-[0_0_10px] shadow-teal-400/60'
                     : 'bg-surface border-hairline/20'
                 }`} />
 

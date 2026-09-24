@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { countScenarios, countTestRuns, extractFeatureName } from '../lib/gherkin'
 import { useHashNavigation } from '../hooks/useHashNavigation'
-import { SectionHeading } from '../components/qa/SectionHeading'
+import SectionHeading from '../components/ui/SectionHeading'
+import Reveal from '../components/ui/Reveal'
+import { primaryButton } from '../components/ui/primaryButton'
 import { FeatureCard } from '../components/qa/FeatureCard'
 import { PracticeCard } from '../components/qa/PracticeCard'
 import { StatGrid } from '../components/qa/StatGrid'
@@ -67,11 +69,7 @@ export default function QaLab() {
     <div data-testid="qa" className="pt-24 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Hero header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 max-w-2xl"
-        >
+        <Reveal immediate className="mb-8 max-w-2xl">
           <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             Who tests the
             <br />
@@ -81,54 +79,34 @@ export default function QaLab() {
             Everything on this page is automatically verified - the same way I'd set things up
             on your product.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Section 1: How this is tested */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.08 }}
-          className="mb-10"
-        >
+        <Reveal immediate y={16} delay={0.08} className="mb-10">
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
             BDD scenarios, Playwright, CI on every push.{' '}
             <CIStatusBadge repoUrl={REPO} testId="qa-status-badge" />
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Section 1 stat bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-10"
-        >
+        <Reveal immediate y={16} delay={0.1} className="mb-10">
           <StatGrid stats={stats} testIdPrefix="qa" animate baseDelay={0.15} />
-        </motion.div>
+        </Reveal>
 
         {/* QA Practices */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-20"
-        >
+        <Reveal immediate delay={0.1} className="mb-20">
           <SectionHeading>How it works</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {practices.map((p, i) => (
               <PracticeCard key={p.label} practice={p} index={i} />
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Feature Files */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
+        <Reveal className="mb-20">
           <SectionHeading>Feature files</SectionHeading>
           <p className="text-sm text-muted font-body mb-6 -mt-4">
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
@@ -139,7 +117,7 @@ export default function QaLab() {
               <FeatureCard key={i} raw={raw} index={i} />
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Repo link */}
         <motion.div
@@ -160,12 +138,7 @@ export default function QaLab() {
         </motion.div>
 
         {/* Section divider */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-20 mb-12 pt-16 max-w-2xl"
-        >
+        <Reveal className="mt-20 mb-12 pt-16 max-w-2xl">
           <hr className="border-hairline/5 mb-16" />
           <h2 className="text-4xl sm:text-5xl font-heading font-bold mb-5 leading-[1.1]">
             From UI to<br />
@@ -174,29 +147,19 @@ export default function QaLab() {
           <p className="text-muted font-body text-lg leading-relaxed">
             Same approach, applied to a smart contract.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Section 2: Web3 demo */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8"
-        >
+        <Reveal className="mb-8">
           <SectionHeading>LockBox - on-chain deposit &amp; withdraw</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-6">
             A demo dApp built to showcase production-grade testing.{' '}
             <CIStatusBadge repoUrl={LOCKBOX_REPO_URL} testId="dapp-status-badge" />
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Live demo iframe (desktop) / link (mobile) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
+        <Reveal y={16} className="mb-12">
           {/* Desktop: embedded iframe */}
           <div className="hidden sm:block rounded-xl border border-hairline/10 overflow-hidden">
             <iframe
@@ -221,61 +184,41 @@ export default function QaLab() {
               href={LOCKBOX_DEMO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-5 py-2.5 bg-teal-400 text-ink font-body font-semibold text-sm rounded-lg hover:shadow-[0_0_24px_rgba(20,184,166,0.25)] transition-all"
+              className={`inline-block ${primaryButton('sm')}`}
             >
               Open the demo
             </a>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Web3 "How this is tested" */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10"
-        >
+        <Reveal y={16} className="mb-10">
           <SectionHeading>How this is tested</SectionHeading>
           <p className="text-muted font-body leading-relaxed -mt-4 mb-10">
             Dappwright + Playwright on a local Hardhat node. No mocked wallet interactions.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Web3 stat bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10"
-        >
+        <Reveal y={16} className="mb-10">
           <StatGrid stats={web3Stats} testIdPrefix="web3" />
           <p className="text-[10px] font-mono text-muted/30 text-center mt-3">
             Deterministic test environment. No flaky RPC or network dependency.
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Web3 Practices */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
+        <Reveal className="mb-20">
           <SectionHeading>How it works</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {web3Practices.map((p, i) => (
               <PracticeCard key={p.label} practice={p} index={i} />
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Web3 Feature Files */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
+        <Reveal className="mb-20">
           <SectionHeading>Feature files</SectionHeading>
           <p className="text-sm text-muted font-body mb-6 -mt-4">
             Each file describes a user journey in Gherkin syntax. Tap one to expand.
@@ -292,15 +235,10 @@ export default function QaLab() {
               />
             ))}
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Web3 CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
-        >
+        <Reveal y={12} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
           <a
             href={LOCKBOX_REPO_URL}
             target="_blank"
@@ -310,26 +248,21 @@ export default function QaLab() {
             <GitHubIcon />
             Explore the test suite
           </a>
-        </motion.div>
+        </Reveal>
 
         {/* Page-level CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center pt-16 pb-10"
-        >
+        <Reveal y={16} className="text-center pt-16 pb-10">
           <p className="text-lg text-muted font-body mb-6">
             Want this on your product?
           </p>
           <a
             href="#contact"
             onClick={(e) => navigateToHash(e, '#contact')}
-            className="inline-block px-7 py-3 bg-teal-400 text-ink font-body font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(20,184,166,0.3)] transition-all"
+            className={`inline-block ${primaryButton()}`}
           >
             Get in touch
           </a>
-        </motion.div>
+        </Reveal>
       </div>
     </div>
   )

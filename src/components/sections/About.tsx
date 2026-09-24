@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../AnimatedSection'
+import SectionHeading from '../ui/SectionHeading'
 import { slugify } from '../../lib/slugify'
 
 const stats = [
@@ -12,10 +13,7 @@ export default function About() {
   return (
     <AnimatedSection id="about" className="py-28 px-6" data-testid="about-section">
       <div className="max-w-3xl mx-auto">
-        <div className="flex items-center gap-4 mb-14">
-          <h2 className="text-3xl font-heading font-bold">About</h2>
-          <div className="flex-1 h-px bg-gradient-to-r from-teal-400/30 to-transparent" />
-        </div>
+        <SectionHeading size="lg">About</SectionHeading>
 
         <div className="space-y-6 text-muted font-body text-base leading-relaxed">
           <p>
