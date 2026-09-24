@@ -2,33 +2,38 @@ import { createBdd } from 'playwright-bdd'
 import { test } from '../fixtures'
 import { expect } from '@playwright/test'
 import { experience } from '../../src/data/experience'
+import { skillCategories } from '../../src/data/skills'
+import { testimonials } from '../../src/data/testimonials'
 import { SITE_URL, OG_IMAGE_URL } from '../../src/data/links'
 
 const { Given, When, Then } = createBdd(test)
 
 Given('I am on the homepage', async ({ page }) => {
   await page.goto('/')
-  await page.waitForLoadState('networkidle')
+  // Readiness: the app has rendered (nav and page sections mount in the same render)
+  await expect(page.getByTestId('nav')).toBeVisible()
 })
 
+// Section checks use toBeVisible, not toBeAttached: the scroll reveal only sets opacity,
+// which Playwright still counts as visible, and display:none or zero size now fails
 Then('I should see the intro section', async ({ page }) => {
-  await expect(page.getByTestId('intro-section')).toBeAttached()
+  await expect(page.getByTestId('intro-section')).toBeVisible()
 })
 
 Then('I should see the about section', async ({ page }) => {
-  await expect(page.getByTestId('about-section')).toBeAttached()
+  await expect(page.getByTestId('about-section')).toBeVisible()
 })
 
 Then('I should see the experience section', async ({ page }) => {
-  await expect(page.getByTestId('experience-section')).toBeAttached()
+  await expect(page.getByTestId('experience-section')).toBeVisible()
 })
 
 Then('I should see the skills section', async ({ page }) => {
-  await expect(page.getByTestId('skills-section')).toBeAttached()
+  await expect(page.getByTestId('skills-section')).toBeVisible()
 })
 
 Then('I should see the contact section', async ({ page }) => {
-  await expect(page.getByTestId('contact-section')).toBeAttached()
+  await expect(page.getByTestId('contact-section')).toBeVisible()
 })
 
 Then('I should see {string} in the intro section', async ({ page }, text: string) => {
@@ -59,10 +64,10 @@ Then('I should see one experience card per company', async ({ page }) => {
   await expect(cards).toHaveCount(companies.length)
 })
 
-Then('I should see at least one skill category', async ({ page }) => {
+Then('I should see every skill category', async ({ page }) => {
   const categories = page.locator('[data-testid^="skills-category-"]')
   await expect(categories.first()).toBeVisible()
-  expect(await categories.count()).toBeGreaterThan(0)
+  await expect(categories).toHaveCount(skillCategories.length)
 })
 
 When('I scroll down the page', async ({ page }) => {
@@ -82,17 +87,17 @@ Then('I should see the footer', async ({ page }) => {
 })
 
 Then('I should see the testimonials section', async ({ page }) => {
-  await expect(page.getByTestId('testimonials-section')).toBeAttached()
+  await expect(page.getByTestId('testimonials-section')).toBeVisible()
 })
 
 When('I scroll to the testimonials section', async ({ page }) => {
   await page.getByTestId('testimonials-section').scrollIntoViewIfNeeded()
 })
 
-Then('I should see at least one testimonial card', async ({ page }) => {
+Then('I should see one card per testimonial', async ({ page }) => {
   const cards = page.locator('[data-testid^="testimonial-card-"]')
   await expect(cards.first()).toBeVisible()
-  expect(await cards.count()).toBeGreaterThan(0)
+  await expect(cards).toHaveCount(testimonials.length)
 })
 
 When('I click {string} on the first testimonial', async ({ page }, buttonText: string) => {
@@ -102,21 +107,20 @@ When('I click {string} on the first testimonial', async ({ page }, buttonText: s
 
 Then('I should see the full testimonial text', async ({ page }) => {
   const card = page.locator('[data-testid^="testimonial-card-"]').first()
-  await expect(card.locator('blockquote')).toContainText('I had the pleasure of recruiting')
-  await expect(card.locator('blockquote')).toContainText('build and scale quality from the ground up')
+  // One <p> per paragraph of the full text, in order
+  await expect(card.locator('blockquote p')).toHaveText(testimonials[0].fullText.split('\n\n'))
 })
 
 Then('I should see the excerpt testimonial text', async ({ page }) => {
   const card = page.locator('[data-testid^="testimonial-card-"]').first()
-  await expect(card.locator('blockquote')).toContainText('From day one')
-  await expect(card.locator('blockquote')).not.toContainText('I had the pleasure of recruiting')
+  await expect(card.locator('blockquote p')).toHaveText([testimonials[0].excerpt])
 })
 
 Then('the first testimonial should have a LinkedIn link', async ({ page }) => {
   const card = page.locator('[data-testid^="testimonial-card-"]').first()
   const link = card.getByRole('link', { name: 'View original recommendation on LinkedIn' })
   await expect(link).toBeVisible()
-  await expect(link).toHaveAttribute('href', /linkedin\.com/)
+  await expect(link).toHaveAttribute('href', testimonials[0].linkedinUrl)
   await expect(link).toHaveAttribute('target', '_blank')
 })
 

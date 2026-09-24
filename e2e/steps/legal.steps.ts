@@ -18,7 +18,7 @@ Then('I should see the legal notice page', async ({ page }) => {
 })
 
 Then('I should see the {string} legal section', async ({ page }, title: string) => {
-  await expect(page.getByRole('heading', { name: title })).toBeVisible()
+  await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
 })
 
 When('I click the contact form link', async ({ page }) => {
