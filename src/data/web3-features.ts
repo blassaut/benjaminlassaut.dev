@@ -1,4 +1,4 @@
-const WEB3_REPO = 'https://github.com/blassaut/lockbox'
+import { LOCKBOX_REPO_URL as WEB3_REPO } from './links'
 
 export const web3Features: string[] = [
   `Feature: Visitor connects wallet
@@ -119,6 +119,12 @@ export const web3Features: string[] = [
     When I enter "99999" in the amount input
     Then I should see the withdraw hint showing the max locked balance`,
 ]
+
+// Short note shown next to a feature's scenario count, keyed by feature name.
+export const web3FeatureHooks: Record<string, string> = {
+  'Visitor rejects transaction': 'recovery without reload',
+  'Visitor withdraws successfully': 'full round-trip flow',
+}
 
 export const web3Practices = [
   {
